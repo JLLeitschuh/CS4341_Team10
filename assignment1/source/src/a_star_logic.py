@@ -9,7 +9,6 @@ import collections
 import sys
 from itertools import ifilter
 import heapq
-from cell_publisher import *
 
 
 class PriorityQueue(object):
@@ -41,9 +40,7 @@ class SquareGrid(object):
     def neighbors(self, id):
         (x, y) = id
         # Does not include diagonals
-        #results = [(x+1, y), (x, y-1), (x-1, y), (x, y+1)]
-        # Allows for diagonals
-        results = [(x+1, y), (x+1, y-1), (x, y-1), (x-1, y-1), (x-1, y), (x-1, y+1), (x, y+1), (x+1, y+1)]
+        results = [(x+1, y), (x, y-1), (x-1, y), (x, y+1)]
         if (x + y) % 2 == 0: results.reverse() # aesthetics
         results = ifilter(self.in_bounds, results)
         results = ifilter(self.passable, results)
