@@ -7,7 +7,7 @@
 #BEGIN A STAR IMPLMEMENTATION
 import collections
 import sys
-from itertools import ifilter
+from itertools import takewhile
 import heapq
 
 
@@ -24,6 +24,17 @@ class PriorityQueue(object):
     def get(self):
         return heapq.heappop(self.elements)[1]
 
+class Neighbor(object):
+    def __init__(self, loc, cost):
+        self.loc = loc
+        self.cost = cost
+
+    def __repr__(self):
+         return "Neighbor(" + self.__str__() +")"
+
+    def __str__(self):
+        return "Loc: " + str(self.loc) + " Cost: " + str(self.cost)
+
 class SquareGrid(object):
     def __init__(self, width, height):
         self.width = width
@@ -37,13 +48,27 @@ class SquareGrid(object):
     def passable(self, id):
         return id not in self.walls
 
+    #
+    #
+    # @param id current location
+    # @param direction that the robot is facing
+    # Future prototype def neighbors(self, id, direction):
     def neighbors(self, id):
         (x, y) = id
+        defaultTurnCost = 0
         # Does not include diagonals
-        results = [(x+1, y), (x, y-1), (x-1, y), (x, y+1)]
+        results = [
+          Neighbor((x+1, y), defaultTurnCost),
+          Neighbor((x, y-1), defaultTurnCost),
+          Neighbor((x-1, y), defaultTurnCost),
+          Neighbor((x, y+1), defaultTurnCost),
+        ]
         if (x + y) % 2 == 0: results.reverse() # aesthetics
-        results = ifilter(self.in_bounds, results)
-        results = ifilter(self.passable, results)
+        for elt in results:
+            if not self.in_bounds(elt.loc):
+                # Costs 100 to fall off of the edge of the map
+                elt.cost += 100
+        #results = ifilter(self.passable, results)
         return results
 
 class GridWithWeights(SquareGrid):
@@ -81,12 +106,15 @@ def a_star_search(graph, start, goal):
         if current == goal:
             break
 
-        for next in graph.neighbors(current):
+        print graph.neighbors(current)
+        for nextNeighbor in graph.neighbors(current):
+            print nextNeighbor
+            next = nextNeighbor.loc
             new_cost = cost_so_far[current] + graph.cost(current, next)
             if next not in cost_so_far or new_cost < cost_so_far[next]:
                 (x, y) = next
-                cost_so_far[next] = new_cost
-                priority = new_cost + heuristic(goal, next)
+                cost_so_far[next] = new_cost + nextNeighbor.cost
+                priority = new_cost + heuristic(goal, next) + nextNeighbor.cost
                 frontier.put(next, priority)
                 came_from[next] = current
 
