@@ -2,16 +2,51 @@
 import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class ParseFile {
 
-    ArrayList gridWeights = new ArrayList();
+    ArrayList <int[]> gridWeights = new ArrayList();
 
     public ParseFile() throws FileNotFoundException {
-        Scanner sc=new Scanner(new FileReader("src/board.txt"));
-        while (sc.hasNextLine()){
-            System.out.println(sc.next());
+        int pointX = 0;
+        int pointY = 0;
+        // http://stackoverflow.com/questions/15183761/how-to-check-the-end-of-line-using-scanner
+        Scanner fileScanner = new Scanner(new FileReader("src/board.txt"));
+        while (fileScanner.hasNextLine()) {
+            String line = fileScanner.nextLine();
+            System.out.println("");
+
+
+            Scanner lineScanner = new Scanner(line);
+            while (lineScanner.hasNext()) {
+                String token = lineScanner.next();
+                System.out.print(token);
+                int[] point = new int[3];
+                try {
+                    point[0] = pointX;
+                    point[1] =pointY;
+                    point[2] =Integer.parseInt(token);
+
+                }
+                catch (NumberFormatException e) {
+                    point[0] = pointX;
+                    point[1] =pointY;
+                    point[2] =1;
+                }
+                gridWeights.add(point);
+                pointY++;
+            }
+            lineScanner.close();
+            pointX++;
+        }
+        fileScanner.close();
+
+        for(int i = 0; i < gridWeights.size(); i++) {
+            for(int q = 0; q < 3; q++) {
+                System.out.println(gridWeights.get(i)[q]);
+            }
         }
     }
 
