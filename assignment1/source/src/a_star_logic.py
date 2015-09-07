@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Implementatioin from:
 # http://www.redblobgames.com/pathfinding/a-star/implementation.html
@@ -9,7 +9,48 @@ import collections
 import sys
 from itertools import takewhile
 import heapq
+from enum import Enum, unique
 
+@unique
+class Direction(Enum):
+    NORTH = 1
+    EAST = 2
+    SOUTH = 3
+    WEST = 4
+
+    def direction_location(self, currentLoc):
+        (x, y) = currentLoc
+        options = {
+            Direction.NORTH : (x, y+1),
+            Direction.EAST  : (x+1, y),
+            Direction.SOUTH : (x, y-1),
+            Direction.WEST  : (x-1, y)
+        }
+        return options[self]
+
+    # Determines if the directions are oppisites
+    # @param compare The direction to compare against
+    # @return True if oposites
+    def is_oposite(self, compare):
+        # Defines the opposite of all directions
+        options = {
+            Direction.NORTH : Direction.SOUTH,
+            Direction.EAST : Direction.WEST,
+            Direction.SOUTH : Direction.NORTH,
+            Direction.WEST : Direction.EAST
+        }
+        return options[self] == compare
+
+    # Calculates the turn multiplier
+    # @param turnToDir The direction to turn to
+    # @return a double value representing the turn rotation cost
+    def turn_multiplier(self, turnToDir):
+        if self == turnToDir:
+            return 0
+        elif self.is_oposite(turnToDir):
+            return (2.0/3.0)
+        else:
+            return (1.0/3.0)
 
 class PriorityQueue(object):
     def __init__(self):
@@ -25,9 +66,16 @@ class PriorityQueue(object):
         return heapq.heappop(self.elements)[1]
 
 class Neighbor(object):
-    def __init__(self, loc, cost):
-        self.loc = loc
-        self.cost = cost
+    #
+    # @param facingDirection The direction that is currently being faced
+    # at the present node.
+    def __init__(self, currentLoc, baseNodeCost, direction, facingDirection):
+        self.oldLoc = currentLoc
+        self.loc = direction.direction_location(currentLoc)
+        self.cost = direction.turn_multiplier(facingDirection) * baseNodeCost
+        # The direction that this neighbor would be facing would
+        # be defined by the next direction
+        self.facingDirection = direction
 
     def __repr__(self):
          return "Neighbor(" + self.__str__() +")"
@@ -48,20 +96,28 @@ class SquareGrid(object):
     def passable(self, id):
         return id not in self.walls
 
+class GridWithWeights(SquareGrid):
+    def __init__(self, width, height):
+        super(self.__class__, self).__init__(width, height)
+        self.weights = {}
+
+    def cost(self, a, b):
+        return self.weights.get(b, 1)
+
     #
     #
     # @param id current location
     # @param direction that the robot is facing
-    # Future prototype def neighbors(self, id, direction):
-    def neighbors(self, id):
-        (x, y) = id
-        defaultTurnCost = 0
+    # Future prototype
+    def neighbors(self, neighbor):
+        (x, y) = neighbor.loc
+        direction = neighbor.facingDirection
         # Does not include diagonals
         results = [
-          Neighbor((x+1, y), defaultTurnCost),
-          Neighbor((x, y-1), defaultTurnCost),
-          Neighbor((x-1, y), defaultTurnCost),
-          Neighbor((x, y+1), defaultTurnCost),
+          Neighbor(neighbor.loc, self.cost(None, neighbor.loc), Direction.WEST, direction),
+          Neighbor(neighbor.loc, self.cost(None, neighbor.loc), Direction.SOUTH, direction),
+          Neighbor(neighbor.loc, self.cost(None, neighbor.loc), Direction.EAST, direction),
+          Neighbor(neighbor.loc, self.cost(None, neighbor.loc), Direction.NORTH, direction),
         ]
         if (x + y) % 2 == 0: results.reverse() # aesthetics
         for elt in results:
@@ -70,14 +126,6 @@ class SquareGrid(object):
                 elt.cost += 100
         #results = ifilter(self.passable, results)
         return results
-
-class GridWithWeights(SquareGrid):
-    def __init__(self, width, height):
-        super(self.__class__, self).__init__(width, height)
-        self.weights = {}
-
-    def cost(self, a, b):
-        return self.weights.get(b, 1)
 
 def reconstruct_path(came_from, start, goal):
     current = goal
@@ -94,7 +142,7 @@ def heuristic(a, b):
 
 def a_star_search(graph, start, goal):
     frontier = PriorityQueue()
-    frontier.put(start, 0)
+    frontier.put(Neighbor(start, 1, Direction.NORTH, Direction.NORTH), 1)
     came_from = {}
     cost_so_far = {}
     came_from[start] = None
@@ -103,19 +151,18 @@ def a_star_search(graph, start, goal):
     while not frontier.empty():
         current = frontier.get()
 
-        if current == goal:
+        if current.loc == goal:
             break
 
-        print graph.neighbors(current)
         for nextNeighbor in graph.neighbors(current):
-            print nextNeighbor
             next = nextNeighbor.loc
-            new_cost = cost_so_far[current] + graph.cost(current, next)
+            print(cost_so_far)
+            new_cost = cost_so_far[current.oldLoc] + graph.cost(current, next) + nextNeighbor.cost
             if next not in cost_so_far or new_cost < cost_so_far[next]:
                 (x, y) = next
-                cost_so_far[next] = new_cost + nextNeighbor.cost
-                priority = new_cost + heuristic(goal, next) + nextNeighbor.cost
-                frontier.put(next, priority)
+                cost_so_far[next] = new_cost
+                priority = new_cost + heuristic(goal, next)
+                frontier.put(nextNeighbor, priority)
                 came_from[next] = current
 
     return came_from, cost_so_far
@@ -137,9 +184,9 @@ def draw_tile(graph, id, style, width):
     return r
 
 def draw_grid(graph, width=2, **style):
-    for y in xrange(graph.height):
-        for x in xrange(graph.width):
-            print u"%%-%ds" % width % draw_tile(graph, (x, y), style, width),; sys.stdout.write(u"")
-        print
+    for y in range(graph.height):
+        for x in range(graph.width):
+            print("%%-%ds" % width % draw_tile(graph, (x, y), style, width), end="")
+        print()
 
 ## END A STAR SOURCE IMPLEMENTATION
