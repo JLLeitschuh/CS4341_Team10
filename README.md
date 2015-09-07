@@ -1,6 +1,7 @@
 # CS4341_Team10
 
-- Jon Leitschuh
+Team:
+- [Jonathan Leitschuh](https://github.com/JLLeitschuh)
 - Nam Tran
 - Triet Pham
 - Isamu Nakagawa
