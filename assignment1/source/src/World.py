@@ -25,7 +25,6 @@ class World(object):
 
         return obj
 
-
-class MatrixTests(object):
-        m2 = World.makeRandom(5, 4)
-        print m2
+class randomMatrix(object):
+        randMatrix = World.makeRandom(5, 4)
+        print randMatrix
