@@ -9,6 +9,7 @@ import collections
 import sys
 from itertools import ifilter
 import heapq
+import math
 
 
 class PriorityQueue(object):
@@ -63,9 +64,28 @@ def reconstruct_path(came_from, start, goal):
     return path
 
 def heuristic(a, b):
+    # Case 1: Heuristic = 0:
+    # return 0
+    # 
+    # Case 2: Heuristic =  Min (vertical, horizontal)
     (x1, y1) = a
     (x2, y2) = b
-    return abs(x1 - x2) + abs(y1 - y2)
+    hor=abs(x1-x2)
+    ver=abs(y1-y2)
+    return min(hor, ver)
+    # 
+    # Case 3: Heuristic = Max(vertical, horizontal)
+    # return max(hor, ver)
+    # 
+    # Original heuristic (aka Case 4)
+    # return hor + ver
+    # 
+    # Case 5: Admissible heuristic that dominates Case 4:
+    # return math.sqrt(hor**2 + ver**2)
+    # 
+    # Case 6: 
+    # return 3*math.sqrt(hor**2 + ver**2)
+
 
 def a_star_search(graph, start, goal):
     frontier = PriorityQueue()
