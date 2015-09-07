@@ -1,7 +1,15 @@
+import java.io.FileNotFoundException;
+
 public class Main {
     public static void main(String[] Args) {
 
         new Main().printGraphLayout();
+        try {
+            new ParseFile();
+        }
+        catch (FileNotFoundException e) {
+
+        }
 
     }
 
