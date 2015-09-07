@@ -1,23 +1,24 @@
 //import csv
 import java.util.ArrayList;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.FileReader;
+import java.io.*;
 import java.util.Scanner;
 
 public class ParseFile {
 
     ArrayList gridWeights = new ArrayList();
 
-    public ParseFile() {
+    public ParseFile() throws FileNotFoundException {
+        Scanner sc=new Scanner(new FileReader("src/board.txt"));
+        while (sc.hasNextLine()){
+            System.out.println(sc.next());
+        }
     }
 
 
     public void readFile() {
-        String fileToParse = "board.txt";
 
+        /*
         with open(fileToParse, 'r') as f:
         reader = csv.reader(f, delimiter="\t")
         d = list(reader)
@@ -35,6 +36,7 @@ public class ParseFile {
         p = parseFile()
         p.readFile()
         p.printWeights()
+        */
     }
 
 
