@@ -21,4 +21,10 @@ public class Neighbor {
     public int getPriority(){
         return priority;
     }
+
+    public Point getPoint(){ return this.point;}
+
+    public void makeOutside(){
+        this.priority+= 100;
+    }
 }
