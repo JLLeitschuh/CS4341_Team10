@@ -2,6 +2,8 @@
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,12 +12,15 @@ public class ParseFile {
 
     ArrayList <int[]> gridWeights = new ArrayList();
 
-    public static SquareGrid getFromFile(String fileName) throws FileNotFoundException {
+    public  SquareGrid getFromFile(String fileName) throws FileNotFoundException {
         int pointY = 0;
         int highestPointX = 0;
         List<Point> pointList = new ArrayList<Point>();
         // http://stackoverflow.com/questions/15183761/how-to-check-the-end-of-line-using-scanner
-        Scanner fileScanner = new Scanner(new FileReader(fileName));
+        InputStream stream1 = getClass().getResourceAsStream(fileName);
+        //input.getResourceAsStream("myfile.txt");
+
+        Scanner fileScanner = new Scanner(stream1);//new FileReader(fileName));
         while (fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
             System.out.println("");

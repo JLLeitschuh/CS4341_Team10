@@ -5,8 +5,10 @@ public class Main {
 
         printGraphLayout();
         try {
-            SquareGrid squareGrid = ParseFile.getFromFile("src/board.txt");
+            ParseFile n = new ParseFile();
+            SquareGrid squareGrid = n.getFromFile("/board.txt");
             AStarSearch.runAStarSearch(squareGrid);
+            //AStarSearch2.runAStarSearch(squareGrid);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
