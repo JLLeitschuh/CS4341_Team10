@@ -5,9 +5,9 @@ public enum Direction {
 
     public Point getDirectionLocation(Point currentLocation, SquareGrid gridInstance){
         switch(this){
-            case NORTH: return gridInstance.getPoint(currentLocation.x, currentLocation.y + 1);
+            case NORTH: return gridInstance.getPoint(currentLocation.x, currentLocation.y - 1);
             case EAST: return gridInstance.getPoint(currentLocation.x+1, currentLocation.y);
-            case SOUTH: return gridInstance.getPoint(currentLocation.x, currentLocation.y-1);
+            case SOUTH: return gridInstance.getPoint(currentLocation.x, currentLocation.y+1);
             case WEST: return gridInstance.getPoint(currentLocation.x-1, currentLocation.y);
 //            case NORTH_BASH: return gridInstance.getPoint(currentLocation.x, currentLocation.y + 2);
 //            case EAST_BASH: return gridInstance.getPoint(currentLocation.x+2, currentLocation.y);
