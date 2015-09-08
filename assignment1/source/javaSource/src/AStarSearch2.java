@@ -18,7 +18,6 @@ public class AStarSearch2 {
                 break;
             }
 
-
             //frontier.addAll(current.aStarSearch(costSoFar));
         }
     }
