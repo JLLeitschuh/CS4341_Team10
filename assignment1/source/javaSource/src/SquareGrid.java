@@ -1,38 +1,79 @@
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by nhtranngoc on 9/7/15.
- */
-public class SquareGrid {
+public class SquareGrid implements Cloneable {
+    private final Point goal;
+    private final Point start;
     private int width;
     private int height;
+    private List<Point> points;
 
-    public SquareGrid(int width, int height){
+    public SquareGrid(int width, int height, List<Point> points){
         this.width = width;
         this.height = height;
+        this.points = points;
+        Point tempStart = null, tepGoal = null;
+        for (Point point : points){
+            if(point.isGoal()){
+                tepGoal = point;
+            } else if (point.isStart()){
+                tempStart = point;
+            }
+        }
+        this.goal = tepGoal;
+        this.start = tempStart;
+        assert( this.goal != null);
+        assert( this.start != null);
     }
+
+    public Point getStart(){return this.start;}
+
+    public Point getGoal(){return this.goal;}
 
     public int getWidth(){return this.width;}
 
     public int getHeight(){return this.height;}
 
     public boolean inBounds(Point id){
-        return (((0 <= id.x) &&(id.x < this.width)) && ((0 <= id.y) && (id.y< this.height)));
+        return inBounds(id.x, id.y);
     }
 
-    public List<Neighbor> getNeighbors(Point id){
-        List<Neighbor> neighborList = new ArrayList<Neighbor>();
-        neighborList.add(new Neighbor(id, Direction.NORTH));
-        neighborList.add(new Neighbor(id, Direction.EAST));
-        neighborList.add(new Neighbor(id, Direction.WEST));
-        neighborList.add(new Neighbor(id, Direction.SOUTH));
-        for (Neighbor neighbor: neighborList){
-            if (!inBounds(neighbor.getPoint())){
-                neighbor.makeOutside();
+    public boolean inBounds(int x, int y){
+        return (((0 <= x) &&(x < this.width)) && ((0 <= y) && (y< this.height)));
+    }
+
+    private boolean somewhatInBounds(Point id){
+        return (((-2 <= id.x) && (id.x < this.width+1)) && ((-2 <= id.y) && (id.y< this.height+1)));
+    }
+
+    public Point getPoint(int x, int y){
+        for (Point p : points){
+            if(p.isPoint(x, y)){
+                return p;
             }
         }
-        return neighborList;
+        System.out.println("WARN: Point x:" + x + " y: " + y + " does not exist. It has been be instantiated");
+
+        Point newPoint;
+        if(inBounds(x, y)){
+            newPoint = new Point(x, y, 0);
+        } else {
+            newPoint = new Point(x, y, 100);
+        }
+
+        if(!somewhatInBounds(newPoint)){
+            throw new IndexOutOfBoundsException("Point x:" + x + " y:" + y + " is outside of the bounds of the grid and the walls");
+        }
+        points.add(newPoint);
+        return newPoint;
+    }
+
+    public SquareGrid clone(){
+        try {
+            return this.getClass().cast(super.clone());
+        } catch (CloneNotSupportedException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

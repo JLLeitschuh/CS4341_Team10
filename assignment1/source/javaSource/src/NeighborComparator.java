@@ -1,6 +1,6 @@
 import java.util.Comparator;
 
-public class NeighborComparitor implements Comparator<Neighbor> {
+public class NeighborComparator implements Comparator<Neighbor> {
 
     @Override
     public int compare(Neighbor p, Neighbor q){

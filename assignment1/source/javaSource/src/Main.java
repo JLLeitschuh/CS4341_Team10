@@ -3,17 +3,18 @@ import java.io.FileNotFoundException;
 public class Main {
     public static void main(String[] Args) {
 
-        new Main().printGraphLayout();
+        printGraphLayout();
         try {
-            new ParseFile();
+            SquareGrid squareGrid = ParseFile.getFromFile("src/board.txt");
+            AStarSearch.runAStarSearch(squareGrid);
         }
         catch (FileNotFoundException e) {
-
+            e.printStackTrace();
         }
 
     }
 
-    public void printGraphLayout() {
+    public static void printGraphLayout() {
         System.out.println("Graph Layout");
         System.out.println(" " + " x " + "\u2192");
         System.out.println("y");

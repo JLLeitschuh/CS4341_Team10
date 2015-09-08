@@ -1,53 +1,55 @@
 //import csv
-import java.util.ArrayList;
+
+import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.*;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ParseFile {
 
     ArrayList <int[]> gridWeights = new ArrayList();
 
-    public ParseFile() throws FileNotFoundException {
-        int pointX = 0;
+    public static SquareGrid getFromFile(String fileName) throws FileNotFoundException {
         int pointY = 0;
+        int highestPointX = 0;
+        List<Point> pointList = new ArrayList<Point>();
         // http://stackoverflow.com/questions/15183761/how-to-check-the-end-of-line-using-scanner
-        Scanner fileScanner = new Scanner(new FileReader("src/board.txt"));
+        Scanner fileScanner = new Scanner(new FileReader(fileName));
         while (fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
             System.out.println("");
 
-
+            int pointX = 0;
             Scanner lineScanner = new Scanner(line);
             while (lineScanner.hasNext()) {
                 String token = lineScanner.next();
                 System.out.print(token);
-                int[] point = new int[3];
+                Point newPoint;
                 try {
-                    point[0] = pointX;
-                    point[1] =pointY;
-                    point[2] =Integer.parseInt(token);
-
+                    newPoint = new Point(pointX, pointY, Integer.parseInt(token));
                 }
                 catch (NumberFormatException e) {
-                    point[0] = pointX;
-                    point[1] =pointY;
-                    point[2] =1;
+                    newPoint = new Point(pointX, pointY, token);
                 }
-                gridWeights.add(point);
-                pointY++;
+                pointList.add(newPoint);
+                pointX++;
             }
+            highestPointX = pointX > highestPointX ? pointX : highestPointX;
             lineScanner.close();
-            pointX++;
+            pointY++;
         }
         fileScanner.close();
+        System.out.println();
+        System.out.println("Size: x:" + highestPointX + " y:" + pointY);
+        SquareGrid returnGrid = new SquareGrid(highestPointX, pointY, pointList);
 
-        for(int i = 0; i < gridWeights.size(); i++) {
-            for(int q = 0; q < 3; q++) {
-                System.out.println(gridWeights.get(i)[q]);
-            }
-        }
+//        for(int i = 0; i < gridWeights.size(); i++) {
+//            for(int q = 0; q < 3; q++) {
+//                System.out.println(gridWeights.get(i)[q]);
+//            }
+//        }
+        return returnGrid;
     }
 
 
