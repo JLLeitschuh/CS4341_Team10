@@ -8,16 +8,18 @@ public class DrawGrid {
     public DrawGrid(SquareGrid grid ) {
 
         for (int y =0; y < grid.getHeight(); y++) {
-            for (int x =0; x < grid.getHeight(); x++) {
+            for (int x =0; x < grid.getWidth(); x++) {
                 System.out.print(draw_tile(grid, x, y));
-                System.out.println();
             }
+            System.out.println();
         }
 
 
     }
 
     public String draw_tile(SquareGrid grid, int x, int y) {
+        int loc = grid.getPoint(x, y).getCost();
+
         /*
         r = u "."
         if u 'number' in style and id in style[ u 'number']:r = u "%d" % style[u 'number'][id]
@@ -34,6 +36,6 @@ public class DrawGrid {
         if id in graph.walls:r = u "#" * width
         return r
         */
-        return upArrow;
+        return Integer.toString(loc);
     }
 }
