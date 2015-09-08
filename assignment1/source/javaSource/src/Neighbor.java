@@ -35,7 +35,6 @@ public class Neighbor {
     }
 
     public int getPriority(){
-        //This is where the huristic will be added when it is implemented.
         return priority;
     }
 
@@ -45,6 +44,7 @@ public class Neighbor {
         List<Neighbor> neighborList = new ArrayList<Neighbor>();
         //If this point is the start then we can only go North
         if(this.point.isStart()) {
+            System.out.println("Returning as start");
             neighborList.add(new Neighbor(id, Direction.NORTH, this.gridInstance));
         } else {
             for (Direction direction : Direction.values()) {
@@ -56,14 +56,18 @@ public class Neighbor {
 
     public Collection<Neighbor> aStarSearch(Map<Neighbor, Integer> costSoFar){
         Collection<Neighbor> newSearchNodes = new ArrayList<>();
-        for( Neighbor neighbor : this.getNeighbors(this.point)){
+        for( Neighbor next : this.getNeighbors(this.point)){
             System.out.println(this.point);
+            System.out.println("Looking at: " +  next.point.toString());
+            for(Neighbor neighbor: costSoFar.keySet()){
+                System.out.println("\tContains: " + neighbor.getPoint().toString());
+            }
             int newCost = costSoFar.get(this)
-                    + neighbor.point.getCost();
-            if( !costSoFar.containsKey(neighbor) || newCost < costSoFar.get(neighbor)){
+                    + next.point.getCost();
+            if( !costSoFar.containsKey(next) || newCost < costSoFar.get(next)){
                 this.priority = newCost; //Huristic is calculated inside of getPriority
-                costSoFar.put(neighbor, newCost);
-                newSearchNodes.add(neighbor);
+                costSoFar.put(next, newCost);
+                newSearchNodes.add(next);
             }
         }
         return newSearchNodes;
@@ -76,7 +80,7 @@ public class Neighbor {
 
         Neighbor neighbor = (Neighbor) o;
 
-        if (priority != neighbor.priority) return false;
+        //if (priority != neighbor.priority) return false; //XXX: This is intentionally left out!
         if (cameFrom != null ? !cameFrom.equals(neighbor.cameFrom) : neighbor.cameFrom != null) return false;
         if (!point.equals(neighbor.point)) return false;
         if (direction != neighbor.direction) return false;
@@ -89,7 +93,7 @@ public class Neighbor {
         int result = cameFrom != null ? cameFrom.hashCode() : 0;
         result = 31 * result + point.hashCode();
         result = 31 * result + direction.hashCode();
-        result = 31 * result + priority;
+        //result = 31 * result + priority; //XXX: This is intentionally left out!
         result = 31 * result + gridInstance.hashCode();
         return result;
     }
