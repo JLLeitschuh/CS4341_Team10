@@ -1,9 +1,13 @@
-/**
- * Created by i on 9/8/15.
- */
 public class DrawGrid {
 
     public DrawGrid(SquareGrid grid, int ) {
+        for (int y =0; y < grid.getHeight(); y++) {
+            for (int x =0; x < grid.getHeight(); x++) {
+                System.out.print() u"%%-%ds" % width % draw_tile(graph, (x, y), style, width),; sys.stdout.write(u""));
+                System.out.println();
+            }
+        }
+
 
     }
 
