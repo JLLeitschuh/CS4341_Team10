@@ -4,9 +4,11 @@ import java.util.Map;
 public class AStarSearch {
 
     public static void runAStarSearch(SquareGrid graph) {
+        Neighbor startNeighbor = new Neighbor(graph.getStart(), graph);
         FrontierQueue frontier = new FrontierQueue();
-        frontier.add(new Neighbor(graph.getStart(), graph));
+        frontier.add(startNeighbor);
         Map<Neighbor, Integer> costSoFar = new HashMap<Neighbor, Integer>();
+        costSoFar.put(startNeighbor, 1);
 
         while (!frontier.isEmpty()) {
             Neighbor current = frontier.remove();

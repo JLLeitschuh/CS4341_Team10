@@ -41,4 +41,15 @@ public class Point {
     public int getCost(){
         return this.cost;
     }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                ", cost=" + cost +
+                ", isGoal=" + isGoal +
+                ", isStart=" + isStart +
+                '}';
+    }
 }
