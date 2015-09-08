@@ -12,6 +12,7 @@ public class AStarSearch {
 
         while (!frontier.isEmpty()) {
             Neighbor current = frontier.remove();
+            System.out.println("Poping new");
             if (current.isPoint(graph.getGoal())){
                 break;
             }
