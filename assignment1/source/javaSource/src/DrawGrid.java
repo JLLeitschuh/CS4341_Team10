@@ -1,6 +1,7 @@
 public class DrawGrid {
 
-    public DrawGrid(SquareGrid grid, int ) {
+    public DrawGrid(SquareGrid grid ) {
+        /*
         for (int y =0; y < grid.getHeight(); y++) {
             for (int x =0; x < grid.getHeight(); x++) {
                 System.out.print() u"%%-%ds" % width % draw_tile(graph, (x, y), style, width),; sys.stdout.write(u""));
@@ -8,10 +9,10 @@ public class DrawGrid {
             }
         }
 
-
+    */
     }
 
-    public draw_tile(SquareGrid grid, id) {
+    public void draw_tile(SquareGrid grid) {
         /*
         r = u "."
         if u 'number' in style and id in style[ u 'number']:r = u "%d" % style[u 'number'][id]
