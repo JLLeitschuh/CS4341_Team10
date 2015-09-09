@@ -14,7 +14,6 @@ public class Neighbor {
         this.priority = this.point.getCost();
         this.gridInstance = gridInstance;
     }
-
     /**
      * SHOULD ONLY BE USED ONCE TO GENERATE THE INITIAL NODE
      * @param point The point this neighbor represents
@@ -26,6 +25,8 @@ public class Neighbor {
         this.gridInstance = gridInstance;
         this.priority = this.point.getCost();
     }
+
+    public Direction getDirection() { return  this.direction; }
 
 
     public boolean isPoint(Point p){
