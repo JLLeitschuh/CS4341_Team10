@@ -6,7 +6,7 @@ import java.util.Map;
 public class Neighbor {
     private final Point cameFrom;
     private final Point point;
-    public final Direction direction;
+    private final Direction direction;
     private int priority;
     private final SquareGrid gridInstance;
 
@@ -21,7 +21,7 @@ public class Neighbor {
     public boolean isPoint(Point p){
         return this.point.isPoint(p);
     }
-
+    public Direction getDirection() { return  this.direction; }
     /**
      * SHOULD ONLY BE USED ONCE TO GENERATE THE INITIAL NODE
      * @param point The point this neighbor represents
