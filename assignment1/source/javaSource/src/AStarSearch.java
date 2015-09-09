@@ -2,7 +2,8 @@ import java.util.*;
 
 public class AStarSearch {
 
-    public static FrontierQueue runAStarSearch(SquareGrid graph) {
+    public static ArrayList runAStarSearch(SquareGrid graph) {
+        ArrayList<Neighbor> neighborPath = new ArrayList();
         // Construct the initial neighbor
         Neighbor startNeighbor = new Neighbor(graph.getStart(), graph);
         FrontierQueue frontier = new FrontierQueue();
@@ -24,9 +25,9 @@ public class AStarSearch {
         }
 
         // That is a lambda function.
-        reconstructPath(current).forEach(o -> System.out.println(o.getPoint()));
+        reconstructPath(current).forEach(o -> neighborPath.add(o) );//o -> System.out.println(o.getPoint()));
 
-        return frontier;
+        return neighborPath;
     }
 
     public static List<Neighbor> reconstructPath(Neighbor goalNeighbor){
