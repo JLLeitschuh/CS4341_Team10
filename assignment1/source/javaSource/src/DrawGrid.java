@@ -5,6 +5,7 @@ public class DrawGrid {
 
     public DrawGrid(SquareGrid grid , ArrayList<Neighbor> neighborPath) {
         System.out.println();
+        System.out.println("- Draw Grid -");
         for (int y =0; y < grid.getHeight(); y++) {
             System.out.print("|");
             for (int x =0; x < grid.getWidth(); x++) {
@@ -32,8 +33,6 @@ public class DrawGrid {
             }
             System.out.println();
         }
-
-
 
     }
 
