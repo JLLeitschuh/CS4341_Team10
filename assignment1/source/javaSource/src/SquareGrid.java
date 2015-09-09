@@ -3,8 +3,8 @@ import java.util.List;
 public class SquareGrid implements Cloneable {
     private final Point goal;
     private final Point start;
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private List<Point> points;
 
     public SquareGrid(int width, int height, List<Point> points){
@@ -12,10 +12,17 @@ public class SquareGrid implements Cloneable {
         this.height = height;
         this.points = points;
         Point tempStart = null, tepGoal = null;
+        boolean goalFound = false, startFound = false;
+
+        // Find the start and the end goals
         for (Point point : points){
             if(point.isGoal()){
+                if(goalFound) throw new Error("Can't have more than one goal");
+                goalFound = true;
                 tepGoal = point;
             } else if (point.isStart()){
+                if(startFound) throw new Error("Can't have more than one start");
+                startFound = true;
                 tempStart = point;
             }
         }
@@ -41,10 +48,22 @@ public class SquareGrid implements Cloneable {
         return (((0 <= x) &&(x < this.width)) && ((0 <= y) && (y< this.height)));
     }
 
+    /**
+     * Checks if the point is staying within the map plus two spaces outside the borders.
+     * @param id
+     * @return
+     */
     private boolean somewhatInBounds(Point id){
         return (((-2 <= id.x) && (id.x < this.width+1)) && ((-2 <= id.y) && (id.y< this.height+1)));
     }
 
+    /**
+     * Gets the given point from the grid. This is used because there will be multiple grid instances
+     * when we start detonating.
+     * @param x
+     * @param y
+     * @return The point stored in the square grid
+     */
     public Point getPoint(int x, int y){
         for (Point p : points){
             if(p.isPoint(x, y)){
@@ -67,6 +86,11 @@ public class SquareGrid implements Cloneable {
         return newPoint;
     }
 
+
+    /**
+     * Allows us to clone this Square grid in its current state.
+     * @return A copy of this square grid.
+     */
     public SquareGrid clone(){
         try {
             return this.getClass().cast(super.clone());

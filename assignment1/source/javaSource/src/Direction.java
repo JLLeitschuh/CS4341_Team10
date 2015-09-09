@@ -1,7 +1,8 @@
 
 public enum Direction {
-    NORTH, EAST, SOUTH, WEST,;
-    //NORTH_BASH, EAST_BASH, SOUTH_BASH, WEST_BASH;
+    NORTH, EAST, SOUTH, WEST,
+//    NORTH_BASH, EAST_BASH, SOUTH_BASH, WEST_BASH
+    ;
 
     public Point getDirectionLocation(Point currentLocation, SquareGrid gridInstance){
         switch(this){

@@ -1,9 +1,7 @@
 //import csv
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -46,6 +44,10 @@ public class ParseFile {
         }
         fileScanner.close();
         System.out.println();
+        System.out.println("Generated Point List");
+        for (Point point : pointList) {
+            System.out.println("\t "+ point.toString());
+        }
         System.out.println("Size: x:" + highestPointX + " y:" + pointY);
         SquareGrid returnGrid = new SquareGrid(highestPointX, pointY, pointList);
 
