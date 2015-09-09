@@ -1,8 +1,10 @@
 import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AStarSearch {
 
-    public static void runAStarSearch(SquareGrid graph) {
+    public static FrontierQueue runAStarSearch(SquareGrid graph) {
         // Construct the initial neighbor
         Neighbor startNeighbor = new Neighbor(graph.getStart(), graph);
         FrontierQueue frontier = new FrontierQueue();
@@ -15,6 +17,7 @@ public class AStarSearch {
         while (!frontier.isEmpty()) {
             current = frontier.remove();
             System.out.println("Poping new");
+
             if (current.isPoint(graph.getGoal())){
                 System.out.println("Solved");
                 break;
@@ -22,22 +25,14 @@ public class AStarSearch {
             frontier.addAll(current.aStarSearch(costSoFar));
         }
 
-        //Yes. That is a lambda function
+        // That is a lambda function.
         reconstructPath(current).forEach(o -> System.out.println(o.getPoint()));
 
+        return frontier;
     }
 
     public static List<Neighbor> reconstructPath(Neighbor goalNeighbor){
         // Gets the path from the goal
         return goalNeighbor.getPath();
     }
-
-//    def reconstruct_path(came_from, start, goal):
-//    current = goal
-//    path = [current]
-//            while current != start:
-//    current = came_from[current]
-//            path.append(current)
-//            path.reverse()
-//            return path
 }

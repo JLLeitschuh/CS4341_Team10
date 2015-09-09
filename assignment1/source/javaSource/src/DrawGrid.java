@@ -1,18 +1,37 @@
 public class DrawGrid {
 
+    String upArrow = ("↑");
+    String downArrow = ("↓");
+    String rightArrow = ("→");
+    String leftArrow = ("↔");
+
     public DrawGrid(SquareGrid grid ) {
-        /*
+        System.out.println();
         for (int y =0; y < grid.getHeight(); y++) {
-            for (int x =0; x < grid.getHeight(); x++) {
-                System.out.print() u"%%-%ds" % width % draw_tile(graph, (x, y), style, width),; sys.stdout.write(u""));
-                System.out.println();
+            System.out.print("|");
+            for (int x =0; x < grid.getWidth(); x++) {
+                System.out.print(draw_tile(grid, x, y));
+                System.out.print("|");
             }
+            System.out.println();
+            System.out.print("-");
+            for (int x =0; x < grid.getWidth(); x++) {
+                System.out.print("--");
+            }
+            System.out.println();
         }
 
-    */
     }
 
-    public void draw_tile(SquareGrid grid) {
+    public String draw_tile(SquareGrid grid, int x, int y) {
+        Point selectedPoint = grid.getPoint(x, y);
+        int loc = selectedPoint.getCost();
+        if (selectedPoint.isGoal()) {
+            return "G";
+        }
+        else if (selectedPoint.isStart()) {
+            return "S";
+        }
         /*
         r = u "."
         if u 'number' in style and id in style[ u 'number']:r = u "%d" % style[u 'number'][id]
@@ -29,5 +48,6 @@ public class DrawGrid {
         if id in graph.walls:r = u "#" * width
         return r
         */
+        return Integer.toString(loc);
     }
 }

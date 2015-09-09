@@ -9,6 +9,7 @@ public class Main {
             SquareGrid squareGrid = n.getFromFile("/board.txt");
             AStarSearch.runAStarSearch(squareGrid);
             //AStarSearch2.runAStarSearch(squareGrid);
+            DrawGrid dg = new DrawGrid(squareGrid);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
