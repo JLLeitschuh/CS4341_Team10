@@ -1,16 +1,28 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class DrawGrid {
 
-    String upArrow = ("↑");
-    String downArrow = ("↓");
-    String rightArrow = ("→");
-    String leftArrow = ("↔");
-
-    public DrawGrid(SquareGrid grid ) {
+    public DrawGrid(SquareGrid grid , ArrayList<Neighbor> neighborPath) {
         System.out.println();
         for (int y =0; y < grid.getHeight(); y++) {
             System.out.print("|");
             for (int x =0; x < grid.getWidth(); x++) {
-                System.out.print(draw_tile(grid, x, y));
+
+                boolean neighborPathContainsPoint = false;
+                Iterator<Neighbor> iter = neighborPath.iterator();
+                while (iter.hasNext()) {
+                    Neighbor current = iter.next();
+                    if (current.getPoint().isPoint(x, y)) {
+                        System.out.print(current.getDirection().toString());
+                        neighborPathContainsPoint = true;
+                    }
+                }
+                if (!neighborPathContainsPoint) {
+                    System.out.print(draw_tile(grid, x, y));
+                }
+
+
                 System.out.print("|");
             }
             System.out.println();
@@ -21,7 +33,10 @@ public class DrawGrid {
             System.out.println();
         }
 
+
+
     }
+
 
     public String draw_tile(SquareGrid grid, int x, int y) {
         Point selectedPoint = grid.getPoint(x, y);
