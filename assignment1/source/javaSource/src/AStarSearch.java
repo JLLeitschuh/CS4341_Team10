@@ -1,9 +1,11 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class AStarSearch {
 
-    public static void runAStarSearch(SquareGrid graph) {
+
+    public static FrontierQueue runAStarSearch(SquareGrid graph) {
         Neighbor startNeighbor = new Neighbor(graph.getStart(), graph);
         FrontierQueue frontier = new FrontierQueue();
         frontier.add(startNeighbor);
@@ -18,5 +20,6 @@ public class AStarSearch {
             }
             frontier.addAll(current.aStarSearch(costSoFar));
         }
+        return frontier;
     }
 }

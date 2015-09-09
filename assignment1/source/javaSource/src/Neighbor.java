@@ -6,7 +6,7 @@ import java.util.Map;
 public class Neighbor {
     private final Point cameFrom;
     private final Point point;
-    private final Direction direction;
+    public final Direction direction;
     private int priority;
     private final SquareGrid gridInstance;
 
