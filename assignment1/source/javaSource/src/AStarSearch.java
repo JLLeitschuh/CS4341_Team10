@@ -34,13 +34,17 @@ public class AStarSearch {
         reconstructPath(current).forEach(o -> neighborPath.add(o));//o -> System.out.println(o.getPoint()));
         System.out.println();
         System.out.println(" ---- results ----");
-        System.out.println("Number of nodes expanded: " + numberOfNodesExpanded);
+        System.out.println("Number of actions: " + neighborPath.size());
+        System.out.print("Series of actions: ");
         Iterator<Neighbor> iter = neighborPath.iterator();
         while (iter.hasNext()) {
             Neighbor n = iter.next();
+            System.out.print(n.getDirection().toString() + ", ");
             scoreOfPath += n.getPoint().getCost();
         }
-        System.out.println("Score of path: " + scoreOfPath);
+        System.out.println("\nScore of path: " + scoreOfPath);
+        System.out.println("Number of nodes expanded: " + numberOfNodesExpanded);
+
         return neighborPath;
     }
 
