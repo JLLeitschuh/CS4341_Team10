@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 public enum Direction {
-    NORTH(1), EAST(1), SOUTH(1), WEST(1),
-    NORTH_BASH(2), EAST_BASH(2), SOUTH_BASH(2), WEST_BASH(2)
+    NORTH(1, BaseAction.FORWARD), EAST(1, BaseAction.FORWARD), SOUTH(1, BaseAction.FORWARD), WEST(1, BaseAction.FORWARD),
+    NORTH_BASH(2, BaseAction.BASH), EAST_BASH(2, BaseAction.BASH), SOUTH_BASH(2, BaseAction.BASH), WEST_BASH(2, BaseAction.BASH)
     ;
     private static final List<Direction> bashList = Arrays.asList(NORTH_BASH, EAST_BASH, WEST_BASH, SOUTH_BASH);
     private static final Map<Direction, Direction> opposites = new HashMap<>();
@@ -17,8 +17,10 @@ public enum Direction {
     }
 
     public final int moveTotal;
-    Direction(int moveTotal){
+    public final BaseAction baseAction;
+    Direction(int moveTotal, BaseAction action){
         this.moveTotal = moveTotal;
+        this.baseAction = action;
     }
 
     String upArrow = ("↑");
@@ -43,6 +45,18 @@ public enum Direction {
             default: System.err.print("Undefined Direction");
         }
         return null;
+    }
+
+    public List<BaseAction> getAction(List<BaseAction> actions, Direction next) {
+        if (isBash(next)) {
+            actions.add(BaseAction.BASH);
+            actions.add(BaseAction.FORWARD);
+        } else if (this.equals(next)) {
+            actions.add(BaseAction.FORWARD);
+        } else {
+            actions.add(BaseAction.TURN);
+        }
+        return actions;
     }
 
     private boolean isOpposite(Direction comparison){

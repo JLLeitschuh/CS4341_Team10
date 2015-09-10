@@ -67,6 +67,22 @@ public class Neighbor {
         return neighborList;
     }
 
+    private List<BaseAction> getActions(List<BaseAction> actions){
+        if(this.cameFrom != null){
+            this.cameFrom.direction.getAction(actions, this.direction);
+            return this.cameFrom.getActions(actions);
+        } else {
+            return actions;
+        }
+    }
+
+    public List<BaseAction> getActions(){
+        List<BaseAction> actions = new ArrayList<>();
+        actions = getActions(actions);
+        Collections.reverse(actions);
+        return actions;
+    }
+
     /**
      * Performs an a star search on this neighbor
      * @param costSoFar A map of the cost so far for a given neighbor.

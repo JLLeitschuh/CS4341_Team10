@@ -26,7 +26,6 @@ public class AStarSearch {
             }
             frontier.addAll(current.aStarSearch(costSoFar));
         }
-
         // That is a lambda function.
         List<Neighbor> path = reconstructPath(current);//o -> System.out.println(o.getPoint()));
         System.out.println();
@@ -36,20 +35,22 @@ public class AStarSearch {
             numberOfActions += n.getDirection().moveTotal;
         }
         System.out.println("Number of actions: " + numberOfActions);
-        System.out.print("Series of actions: ");
-        for(Neighbor n : path) {
-            System.out.print(n.getDirection().toString() + ", ");
-            scoreOfPath += n.getPriority();
-        }
+        System.out.println("Series of actions: ");
+        reconstructActions(current).forEach(a ->System.out.println(a));
         System.out.println();
         for(Neighbor n: path){
             System.out.println(n);
             System.out.println(n.getPriority());
+            scoreOfPath += n.getPriority();
         }
         System.out.println("\nScore of path: " + scoreOfPath);
         System.out.println("Number of nodes expanded: " + numberOfNodesExpanded);
 
         return path;
+    }
+
+    public static List<BaseAction> reconstructActions(Neighbor goalNeighbor){
+        return goalNeighbor.getActions();
     }
 
     public static List<Neighbor> reconstructPath(Neighbor goalNeighbor){
