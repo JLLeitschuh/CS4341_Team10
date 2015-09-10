@@ -18,6 +18,10 @@ public enum Direction {
     String downArrow = ("↓");
     String rightArrow = ("→");
     String leftArrow = ("←");
+    String upArrowBash = ("⇈");
+    String downArrowBash = ("⇊");
+    String rightArrowBash = ("⇉");
+    String leftArrowBash = ("⇇");
 
     public Point getDirectionLocation(Point currentLocation, SquareGrid gridInstance){
         switch(this){
