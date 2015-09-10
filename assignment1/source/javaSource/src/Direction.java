@@ -77,6 +77,14 @@ public enum Direction {
                 return downArrow;
             case WEST:
                 return leftArrow;
+            case NORTH_BASH:
+                return upArrowBash;
+            case EAST_BASH:
+                return rightArrowBash;
+            case SOUTH_BASH:
+                return downArrowBash;
+            case WEST_BASH:
+                return leftArrowBash;
             default:
                 return "No String";
         }
