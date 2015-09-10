@@ -1,9 +1,9 @@
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class DrawGrid {
 
-    public DrawGrid(SquareGrid grid , ArrayList<Neighbor> neighborPath) {
+    public DrawGrid(SquareGrid grid , List<Neighbor> neighborPath) {
         System.out.println();
         System.out.println("---- draw grid ----");
         for (int y =0; y < grid.getHeight(); y++) {
@@ -12,8 +12,7 @@ public class DrawGrid {
 
                 boolean neighborPathContainsPoint = false;
                 Iterator<Neighbor> iter = neighborPath.iterator();
-                while (iter.hasNext()) {
-                    Neighbor current = iter.next();
+                for (Neighbor current : neighborPath) {
                     if (current.getPoint().isPoint(x, y)) {
                         System.out.print(current.getDirection().toString());
                         neighborPathContainsPoint = true;
