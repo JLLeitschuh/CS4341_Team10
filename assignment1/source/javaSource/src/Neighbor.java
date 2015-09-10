@@ -12,7 +12,7 @@ public class Neighbor {
         this.cameFrom = cameFrom;
         this.point = direction.getDirectionLocation(cameFrom.getPoint(), gridInstance);
         this.direction = direction;
-        this.baseCost = this.point.getCost() + (int)Math.ceil(cameFrom.direction.getCostMultiplier(direction) * this.point.getCost());
+        this.baseCost = cameFrom.direction.getCostToMove(direction, this.point);
         this.priority = this.baseCost;
         this.gridInstance = gridInstance;
     }
@@ -24,6 +24,7 @@ public class Neighbor {
     public Neighbor(Point point, SquareGrid gridInstance){
         this.cameFrom = null;
         this.point = point;
+        //Initial Node facing direction
         this.direction = Direction.NORTH;
         this.gridInstance = gridInstance;
         this.baseCost = this.point.getCost();
@@ -53,12 +54,33 @@ public class Neighbor {
         if(this.point.isStart()) {
             System.out.println("Returning as start");
             neighborList.add(new Neighbor(this, Direction.NORTH, this.gridInstance));
+            neighborList.add(new Neighbor(this, Direction.NORTH_BASH, this.gridInstance));
         } else {
             for (Direction direction : Direction.values()) {
+                // This prevents two bashes in a row
+                if(Direction.isBash(this.direction) && Direction.isBash(direction)){
+                    continue;
+                }
                 neighborList.add(new Neighbor(this, direction, this.gridInstance));
             }
         }
         return neighborList;
+    }
+
+    private List<BaseAction> getActions(List<BaseAction> actions){
+        if(this.cameFrom != null){
+            this.cameFrom.direction.getAction(actions, this.direction);
+            return this.cameFrom.getActions(actions);
+        } else {
+            return actions;
+        }
+    }
+
+    public List<BaseAction> getActions(){
+        List<BaseAction> actions = new ArrayList<>();
+        actions = getActions(actions);
+        Collections.reverse(actions);
+        return actions;
     }
 
     /**
