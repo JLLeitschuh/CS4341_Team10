@@ -4,16 +4,21 @@ import java.util.List;
 import java.util.Map;
 
 public enum Direction {
-    NORTH, EAST, SOUTH, WEST,
-    NORTH_BASH, EAST_BASH, SOUTH_BASH, WEST_BASH
+    NORTH(1), EAST(1), SOUTH(1), WEST(1),
+    NORTH_BASH(2), EAST_BASH(2), SOUTH_BASH(2), WEST_BASH(2)
     ;
     private static final List<Direction> bashList = Arrays.asList(NORTH_BASH, EAST_BASH, WEST_BASH, SOUTH_BASH);
-    private static final Map<Direction, Direction> oposites = new HashMap<Direction, Direction>();
+    private static final Map<Direction, Direction> opposites = new HashMap<>();
     static {
-        oposites.put(NORTH, SOUTH);
-        oposites.put(EAST, WEST);
-        oposites.put(SOUTH, NORTH);
-        oposites.put(WEST, EAST);
+        opposites.put(NORTH, SOUTH);
+        opposites.put(EAST, WEST);
+        opposites.put(SOUTH, NORTH);
+        opposites.put(WEST, EAST);
+    }
+
+    public final int moveTotal;
+    Direction(int moveTotal){
+        this.moveTotal = moveTotal;
     }
 
     String upArrow = ("↑");
@@ -31,17 +36,17 @@ public enum Direction {
             case EAST:  return gridInstance.getPoint(currentLocation.x + 1, currentLocation.y);
             case SOUTH: return gridInstance.getPoint(currentLocation.x, currentLocation.y + 1);
             case WEST:  return gridInstance.getPoint(currentLocation.x - 1, currentLocation.y);
-            case NORTH_BASH: return gridInstance.getPoint(currentLocation.x, currentLocation.y + 2);
-            case EAST_BASH: return gridInstance.getPoint(currentLocation.x+2, currentLocation.y);
-            case SOUTH_BASH: return gridInstance.getPoint(currentLocation.x, currentLocation.y-2);
-            case WEST_BASH: return gridInstance.getPoint(currentLocation.x-2, currentLocation.y);
+            case NORTH_BASH: return gridInstance.getPoint(currentLocation.x, currentLocation.y - 2);
+            case EAST_BASH: return gridInstance.getPoint(currentLocation.x + 2, currentLocation.y);
+            case SOUTH_BASH: return gridInstance.getPoint(currentLocation.x, currentLocation.y + 2);
+            case WEST_BASH: return gridInstance.getPoint(currentLocation.x - 2, currentLocation.y);
             default: System.err.print("Undefined Direction");
         }
         return null;
     }
 
     private boolean isOpposite(Direction comparison){
-        return oposites.get(this) == comparison;
+        return opposites.get(this) == comparison;
     }
 
     private int getTurnCost(Direction turnTo, Point nowAt){
@@ -61,9 +66,9 @@ public enum Direction {
         return bashList.contains(turnTo);
     }
 
-    public int getCostMultiplier(Direction turnTo, Point nowAt){
-        return getTurnCost(turnTo, nowAt);
-        //return 0;
+    public int getCostToMove(Direction turnTo, Point nowAt){
+        System.out.println("Comparing: " + this + " " + turnTo);
+        return isBash(turnTo) ? getTurnCost(turnTo, nowAt) + 3 : getTurnCost(turnTo, nowAt) + nowAt.getCost();
     }
 
     @Override

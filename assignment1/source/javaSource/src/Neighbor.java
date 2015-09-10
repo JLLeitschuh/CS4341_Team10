@@ -12,7 +12,7 @@ public class Neighbor {
         this.cameFrom = cameFrom;
         this.point = direction.getDirectionLocation(cameFrom.getPoint(), gridInstance);
         this.direction = direction;
-        this.baseCost = this.point.getCost() + cameFrom.direction.getCostMultiplier(direction, this.point);
+        this.baseCost = cameFrom.direction.getCostToMove(direction, this.point);
         this.priority = this.baseCost;
         this.gridInstance = gridInstance;
     }
@@ -24,6 +24,7 @@ public class Neighbor {
     public Neighbor(Point point, SquareGrid gridInstance){
         this.cameFrom = null;
         this.point = point;
+        //Initial Node facing direction
         this.direction = Direction.NORTH;
         this.gridInstance = gridInstance;
         this.baseCost = this.point.getCost();
@@ -53,6 +54,7 @@ public class Neighbor {
         if(this.point.isStart()) {
             System.out.println("Returning as start");
             neighborList.add(new Neighbor(this, Direction.NORTH, this.gridInstance));
+            neighborList.add(new Neighbor(this, Direction.NORTH_BASH, this.gridInstance));
         } else {
             for (Direction direction : Direction.values()) {
                 // This prevents two bashes in a row

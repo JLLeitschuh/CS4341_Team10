@@ -31,7 +31,11 @@ public class AStarSearch {
         List<Neighbor> path = reconstructPath(current);//o -> System.out.println(o.getPoint()));
         System.out.println();
         System.out.println(" ---- results ----");
-        System.out.println("Number of actions: " + path.size());
+        int numberOfActions = 0;
+        for(Neighbor n  : path){
+            numberOfActions += n.getDirection().moveTotal;
+        }
+        System.out.println("Number of actions: " + numberOfActions);
         System.out.print("Series of actions: ");
         for(Neighbor n : path) {
             System.out.print(n.getDirection().toString() + ", ");
