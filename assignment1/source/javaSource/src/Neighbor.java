@@ -5,15 +5,18 @@ public class Neighbor {
     private final Point point;
     private final Direction direction;
     private final SquareGrid gridInstance;
+    private final int baseCost;
     private int priority;
 
     public Neighbor(Neighbor cameFrom, Direction direction, SquareGrid gridInstance){
         this.cameFrom = cameFrom;
         this.point = direction.getDirectionLocation(cameFrom.getPoint(), gridInstance);
         this.direction = direction;
-        this.priority = this.point.getCost();
+        this.baseCost = this.point.getCost() + (int)Math.ceil(cameFrom.direction.getCostMultiplier(direction) * this.point.getCost());
+        this.priority = this.baseCost;
         this.gridInstance = gridInstance;
     }
+
     /**
      * SHOULD ONLY BE USED ONCE TO GENERATE THE INITIAL NODE
      * @param point The point this neighbor represents
@@ -23,6 +26,7 @@ public class Neighbor {
         this.point = point;
         this.direction = Direction.NORTH;
         this.gridInstance = gridInstance;
+        this.baseCost = this.point.getCost();
         this.priority = this.point.getCost();
     }
 
@@ -72,7 +76,7 @@ public class Neighbor {
             costSoFar.keySet().forEach(neighbor -> System.out.println("\tContains: " + neighbor));
 
             int newCost = costSoFar.get(this)
-                    + next.point.getCost();
+                    + this.baseCost;
             if( !costSoFar.containsKey(next) || newCost < costSoFar.get(next)){
                 this.priority = newCost; //Huristic is calculated inside of getPriority
                 costSoFar.put(next, newCost);

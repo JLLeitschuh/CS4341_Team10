@@ -1,5 +1,5 @@
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] Args) {
@@ -8,7 +8,7 @@ public class Main {
         try {
             ParseFile n = new ParseFile();
             SquareGrid squareGrid = n.getFromFile("/board.txt");
-            ArrayList <Neighbor> neighborPath = AStarSearch.runAStarSearch(squareGrid);
+            List<Neighbor> neighborPath = AStarSearch.runAStarSearch(squareGrid);
             //AStarSearch2.runAStarSearch(squareGrid);
             DrawGrid dg = new DrawGrid(squareGrid, neighborPath);
         }
