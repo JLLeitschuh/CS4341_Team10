@@ -12,7 +12,7 @@ public class Neighbor {
         this.cameFrom = cameFrom;
         this.point = direction.getDirectionLocation(cameFrom.getPoint(), gridInstance);
         this.direction = direction;
-        this.baseCost = this.point.getCost() + (int)Math.ceil(cameFrom.direction.getCostMultiplier(direction) * this.point.getCost());
+        this.baseCost = this.point.getCost() + cameFrom.direction.getCostMultiplier(direction, this.point);
         this.priority = this.baseCost;
         this.gridInstance = gridInstance;
     }
@@ -55,6 +55,10 @@ public class Neighbor {
             neighborList.add(new Neighbor(this, Direction.NORTH, this.gridInstance));
         } else {
             for (Direction direction : Direction.values()) {
+                // This prevents two bashes in a row
+                if(Direction.isBash(this.direction) && Direction.isBash(direction)){
+                    continue;
+                }
                 neighborList.add(new Neighbor(this, direction, this.gridInstance));
             }
         }

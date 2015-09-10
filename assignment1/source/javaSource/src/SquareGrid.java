@@ -54,7 +54,7 @@ public class SquareGrid implements Cloneable {
      * @return
      */
     private boolean somewhatInBounds(Point id){
-        return (((-2 <= id.x) && (id.x < this.width+1)) && ((-2 <= id.y) && (id.y< this.height+1)));
+        return (((-2 <= id.x) && (id.x < this.width+2)) && ((-2 <= id.y) && (id.y< this.height+2)));
     }
 
     /**
