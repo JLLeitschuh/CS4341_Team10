@@ -1,7 +1,13 @@
 
 public enum Direction {
-    NORTH, EAST, SOUTH, WEST,;
-    //NORTH_BASH, EAST_BASH, SOUTH_BASH, WEST_BASH;
+    NORTH, EAST, SOUTH, WEST,
+//    NORTH_BASH, EAST_BASH, SOUTH_BASH, WEST_BASH
+    ;
+
+    String upArrow = ("↑");
+    String downArrow = ("↓");
+    String rightArrow = ("→");
+    String leftArrow = ("←");
 
     public Point getDirectionLocation(Point currentLocation, SquareGrid gridInstance){
         switch(this){
@@ -16,5 +22,21 @@ public enum Direction {
             default: System.err.print("Undefined Direction");
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        switch(this) {
+            case NORTH:
+                return upArrow;
+            case EAST:
+                return rightArrow;
+            case SOUTH:
+                return downArrow;
+            case WEST:
+                return leftArrow;
+            default:
+                return "No String";
+        }
     }
 }
