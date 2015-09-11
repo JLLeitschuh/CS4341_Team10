@@ -32,6 +32,12 @@ public enum Direction {
     String rightArrowBash = ("⇉");
     String leftArrowBash = ("⇇");
 
+    /**
+     *
+     * @param currentLocation
+     * @param gridInstance
+     * @return
+     */
     public Point getDirectionLocation(Point currentLocation, SquareGrid gridInstance){
         switch(this){
             case NORTH: return gridInstance.getPoint(currentLocation.x, currentLocation.y - 1);

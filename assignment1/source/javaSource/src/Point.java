@@ -5,6 +5,18 @@ public class Point {
     private boolean isGoal = false;
     private boolean isStart = false;
 
+    /**
+     * Copy Constructor
+     * @param copyMe
+     */
+    public Point(Point copyMe){
+        this.x = copyMe.x;
+        this.y = copyMe.y;
+        this.cost = copyMe.cost;
+        this.isGoal = copyMe.isGoal;
+        this.isStart = copyMe.isStart;
+    }
+
     public Point(int x, int y, int cost){
         this.x = x;
         this.y = y;
