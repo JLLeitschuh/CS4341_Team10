@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.util.Random;
 
 
 import java.util.StringTokenizer;
@@ -48,11 +49,22 @@ final public class World {
 
 
 
+
     public void printWorld() {
         for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++)
-                System.out.printf("%9.0f ", data[i][j]);
-            System.out.println();
+            for (int j = 0; j < N; j++) {
+                if (data[i][j] == 10) {
+                    System.out.printf("        S ");
+                }
+                else if (data[i][j] == 11){
+                   System.out.printf("        G ");
+
+                }
+                else {
+                    System.out.printf("%9.0f ", data[i][j]);
+                }
+            }
+                System.out.println();
         }
     }
 
@@ -98,6 +110,10 @@ final public class World {
 
     // test client
     public static void main(String[] args) {
+//        String Start="S";
+//        String Goal="G";
+//        double value1 = Double.parseDouble(Start);
+//        double value2= Double.parseDouble(Goal);
 
         Scanner keyboard = new Scanner(System.in);
         System.out.println("enter rows");
@@ -105,6 +121,17 @@ final public class World {
         System.out.println("enter collums");
         int N = keyboard.nextInt();
         World A = World.random(M, N);
+        Random rand = new Random();
+        int g = rand.nextInt(M-1)+1;
+        int h = rand.nextInt(N-1)+1;
+        A.data[g][h]=10;
+        int k = rand.nextInt(M-1)+1;
+        int l = rand.nextInt(N-1)+1;
+        A.data[k][l]=11;
+//        int k = rand.nextInt()*(M-1)+1;
+//        int l = rand.nextInt()*(N-1)+1;
+//        A.data[k][l]=value2;
+
 
 //        Point[] newPointArray = A.toPoint();
         A.printWorld();
@@ -116,11 +143,20 @@ final public class World {
             for (int i = 0; i < M; i++) {
                 for (int j = 0; j < N; j++) {
                     double total = A.data[i][j];
-                    String total2 = String.valueOf(total);
-                    String[] num = total2.split("\\.");
-                    String num1= num[0];
-                    System.out.println(num1);
-                    bout.write(num1+" ");
+                    if (total != 10 && total != 11) {
+                        String total2 = String.valueOf(total);
+                        String[] num = total2.split("\\.");
+                        String num1 = num[0];
+                        System.out.println(num1);
+                        bout.write(num1 + " ");
+                    }
+                    else if (total == 10){
+                        bout.write("S ");
+                    }
+                    else {
+                        bout.write("G ");
+                    }
+
                 }
                 bout.write("\n");
             }
