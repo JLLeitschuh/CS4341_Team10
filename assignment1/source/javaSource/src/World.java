@@ -1,6 +1,16 @@
 /**
  * Created by trietpham on 9/7/15.
  */
+
+import java.io.*;
+import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.Scanner;
+import java.util.InputMismatchException;
+import java.util.Random;
+
+
+import java.util.StringTokenizer;
 final public class World {
     private final int M;             // number of rows
     private final int N;             // number of columns
@@ -37,35 +47,132 @@ final public class World {
         return A;
     }
 
+
+
+
     public void printWorld() {
         for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++)
-                System.out.printf("%9.0f ", data[i][j]);
-            System.out.println();
-        }
-    }
-    // transfer M by N World to point array
-    public Point[] toPoint(){
-        int k = 0;
-        int t = M;
-        int h = N;
-        Point[] PointArray = new Point[t*h];
-        for (int i = 0; i < M;  i++){
-            for(int j = 0; j < N; j++){
-                Point tempPoint = new Point(i, j, (int)data[i][j]);
-                PointArray[k] = tempPoint;
-                k +=1;
+            for (int j = 0; j < N; j++) {
+                if (data[i][j] == 10) {
+                    System.out.printf("        S ");
+                }
+                else if (data[i][j] == 11){
+                   System.out.printf("        G ");
+
+                }
+                else {
+                    System.out.printf("%9.0f ", data[i][j]);
+                }
             }
+                System.out.println();
         }
-        return PointArray;
     }
+
+//    public void writeTofile(){
+//        try {
+//            FileWriter outputFile = new FileWriter("/Users/trietpham/Desktop/b123.txt");
+//            BufferedWriter bout = new BufferedWriter(outputFile);
+//        World A = new World(M,N);
+//        for (int i = 0; i < M; i++) {
+//            for (int j = 0; j < N; j++) {
+//                double total = A.data[i][j];
+//                String total2 = String.valueOf(total);
+//                bout.write(total2);
+//                System.out.println("Done");
+//            }
+//        }
+//        } catch (FileNotFoundException ex) {
+//            ex.printStackTrace();
+//        } catch (UnsupportedEncodingException ex) {
+//            ex.printStackTrace();
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
+
+    // transfer M by N World to point array
+//    public Point[] toPoint(){
+//        int k = 0;
+//        int t = M;
+//        int h = N;
+//        Point[] PointArray = new Point[t*h];
+//        for (int i = 0; i < M;  i++){
+//            for(int j = 0; j < N; j++){
+//                Point tempPoint = new Point(i, j, (int)data[i][j]);
+//                PointArray[k] = tempPoint;
+//                k +=1;
+//            }
+//        }
+//        return PointArray;
+//    }
+
+
 
     // test client
     public static void main(String[] args) {
-        World A = World.random(4, 4);
-        Point[] newPointArray = A.toPoint();
+//        String Start="S";
+//        String Goal="G";
+//        double value1 = Double.parseDouble(Start);
+//        double value2= Double.parseDouble(Goal);
+
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("enter rows");
+        int M = keyboard.nextInt();
+        System.out.println("enter collums");
+        int N = keyboard.nextInt();
+        World A = World.random(M, N);
+        Random rand = new Random();
+        int g = rand.nextInt(M-1)+1;
+        int h = rand.nextInt(N-1)+1;
+        A.data[g][h]=10;
+        int k = rand.nextInt(M-1)+1;
+        int l = rand.nextInt(N-1)+1;
+        A.data[k][l]=11;
+//        int k = rand.nextInt()*(M-1)+1;
+//        int l = rand.nextInt()*(N-1)+1;
+//        A.data[k][l]=value2;
+
+
+//        Point[] newPointArray = A.toPoint();
         A.printWorld();
-        A.toPoint();
         System.out.println();
+        System.out.println("Start to write");
+        try {
+            FileWriter outputFile = new FileWriter("/Users/trietpham/Desktop/1234.txt");
+            BufferedWriter bout = new BufferedWriter(outputFile);
+            for (int i = 0; i < M; i++) {
+                for (int j = 0; j < N; j++) {
+                    double total = A.data[i][j];
+                    if (total != 10 && total != 11) {
+                        String total2 = String.valueOf(total);
+                        String[] num = total2.split("\\.");
+                        String num1 = num[0];
+                        System.out.println(num1);
+                        bout.write(num1 + " ");
+                    }
+                    else if (total == 10){
+                        bout.write("S ");
+                    }
+                    else {
+                        bout.write("G ");
+                    }
+
+                }
+                bout.write("\n");
+            }
+            bout.close();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (UnsupportedEncodingException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+
     }
+//        A.toPoint();
+
+
+
 }
