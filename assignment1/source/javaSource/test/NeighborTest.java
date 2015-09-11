@@ -1,9 +1,11 @@
 
 
+import junit.framework.TestCase;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class NeighborTest extends TestCase{
+public class NeighborTest extends TestCase {
 //    Point testPoint1 =(0,0,4);
 //    Point testPoint2 =(0,1,9);
 //    Point testPoint3 =(0,2,2);

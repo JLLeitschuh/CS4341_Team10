@@ -1,12 +1,13 @@
 import java.io.FileNotFoundException;
+import java.util.Date;
 import java.util.List;
 
 public class Main {
-
     static String file_name = "";
-    static int heuristic = 1;
+    static int heuristic;
 
     public static void main(String[] args) {
+        long startTime = new Date().getTime();
         int retval = parseCmdArgs(args);
         if (retval != 0) {
             System.out.println("No arguments given. Terminating.");
@@ -27,6 +28,9 @@ public class Main {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        long endTime = new Date().getTime();
+        System.out.println("elapsed milliseconds: " + (endTime - startTime));
 
     }
 
@@ -73,7 +77,7 @@ public class Main {
     }
 
     public static IHeuristic setHeuristic(int num){
-        IHeuristic returnVal= new Heuristic1();
+        IHeuristic returnVal= new Heuristic1(); //Department of Redundancy Department.
         switch (num){
             case 1:
                 returnVal= new Heuristic1();
@@ -93,9 +97,8 @@ public class Main {
             case 6:
                 returnVal= new Heuristic6();
                 break;
-//            default:
-//                throw new Error("Heuristic must be a valid number from 1 to 6!");
-//                break;
+            default:
+                throw new Error("Heuristic must be a valid number from 1 to 6!");
         }
         return returnVal;
     }
