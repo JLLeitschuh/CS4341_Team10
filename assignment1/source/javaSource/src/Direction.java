@@ -61,6 +61,7 @@ public enum Direction {
             actions.add(BaseAction.FORWARD);
         } else {
             actions.add(BaseAction.TURN);
+            actions.add(BaseAction.FORWARD);
         }
         return actions;
     }

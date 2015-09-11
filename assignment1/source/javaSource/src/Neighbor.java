@@ -157,7 +157,7 @@ public class Neighbor {
         Neighbor neighbor = (Neighbor) o;
 
         //if (priority != neighbor.priority) return false; //XXX: This is intentionally left out!
-        if (cameFrom != null ? !cameFrom.equals(neighbor.cameFrom) : neighbor.cameFrom != null) return false;
+        //if (cameFrom != null ? !cameFrom.equals(neighbor.cameFrom) : neighbor.cameFrom != null) return false;
         if (!point.equals(neighbor.point)) return false;
         if (direction != neighbor.direction) return false;
         return gridInstance.equals(neighbor.gridInstance);
@@ -166,7 +166,7 @@ public class Neighbor {
 
     @Override
     public int hashCode() {
-        int result = cameFrom != null ? cameFrom.hashCode() : 0;
+        int result = /*cameFrom != null ? cameFrom.hashCode() :*/ 0;
         result = 31 * result + point.hashCode();
         result = 31 * result + direction.hashCode();
         //result = 31 * result + priority; //XXX: This is intentionally left out!
