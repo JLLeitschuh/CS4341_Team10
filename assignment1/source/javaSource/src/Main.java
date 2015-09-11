@@ -20,7 +20,7 @@ public class Main {
         try {
             ParseFile n = new ParseFile();
             SquareGrid squareGrid = n.getFromFile("/"+file_name);
-            List<Neighbor> neighborPath = AStarSearch.runAStarSearch(squareGrid);
+            List<Neighbor> neighborPath = AStarSearch.runAStarSearch(squareGrid, setHeuristic(heuristic));
             //AStarSearch2.runAStarSearch(squareGrid);
             DrawGrid dg = new DrawGrid(squareGrid, neighborPath);
         }
@@ -71,4 +71,33 @@ public class Main {
         System.out.println("End Graph Layout");
         System.out.println("");
     }
+
+    public static IHeuristic setHeuristic(int num){
+        IHeuristic returnVal= new Heuristic1();
+        switch (num){
+            case 1:
+                returnVal= new Heuristic1();
+                break;
+            case 2:
+                returnVal= new Heuristic2();
+                break;
+            case 3:
+                returnVal= new Heuristic3();
+                break;
+            case 4:
+                returnVal= new Heuristic4();
+                break;
+            case 5:
+                returnVal= new Heuristic5();
+                break;
+            case 6:
+                returnVal= new Heuristic6();
+                break;
+//            default:
+//                throw new Error("Heuristic must be a valid number from 1 to 6!");
+//                break;
+        }
+        return returnVal;
+    }
+
 }

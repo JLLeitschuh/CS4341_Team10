@@ -2,10 +2,9 @@ import java.util.*;
 
 public class AStarSearch {
 
-    public static List runAStarSearch(SquareGrid graph) {
+    public static List runAStarSearch(SquareGrid graph, IHeuristic heuristic) {
         int numberOfNodesExpanded = 0; // The number of nodes expanded by A*
         int scoreOfPath = 0; // The score of the path A* used
-
 
         // Construct the initial neighbor
         Neighbor startNeighbor = new Neighbor(graph.getStart(), graph);
@@ -24,7 +23,7 @@ public class AStarSearch {
                 System.out.println("Solved");
                 break;
             }
-            frontier.addAll(current.aStarSearch(costSoFar, new Heuristic1()));
+            frontier.addAll(current.aStarSearch(costSoFar, heuristic));
         }
         // That is a lambda function.
         List<Neighbor> path = reconstructPath(current);//o -> System.out.println(o.getPoint()));

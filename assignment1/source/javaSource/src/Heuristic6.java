@@ -3,7 +3,7 @@
  */
 
 //Heuristic 6. Non admissible, returns 3*sqrt(hor^2 + ver^2)
-public class Heuristic6 {
+public class Heuristic6 implements IHeuristic{
     public int calcHeuristic(Point current, Point goal){
         int horizontal = Math.abs(current.x - goal.x);
         int vertical = Math.abs(current.y - goal.y);
