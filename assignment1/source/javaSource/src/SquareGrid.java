@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class SquareGrid implements Cloneable {
@@ -6,6 +7,22 @@ public class SquareGrid implements Cloneable {
     private final int width;
     private final int height;
     private List<Point> points;
+
+
+    /**
+     * Copy constructor. Also copies all of the points into a new list.
+     * @param copyMe
+     */
+    public SquareGrid(SquareGrid copyMe){
+        this(copyMe.width, copyMe.height, copyMe.copyPoints());
+    }
+
+    private List<Point> copyPoints(){
+        List<Point> newPoints = new ArrayList<>();
+        //Creates a copy of the list of points using the point copy constructor
+        points.forEach(point -> newPoints.add(new Point(point)));
+        return newPoints;
+    }
 
     public SquareGrid(int width, int height, List<Point> points){
         this.width = width;
@@ -28,8 +45,27 @@ public class SquareGrid implements Cloneable {
         }
         this.goal = tepGoal;
         this.start = tempStart;
-        assert( this.goal != null);
-        assert( this.start != null);
+        assert( this.goal != null) : "Goal was not found";
+        assert( this.start != null) : "Start was not found";
+    }
+
+    public void demolish(Point epicenter){
+        epicenter.demolish();
+        int xValues[] = {
+                epicenter.x + 1,
+                epicenter.x - 1,
+                epicenter.x
+        };
+        int yValues[] = {
+                epicenter.y + 1,
+                epicenter.y - 1,
+                epicenter.y
+        };
+        for(int x : xValues){
+            for(int y : yValues){
+                if(inBounds(x, y)) getPoint(x, y).demolish();
+            }
+        }
     }
 
     public Point getStart(){return this.start;}

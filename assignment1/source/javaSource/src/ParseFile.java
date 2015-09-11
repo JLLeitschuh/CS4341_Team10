@@ -13,6 +13,7 @@ public class ParseFile {
     public  SquareGrid getFromFile(String fileName) throws FileNotFoundException {
         int pointY = 0;
         int highestPointX = 0;
+        System.out.println(fileName);
         List<Point> pointList = new ArrayList<Point>();
         // http://stackoverflow.com/questions/15183761/how-to-check-the-end-of-line-using-scanner
         InputStream stream1 = getClass().getResourceAsStream(fileName);
