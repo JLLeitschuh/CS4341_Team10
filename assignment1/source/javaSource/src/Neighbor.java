@@ -59,9 +59,9 @@ public class Neighbor {
         } else {
             for (Direction direction : Direction.values()) {
                 // This prevents two bashes in a row
-                if(Direction.isBash(this.direction) && Direction.isBash(direction)){
-                    continue;
-                }
+//                if(Direction.isBash(this.direction) && Direction.isBash(direction)){
+//                    continue;
+//                }
                 neighborList.add(new Neighbor(this, direction, this.gridInstance));
             }
         }

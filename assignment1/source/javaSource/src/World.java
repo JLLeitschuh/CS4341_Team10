@@ -4,13 +4,8 @@
 
 import java.io.*;
 import java.util.Scanner;
-import java.util.TreeMap;
-import java.util.Scanner;
-import java.util.InputMismatchException;
 import java.util.Random;
 
-
-import java.util.StringTokenizer;
 final public class World {
     private final int M;             // number of rows
     private final int N;             // number of columns
@@ -68,53 +63,9 @@ final public class World {
         }
     }
 
-//    public void writeTofile(){
-//        try {
-//            FileWriter outputFile = new FileWriter("/Users/trietpham/Desktop/b123.txt");
-//            BufferedWriter bout = new BufferedWriter(outputFile);
-//        World A = new World(M,N);
-//        for (int i = 0; i < M; i++) {
-//            for (int j = 0; j < N; j++) {
-//                double total = A.data[i][j];
-//                String total2 = String.valueOf(total);
-//                bout.write(total2);
-//                System.out.println("Done");
-//            }
-//        }
-//        } catch (FileNotFoundException ex) {
-//            ex.printStackTrace();
-//        } catch (UnsupportedEncodingException ex) {
-//            ex.printStackTrace();
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
-
-    // transfer M by N World to point array
-//    public Point[] toPoint(){
-//        int k = 0;
-//        int t = M;
-//        int h = N;
-//        Point[] PointArray = new Point[t*h];
-//        for (int i = 0; i < M;  i++){
-//            for(int j = 0; j < N; j++){
-//                Point tempPoint = new Point(i, j, (int)data[i][j]);
-//                PointArray[k] = tempPoint;
-//                k +=1;
-//            }
-//        }
-//        return PointArray;
-//    }
-
-
-
+//
     // test client
     public static void main(String[] args) {
-//        String Start="S";
-//        String Goal="G";
-//        double value1 = Double.parseDouble(Start);
-//        double value2= Double.parseDouble(Goal);
-
         Scanner keyboard = new Scanner(System.in);
         System.out.println("enter rows");
         int M = keyboard.nextInt();
@@ -128,17 +79,11 @@ final public class World {
         int k = rand.nextInt(M-1)+1;
         int l = rand.nextInt(N-1)+1;
         A.data[k][l]=11;
-//        int k = rand.nextInt()*(M-1)+1;
-//        int l = rand.nextInt()*(N-1)+1;
-//        A.data[k][l]=value2;
-
-
-//        Point[] newPointArray = A.toPoint();
         A.printWorld();
         System.out.println();
         System.out.println("Start to write");
         try {
-            FileWriter outputFile = new FileWriter("/Users/trietpham/Desktop/1234.txt");
+            FileWriter outputFile = new FileWriter("/Users/trietpham/Desktop/CS4341_Team10/assignment1/source/javaSource/src/board.txt");
             BufferedWriter bout = new BufferedWriter(outputFile);
             for (int i = 0; i < M; i++) {
                 for (int j = 0; j < N; j++) {
@@ -171,8 +116,5 @@ final public class World {
 
 
     }
-//        A.toPoint();
-
-
 
 }
