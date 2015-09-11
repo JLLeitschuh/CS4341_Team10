@@ -83,7 +83,7 @@ final public class World {
         System.out.println();
         System.out.println("Start to write");
         try {
-            FileWriter outputFile = new FileWriter("/Users/trietpham/Desktop/CS4341_Team10/assignment1/source/javaSource/src/board.txt");
+            FileWriter outputFile = new FileWriter("/Users/trietpham/Desktop/CS4341_Team10/assignment1/source/javaSource/src/board_5.txt");
             BufferedWriter bout = new BufferedWriter(outputFile);
             for (int i = 0; i < M; i++) {
                 for (int j = 0; j < N; j++) {
