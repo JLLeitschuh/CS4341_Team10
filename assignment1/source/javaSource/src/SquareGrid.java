@@ -49,6 +49,25 @@ public class SquareGrid implements Cloneable {
         assert( this.start != null) : "Start was not found";
     }
 
+    public void demolish(Point epicenter){
+        epicenter.demolish();
+        int xValues[] = {
+                epicenter.x + 1,
+                epicenter.x - 1,
+                epicenter.x
+        };
+        int yValues[] = {
+                epicenter.y + 1,
+                epicenter.y - 1,
+                epicenter.y
+        };
+        for(int x : xValues){
+            for(int y : yValues){
+                if(inBounds(x, y)) getPoint(x, y).demolish();
+            }
+        }
+    }
+
     public Point getStart(){return this.start;}
 
     public Point getGoal(){return this.goal;}

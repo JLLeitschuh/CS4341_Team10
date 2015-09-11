@@ -8,12 +8,16 @@ public class AStarSearch {
 
 
         // Construct the initial neighbor
-        Neighbor startNeighbor = new Neighbor(graph.getStart(), graph);
+        Neighbor startNeighbor = new Neighbor(graph.getStart(), graph, false);
+        SquareGrid initialCopy = new SquareGrid(graph);
+        Neighbor startNeighborDemolish = new Neighbor(initialCopy.getStart(), graph, true);
         FrontierQueue frontier = new FrontierQueue();
         // The start node must be in the frontier.
         frontier.add(startNeighbor);
+        frontier.add(startNeighborDemolish);
         Map<Neighbor, Integer> costSoFar = new HashMap<>();
-        costSoFar.put(startNeighbor, graph.getStart().getCost());
+        costSoFar.put(startNeighbor, startNeighbor.getPriority());
+        costSoFar.put(startNeighborDemolish, startNeighborDemolish.getPriority());
 
         Neighbor current = null;
         while (!frontier.isEmpty()) {

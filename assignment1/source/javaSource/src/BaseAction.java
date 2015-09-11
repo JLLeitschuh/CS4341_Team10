@@ -1,5 +1,5 @@
 
 public enum BaseAction {
-    FORWARD, TURN, BASH;
+    FORWARD, TURN, BASH, DEMOLISH;
 
 }

@@ -1,7 +1,7 @@
 public class Point {
     public final int x;
     public final int y;
-    private final int cost;
+    private int cost;
     private boolean isGoal = false;
     private boolean isStart = false;
 
@@ -38,6 +38,10 @@ public class Point {
         } else {
             throw new InternalError("Token not valid " + token);
         }
+    }
+
+    public void demolish(){
+        this.cost = this.cost >= 100 ? this.cost : 3;
     }
 
     /**
