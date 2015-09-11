@@ -40,7 +40,7 @@ public class AStarSearch {
         for(Neighbor n: path){
             System.out.println(n);
             System.out.println(n.getPriority());
-            scoreOfPath += n.getPriority();
+            scoreOfPath += costSoFar.get(n);
         }
         System.out.println("\nScore of path: " + scoreOfPath);
         System.out.println("Number of nodes expanded: " + numberOfNodesExpanded);

@@ -135,6 +135,10 @@ public class Neighbor {
         return path;
     }
 
+    public int getBaseCost() {
+        return this.baseCost;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
