@@ -8,6 +8,7 @@ public class Neighbor {
     private final int baseCost;
     private int priority;
 
+
     public Neighbor(Neighbor cameFrom, Direction direction, SquareGrid gridInstance){
         this.cameFrom = cameFrom;
         this.point = direction.getDirectionLocation(cameFrom.getPoint(), gridInstance);
