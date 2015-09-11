@@ -23,4 +23,4 @@ Run: `java Main.java --heuristic [1-6] --filename [filename.txt]`
 --heuristic [choice: 1 - 6]
 --filename "name_of_file.txt"
 
-Example: java Main.java --heuristic 5 --filename board.txt`
+Example: `java Main.java --heuristic 5 --filename board.txt`
