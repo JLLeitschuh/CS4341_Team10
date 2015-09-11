@@ -24,7 +24,7 @@ public class AStarSearch {
                 System.out.println("Solved");
                 break;
             }
-            frontier.addAll(current.aStarSearch(costSoFar));
+            frontier.addAll(current.aStarSearch(costSoFar, new Heuristic1()));
         }
         // That is a lambda function.
         List<Neighbor> path = reconstructPath(current);//o -> System.out.println(o.getPoint()));

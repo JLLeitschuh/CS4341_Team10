@@ -88,7 +88,7 @@ public class Neighbor {
      * @param costSoFar A map of the cost so far for a given neighbor.
      * @return
      */
-    public Collection<Neighbor> aStarSearch(Map<Neighbor, Integer> costSoFar){
+    public Collection<Neighbor> aStarSearch(Map<Neighbor, Integer> costSoFar, IHeuristic heuristic){
         Collection<Neighbor> newSearchNodes = new ArrayList<>();
         for( Neighbor next : this.getNeighbors()){
             System.out.println(this.point);
@@ -100,7 +100,7 @@ public class Neighbor {
             int newCost = costSoFar.get(this)
                     + this.baseCost;
             if( !costSoFar.containsKey(next) || newCost < costSoFar.get(next)){
-                this.priority = newCost; //Huristic is calculated inside of getPriority
+                this.priority = newCost + heuristic.calcHeuristic(this.point, gridInstance.getGoal());
                 costSoFar.put(next, newCost);
                 newSearchNodes.add(next);
             }
