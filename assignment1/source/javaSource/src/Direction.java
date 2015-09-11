@@ -32,6 +32,12 @@ public enum Direction {
     String rightArrowBash = ("⇉");
     String leftArrowBash = ("⇇");
 
+    /**
+     *
+     * @param currentLocation
+     * @param gridInstance
+     * @return
+     */
     public Point getDirectionLocation(Point currentLocation, SquareGrid gridInstance){
         switch(this){
             case NORTH: return gridInstance.getPoint(currentLocation.x, currentLocation.y - 1);
@@ -66,8 +72,6 @@ public enum Direction {
     private int getTurnCost(Direction turnTo, Point nowAt){
         if(!this.isBash(turnTo) && this.equals(turnTo)){
             return 0;
-        } else if (isBash(turnTo) && isBash(this)) { // Bashing in the same direction as before
-            throw new Error("Can't bash twice in a row");
         }
         if(isOpposite(turnTo)){
             return (int)Math.ceil((2.0/3.0) * nowAt.getCost());

@@ -6,30 +6,39 @@ public class Neighbor {
     private final Direction direction;
     private final SquareGrid gridInstance;
     private final int baseCost;
+    private final boolean isDemolish;
     private int priority;
 
 
-    public Neighbor(Neighbor cameFrom, Direction direction, SquareGrid gridInstance){
+    public Neighbor(Neighbor cameFrom, Direction direction, SquareGrid gridInstance, boolean isDemolish){
+        this.isDemolish = isDemolish;
+        this.gridInstance = isDemolish ? new SquareGrid(gridInstance) : gridInstance;
+        this.point = direction.getDirectionLocation(cameFrom.getPoint(), this.gridInstance);
+        if(this.isDemolish){
+            this.gridInstance.demolish(this.point);
+        }
         this.cameFrom = cameFrom;
-        this.point = direction.getDirectionLocation(cameFrom.getPoint(), gridInstance);
         this.direction = direction;
-        this.baseCost = cameFrom.direction.getCostToMove(direction, this.point);
+        this.baseCost = (this.isDemolish ? 4 : 0) + cameFrom.direction.getCostToMove(direction, this.point);
         this.priority = this.baseCost;
-        this.gridInstance = gridInstance;
     }
 
     /**
      * SHOULD ONLY BE USED ONCE TO GENERATE THE INITIAL NODE
      * @param point The point this neighbor represents
      */
-    public Neighbor(Point point, SquareGrid gridInstance){
-        this.cameFrom = null;
+    public Neighbor(Point point, SquareGrid gridInstance, boolean isDemolish){
+        this.isDemolish = isDemolish;
+        this.gridInstance = isDemolish ? new SquareGrid(gridInstance) : gridInstance;
         this.point = point;
+        if(this.isDemolish){
+            this.gridInstance.demolish(point);
+        }
+        this.cameFrom = null;
         //Initial Node facing direction
         this.direction = Direction.NORTH;
-        this.gridInstance = gridInstance;
-        this.baseCost = this.point.getCost();
-        this.priority = this.point.getCost();
+        this.baseCost = (this.isDemolish ? 4 : 0) + this.point.getCost();
+        this.priority = this.baseCost;
     }
 
     public Direction getDirection() { return  this.direction; }
@@ -52,17 +61,17 @@ public class Neighbor {
     public List<Neighbor> getNeighbors(){
         List<Neighbor> neighborList = new ArrayList<Neighbor>();
         //If this point is the start then we can only go North
-        if(this.point.isStart()) {
-            System.out.println("Returning as start");
-            neighborList.add(new Neighbor(this, Direction.NORTH, this.gridInstance));
-            neighborList.add(new Neighbor(this, Direction.NORTH_BASH, this.gridInstance));
-        } else {
-            for (Direction direction : Direction.values()) {
-                // This prevents two bashes in a row
-                if(Direction.isBash(this.direction) && Direction.isBash(direction)){
-                    continue;
+        for(int i = 0; i < 2; i++) {
+            boolean isBash = i == 0;
+            SquareGrid gridToUse = isBash ? new SquareGrid(this.gridInstance) : this.gridInstance;
+            if (this.point.isStart()) {
+                System.out.println("Returning as start");
+                neighborList.add(new Neighbor(this, Direction.NORTH, gridToUse, isBash));
+                neighborList.add(new Neighbor(this, Direction.NORTH_BASH, gridToUse, isBash));
+            } else {
+                for (Direction direction : Direction.values()) {
+                    neighborList.add(new Neighbor(this, direction, gridToUse, isBash));
                 }
-                neighborList.add(new Neighbor(this, direction, this.gridInstance));
             }
         }
         return neighborList;
@@ -70,8 +79,10 @@ public class Neighbor {
 
     private List<BaseAction> getActions(List<BaseAction> actions){
         if(this.cameFrom != null){
+            this.cameFrom.getActions(actions);
+            if(this.isDemolish) actions.add(BaseAction.DEMOLISH);
             this.cameFrom.direction.getAction(actions, this.direction);
-            return this.cameFrom.getActions(actions);
+            return actions;
         } else {
             return actions;
         }
@@ -80,7 +91,6 @@ public class Neighbor {
     public List<BaseAction> getActions(){
         List<BaseAction> actions = new ArrayList<>();
         actions = getActions(actions);
-        Collections.reverse(actions);
         return actions;
     }
 

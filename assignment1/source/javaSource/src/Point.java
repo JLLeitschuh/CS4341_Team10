@@ -1,9 +1,21 @@
 public class Point {
     public final int x;
     public final int y;
-    private final int cost;
+    private int cost;
     private boolean isGoal = false;
     private boolean isStart = false;
+
+    /**
+     * Copy Constructor
+     * @param copyMe
+     */
+    public Point(Point copyMe){
+        this.x = copyMe.x;
+        this.y = copyMe.y;
+        this.cost = copyMe.cost;
+        this.isGoal = copyMe.isGoal;
+        this.isStart = copyMe.isStart;
+    }
 
     public Point(int x, int y, int cost){
         this.x = x;
@@ -26,6 +38,10 @@ public class Point {
         } else {
             throw new InternalError("Token not valid " + token);
         }
+    }
+
+    public void demolish(){
+        this.cost = this.cost >= 100 ? this.cost : 3;
     }
 
     /**
