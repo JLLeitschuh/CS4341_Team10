@@ -21,7 +21,7 @@ public class AStarSearch {
         Neighbor current = null;
         while (!frontier.isEmpty()) {
             current = frontier.remove();
-            System.out.println("Poping new");
+            System.out.println("Poping new: " + current);
             numberOfNodesExpanded++;
             if (current.isPoint(graph.getGoal())){
                 System.out.println("Solved");

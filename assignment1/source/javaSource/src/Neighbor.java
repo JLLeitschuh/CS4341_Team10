@@ -1,7 +1,9 @@
 import java.util.*;
 
 public class Neighbor {
+    // NOT IN EQUALS OR IN HASH_CODE
     private final Neighbor cameFrom;
+    private final Direction directionCameFrom;
     private final Point point;
     private final Direction direction;
     private final SquareGrid gridInstance;
@@ -17,6 +19,7 @@ public class Neighbor {
         if(this.isDemolish){
             this.gridInstance.demolish(this.point);
         }
+        this.directionCameFrom = cameFrom.direction;
         this.cameFrom = cameFrom;
         this.direction = direction;
         this.baseCost = (this.isDemolish ? 4 : 0) + cameFrom.direction.getCostToMove(direction, this.point);
@@ -34,6 +37,7 @@ public class Neighbor {
         if(this.isDemolish){
             this.gridInstance.demolish(point);
         }
+        this.directionCameFrom = null;
         this.cameFrom = null;
         //Initial Node facing direction
         this.direction = Direction.NORTH;
@@ -62,15 +66,15 @@ public class Neighbor {
         List<Neighbor> neighborList = new ArrayList<Neighbor>();
         //If this point is the start then we can only go North
         for(int i = 0; i < 2; i++) {
-            boolean isBash = i == 0;
-            SquareGrid gridToUse = isBash ? new SquareGrid(this.gridInstance) : this.gridInstance;
+            boolean isDemolish = i == 0;
+            SquareGrid gridToUse = this.gridInstance;
             if (this.point.isStart()) {
                 System.out.println("Returning as start");
-                neighborList.add(new Neighbor(this, Direction.NORTH, gridToUse, isBash));
-                neighborList.add(new Neighbor(this, Direction.NORTH_BASH, gridToUse, isBash));
+                neighborList.add(new Neighbor(this, Direction.NORTH, gridToUse, isDemolish));
+                neighborList.add(new Neighbor(this, Direction.NORTH_BASH, gridToUse, isDemolish));
             } else {
                 for (Direction direction : Direction.values()) {
-                    neighborList.add(new Neighbor(this, direction, gridToUse, isBash));
+                    neighborList.add(new Neighbor(this, direction, gridToUse, isDemolish));
                 }
             }
         }
@@ -107,7 +111,7 @@ public class Neighbor {
             System.out.println("Looking at: " + next.point.toString());
 
             // Print all of the elements in the cost so far list
-            costSoFar.keySet().forEach(neighbor -> System.out.println("\tContains: " + neighbor));
+            //costSoFar.keySet().forEach(neighbor -> System.out.println("\tContains: " + neighbor));
 
             int newCost = costSoFar.get(this)
                     + this.baseCost;
@@ -159,6 +163,8 @@ public class Neighbor {
 
         //if (priority != neighbor.priority) return false; //XXX: This is intentionally left out!
         //if (cameFrom != null ? !cameFrom.equals(neighbor.cameFrom) : neighbor.cameFrom != null) return false;
+        if (directionCameFrom != null ? !directionCameFrom.equals(neighbor.directionCameFrom) : neighbor.directionCameFrom != null) return false;
+        if (isDemolish != neighbor.isDemolish) return false;
         if (!point.equals(neighbor.point)) return false;
         if (direction != neighbor.direction) return false;
         return gridInstance.equals(neighbor.gridInstance);
@@ -167,7 +173,10 @@ public class Neighbor {
 
     @Override
     public int hashCode() {
-        int result = /*cameFrom != null ? cameFrom.hashCode() :*/ 0;
+        // Hash Code for cameFrom is intentionally ignored.
+        int result = directionCameFrom != null ? directionCameFrom.hashCode() : 0;
+        result = 31 * result + (isDemolish ? 1 : 0);
+        result = 31 * result + baseCost;
         result = 31 * result + point.hashCode();
         result = 31 * result + direction.hashCode();
         //result = 31 * result + priority; //XXX: This is intentionally left out!
@@ -178,11 +187,13 @@ public class Neighbor {
     @Override
     public String toString() {
         return "Neighbor{" +
-                "cameFrom=" + cameFrom +
+                "directionCameFrom=" + directionCameFrom +
                 ", point=" + point +
                 ", direction=" + direction +
                 ", priority=" + priority +
                 ", gridInstance=" + gridInstance +
+                ", baseCost=" + baseCost +
+                ", isDemolish=" + isDemolish +
                 '}';
     }
 }

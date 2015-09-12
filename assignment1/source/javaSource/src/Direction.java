@@ -8,12 +8,16 @@ public enum Direction {
     NORTH_BASH(2, BaseAction.BASH), EAST_BASH(2, BaseAction.BASH), SOUTH_BASH(2, BaseAction.BASH), WEST_BASH(2, BaseAction.BASH)
     ;
     private static final List<Direction> bashList = Arrays.asList(NORTH_BASH, EAST_BASH, WEST_BASH, SOUTH_BASH);
-    private static final Map<Direction, Direction> opposites = new HashMap<>();
+    private static final Map<Direction, List<Direction>> opposites = new HashMap<>();
     static {
-        opposites.put(NORTH, SOUTH);
-        opposites.put(EAST, WEST);
-        opposites.put(SOUTH, NORTH);
-        opposites.put(WEST, EAST);
+        opposites.put(NORTH, Arrays.asList(SOUTH, SOUTH_BASH));
+        opposites.put(EAST, Arrays.asList(WEST, WEST_BASH));
+        opposites.put(SOUTH, Arrays.asList(NORTH, NORTH_BASH));
+        opposites.put(WEST, Arrays.asList(EAST, EAST_BASH));
+        opposites.put(NORTH_BASH, Arrays.asList(SOUTH, SOUTH_BASH));
+        opposites.put(EAST_BASH, Arrays.asList(WEST, WEST_BASH));
+        opposites.put(SOUTH_BASH, Arrays.asList(NORTH, NORTH_BASH));
+        opposites.put(WEST_BASH, Arrays.asList(EAST, EAST_BASH));
     }
 
     public final int moveTotal;
@@ -67,11 +71,11 @@ public enum Direction {
     }
 
     private boolean isOpposite(Direction comparison){
-        return opposites.get(this) == comparison;
+        return opposites.get(this).contains(comparison);
     }
 
     private int getTurnCost(Direction turnTo, Point nowAt){
-        if(!this.isBash(turnTo) && this.equals(turnTo)){
+        if(this.equals(turnTo)){
             return 0;
         }
         if(isOpposite(turnTo)){
@@ -86,8 +90,8 @@ public enum Direction {
     }
 
     public int getCostToMove(Direction turnTo, Point nowAt){
-        System.out.println("Comparing: " + this + " " + turnTo);
-        return isBash(turnTo) ? getTurnCost(turnTo, nowAt) + 3 : getTurnCost(turnTo, nowAt) + nowAt.getCost();
+        //System.out.println("Comparing: " + this + " " + turnTo);
+        return (isBash(turnTo) ? nowAt.getBashThroughCost() : nowAt.getCost()) + getTurnCost(turnTo, nowAt);
     }
 
     @Override

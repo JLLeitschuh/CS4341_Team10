@@ -82,6 +82,13 @@ public class Point {
         return this.cost;
     }
 
+    public int getBashThroughCost(){
+        if(getCost()>= 100){
+            return getCost();
+        }
+        return 3;
+    }
+
     @Override
     public String toString() {
         return "Point{" +
