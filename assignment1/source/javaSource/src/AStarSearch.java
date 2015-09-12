@@ -21,7 +21,7 @@ public class AStarSearch {
         Neighbor current = null;
         while (!frontier.isEmpty()) {
             current = frontier.remove();
-            System.out.println("Poping new: " + current);
+            //System.out.println("Poping new: " + current);
             numberOfNodesExpanded++;
             if (current.isPoint(graph.getGoal())){
                 System.out.println("Solved");
@@ -42,9 +42,8 @@ public class AStarSearch {
         reconstructActions(current).forEach(a ->System.out.println(a));
         System.out.println();
         for(Neighbor n: path){
-            System.out.println(n);
-            System.out.println(n.getPriority());
-            scoreOfPath += costSoFar.get(n);
+            if(n.isPoint(graph.getStart())) continue;
+            scoreOfPath += n.getBaseCost();
         }
         System.out.println("\nScore of path: " + scoreOfPath);
         System.out.println("Number of nodes expanded: " + numberOfNodesExpanded);

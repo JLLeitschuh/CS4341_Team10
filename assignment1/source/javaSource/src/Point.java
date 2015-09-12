@@ -38,10 +38,6 @@ public class Point {
         } else {
             throw new InternalError("Token not valid " + token);
         }
-
-        if (this.isGoal()) {
-            this.cost = -99;
-        }
     }
 
     public void demolish(){

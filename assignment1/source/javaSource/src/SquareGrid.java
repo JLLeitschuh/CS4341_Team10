@@ -50,7 +50,7 @@ public class SquareGrid implements Cloneable {
     }
 
     public void demolish(Point epicenter){
-        epicenter.demolish();
+        //epicenter.demolish();
         int xValues[] = {
                 epicenter.x + 1,
                 epicenter.x - 1,
@@ -106,7 +106,7 @@ public class SquareGrid implements Cloneable {
                 return p;
             }
         }
-        System.out.println("WARN: Point x:" + x + " y: " + y + " does not exist. It has been be instantiated");
+        //System.out.println("WARN: Point x:" + x + " y: " + y + " does not exist. It has been be instantiated");
 
         Point newPoint;
         if(inBounds(x, y)){

@@ -19,6 +19,28 @@ public enum Direction {
         opposites.put(SOUTH_BASH, Arrays.asList(NORTH, NORTH_BASH));
         opposites.put(WEST_BASH, Arrays.asList(EAST, EAST_BASH));
     }
+    private static final Map<Direction, Direction> equivalentDirection = new HashMap<>();
+    static {
+        equivalentDirection.put(NORTH, NORTH_BASH);
+        equivalentDirection.put(EAST, EAST_BASH);
+        equivalentDirection.put(SOUTH, SOUTH_BASH);
+        equivalentDirection.put(WEST, WEST_BASH);
+        equivalentDirection.put(NORTH_BASH, NORTH);
+        equivalentDirection.put(EAST_BASH, EAST);
+        equivalentDirection.put(SOUTH_BASH, SOUTH);
+        equivalentDirection.put(WEST_BASH, WEST);
+    }
+    private static final Map<Direction, Direction> baseDirection = new HashMap<>();
+    static {
+        baseDirection.put(NORTH, NORTH);
+        baseDirection.put(EAST, EAST);
+        baseDirection.put(SOUTH, SOUTH);
+        baseDirection.put(WEST, WEST);
+        baseDirection.put(NORTH_BASH, NORTH);
+        baseDirection.put(EAST_BASH, EAST);
+        baseDirection.put(SOUTH_BASH, SOUTH);
+        baseDirection.put(WEST_BASH, WEST);
+    }
 
     public final int moveTotal;
     public final BaseAction baseAction;
@@ -74,14 +96,19 @@ public enum Direction {
         return opposites.get(this).contains(comparison);
     }
 
-    private int getTurnCost(Direction turnTo, Point nowAt){
-        if(this.equals(turnTo)){
+    private boolean isSameDirection(Direction comparison){
+        if(this.equals(comparison)) return true;
+        if(equivalentDirection.get(this).equals(comparison)) return true;
+        return false;
+    }
+
+    private int getTurnCost(Direction turnTo, Point wasAt){
+        if(this.isSameDirection(turnTo)){
             return 0;
-        }
-        if(isOpposite(turnTo)){
-            return (int)Math.ceil((2.0/3.0) * nowAt.getCost());
+        } else if(isOpposite(turnTo)){
+            return (int)Math.ceil((2.0/3.0) * wasAt.getCost());
         } else {
-            return (int)Math.ceil((1.0/3.0) * nowAt.getCost());
+            return (int)Math.ceil((1.0/3.0) * wasAt.getCost());
         }
     }
 
@@ -89,9 +116,13 @@ public enum Direction {
         return bashList.contains(turnTo);
     }
 
-    public int getCostToMove(Direction turnTo, Point nowAt){
+    public int getCostToMove(Direction turnTo, Point wasAt, Point nowAt, SquareGrid gridInstance){
         //System.out.println("Comparing: " + this + " " + turnTo);
-        return (isBash(turnTo) ? nowAt.getBashThroughCost() : nowAt.getCost()) + getTurnCost(turnTo, nowAt);
+        return (isBash(turnTo) ? turnTo.getBasicDirection().getDirectionLocation(wasAt, gridInstance).getBashThroughCost()  : 0) + nowAt.getCost() + getTurnCost(turnTo, wasAt);
+    }
+
+    public Direction getBasicDirection(){
+        return baseDirection.get(this);
     }
 
     @Override

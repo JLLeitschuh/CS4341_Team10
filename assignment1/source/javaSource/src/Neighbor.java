@@ -19,10 +19,10 @@ public class Neighbor {
         if(this.isDemolish){
             this.gridInstance.demolish(this.point);
         }
-        this.directionCameFrom = cameFrom.direction;
+        this.directionCameFrom = cameFrom.direction.getBasicDirection();
         this.cameFrom = cameFrom;
         this.direction = direction;
-        this.baseCost = (this.isDemolish ? 4 : 0) + cameFrom.direction.getCostToMove(direction, this.point);
+        this.baseCost = (this.isDemolish ? 7 : 0) + cameFrom.direction.getCostToMove(direction, cameFrom.point, this.point, this.gridInstance);
         this.priority = this.baseCost;
     }
 
@@ -33,15 +33,15 @@ public class Neighbor {
     public Neighbor(Point point, SquareGrid gridInstance, boolean isDemolish){
         this.isDemolish = isDemolish;
         this.gridInstance = isDemolish ? new SquareGrid(gridInstance) : gridInstance;
-        this.point = point;
         if(this.isDemolish){
             this.gridInstance.demolish(point);
         }
+        this.point = this.gridInstance.getStart();
         this.directionCameFrom = null;
         this.cameFrom = null;
         //Initial Node facing direction
         this.direction = Direction.NORTH;
-        this.baseCost = (this.isDemolish ? 4 : 0) + this.point.getCost();
+        this.baseCost = (this.isDemolish ? 7 : 0) + this.point.getCost();
         this.priority = this.baseCost;
     }
 
@@ -69,7 +69,7 @@ public class Neighbor {
             boolean isDemolish = i == 0;
             SquareGrid gridToUse = this.gridInstance;
             if (this.point.isStart()) {
-                System.out.println("Returning as start");
+                //System.out.println("Returning as start");
                 neighborList.add(new Neighbor(this, Direction.NORTH, gridToUse, isDemolish));
                 neighborList.add(new Neighbor(this, Direction.NORTH_BASH, gridToUse, isDemolish));
             } else {
@@ -82,15 +82,12 @@ public class Neighbor {
     }
 
     private List<BaseAction> getActions(List<BaseAction> actions){
-        if(this.isDemolish) actions.add(BaseAction.DEMOLISH);
-        if(this.cameFrom != null){
+        if(this.cameFrom != null) {
             this.cameFrom.getActions(actions);
-
             this.cameFrom.direction.getAction(actions, this.direction);
-            return actions;
-        } else {
-            return actions;
         }
+        if(this.isDemolish) actions.add(BaseAction.DEMOLISH);
+        return actions;
     }
 
     public List<BaseAction> getActions(){
@@ -107,8 +104,8 @@ public class Neighbor {
     public Collection<Neighbor> aStarSearch(Map<Neighbor, Integer> costSoFar, IHeuristic heuristic){
         Collection<Neighbor> newSearchNodes = new ArrayList<>();
         for( Neighbor next : this.getNeighbors()){
-            System.out.println(this.point);
-            System.out.println("Looking at: " + next.point.toString());
+            //System.out.println(this.point);
+            //System.out.println("Looking at: " + next.point.toString());
 
             // Print all of the elements in the cost so far list
             //costSoFar.keySet().forEach(neighbor -> System.out.println("\tContains: " + neighbor));
@@ -170,7 +167,7 @@ public class Neighbor {
         if (directionCameFrom != null ? !directionCameFrom.equals(neighbor.directionCameFrom) : neighbor.directionCameFrom != null) return false;
         if (isDemolish != neighbor.isDemolish) return false;
         if (!point.equals(neighbor.point)) return false;
-        if (direction != neighbor.direction) return false;
+        //if (direction != neighbor.direction) return false;
         return gridInstance.equals(neighbor.gridInstance);
     }
 
@@ -182,7 +179,7 @@ public class Neighbor {
         result = 31 * result + (isDemolish ? 1 : 0);
         result = 31 * result + baseCost;
         result = 31 * result + point.hashCode();
-        result = 31 * result + direction.hashCode();
+        //result = 31 * result + direction.hashCode();
         //result = 31 * result + priority; //XXX: This is intentionally left out!
         result = 31 * result + gridInstance.hashCode();
         return result;
