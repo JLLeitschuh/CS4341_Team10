@@ -2,7 +2,7 @@ import java.util.*;
 
 public class AStarSearch {
 
-    public static List runAStarSearch(SquareGrid graph, IHeuristic heuristic) {
+    public static Neighbor runAStarSearch(SquareGrid graph, IHeuristic heuristic) {
         int numberOfNodesExpanded = 0; // The number of nodes expanded by A*
         int scoreOfPath = 0; // The score of the path A* used
 
@@ -49,7 +49,7 @@ public class AStarSearch {
         System.out.println("\nScore of path: " + scoreOfPath);
         System.out.println("Number of nodes expanded: " + numberOfNodesExpanded);
 
-        return current.getPath();
+        return current;
     }
 
     public static List<BaseAction> reconstructActions(Neighbor goalNeighbor){

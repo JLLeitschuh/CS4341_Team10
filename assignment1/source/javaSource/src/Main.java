@@ -20,10 +20,10 @@ public class Main {
         printGraphLayout();
         try {
             ParseFile n = new ParseFile();
-            SquareGrid squareGrid = n.getFromFile("/"+file_name);
-            List<Neighbor> neighborPath = AStarSearch.runAStarSearch(squareGrid, setHeuristic(heuristic));
+            SquareGrid squareGrid = n.getFromFile("/" + file_name);
+            Neighbor goalNeightbor = AStarSearch.runAStarSearch(squareGrid, setHeuristic(heuristic));
             //AStarSearch2.runAStarSearch(squareGrid);
-            DrawGrid dg = new DrawGrid(squareGrid, neighborPath);
+            DrawGrid dg = new DrawGrid(goalNeightbor);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();

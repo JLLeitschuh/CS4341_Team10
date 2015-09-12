@@ -154,6 +154,10 @@ public class Neighbor {
         return this.baseCost;
     }
 
+    public SquareGrid getGrid() {
+        return this.gridInstance;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

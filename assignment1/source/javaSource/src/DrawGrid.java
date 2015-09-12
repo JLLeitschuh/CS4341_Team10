@@ -3,7 +3,8 @@ import java.util.List;
 
 public class DrawGrid {
 
-    public DrawGrid(SquareGrid grid , List<Neighbor> neighborPath) {
+    public DrawGrid(Neighbor goalNeighbor) {
+        SquareGrid grid = goalNeighbor.getGrid();
         System.out.println();
         System.out.println("---- draw grid ----");
         for (int y =0; y < grid.getHeight(); y++) {
@@ -11,6 +12,7 @@ public class DrawGrid {
             for (int x =0; x < grid.getWidth(); x++) {
 
                 boolean neighborPathContainsPoint = false;
+                List<Neighbor> neighborPath = goalNeighbor.getPath();
                 Iterator<Neighbor> iter = neighborPath.iterator();
                 for (Neighbor current : neighborPath) {
                     if (current.getPoint().isPoint(x, y)) {
