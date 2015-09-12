@@ -78,9 +78,10 @@ public class Neighbor {
     }
 
     private List<BaseAction> getActions(List<BaseAction> actions){
+        if(this.isDemolish) actions.add(BaseAction.DEMOLISH);
         if(this.cameFrom != null){
             this.cameFrom.getActions(actions);
-            if(this.isDemolish) actions.add(BaseAction.DEMOLISH);
+
             this.cameFrom.direction.getAction(actions, this.direction);
             return actions;
         } else {

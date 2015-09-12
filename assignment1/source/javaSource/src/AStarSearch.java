@@ -12,10 +12,10 @@ public class AStarSearch {
         Neighbor startNeighborDemolish = new Neighbor(initialCopy.getStart(), graph, true);
         FrontierQueue frontier = new FrontierQueue();
         // The start node must be in the frontier.
-        frontier.add(startNeighbor);
+        //frontier.add(startNeighbor);
         frontier.add(startNeighborDemolish);
         Map<Neighbor, Integer> costSoFar = new HashMap<>();
-        costSoFar.put(startNeighbor, startNeighbor.getPriority());
+        //costSoFar.put(startNeighbor, startNeighbor.getPriority());
         costSoFar.put(startNeighborDemolish, startNeighborDemolish.getPriority());
 
         Neighbor current = null;
