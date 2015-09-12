@@ -49,7 +49,7 @@ public class AStarSearch {
         System.out.println("\nScore of path: " + scoreOfPath);
         System.out.println("Number of nodes expanded: " + numberOfNodesExpanded);
 
-        return path;
+        return current.getPath();
     }
 
     public static List<BaseAction> reconstructActions(Neighbor goalNeighbor){
