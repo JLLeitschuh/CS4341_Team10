@@ -29,14 +29,8 @@ public class Main {
         System.out.println("Using puzzle: " + puzzle + "\nUsing filename: " + file_name);
 
         // Try to read from file, and run GA
-        try {
-            ParseFile parseFile = new ParseFile();
-            parseFile.getFromFile("/" + file_name);
-
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        ParseFile parseFile = new ParseFile();
+        parseFile.getFromFile("/" + file_name).forEach(System.out::println);
 
         long endTime = new Date().getTime();
         System.out.println("elapsed milliseconds: " + (endTime - startTime));
