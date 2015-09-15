@@ -13,7 +13,7 @@ public class ParseFile {
     public  void getFromFile(String fileName) throws FileNotFoundException {
         int pointY = 0;
         int highestPointX = 0;
-        System.out.println(fileName);
+        System.out.println("FILE PATH: " + fileName);
 
         InputStream stream1 = getClass().getResourceAsStream(fileName);
 
@@ -34,7 +34,7 @@ public class ParseFile {
                 catch (NumberFormatException e) {
 
                 }
-                //pointList.add();
+
                 pointX++;
             }
             highestPointX = pointX > highestPointX ? pointX : highestPointX;

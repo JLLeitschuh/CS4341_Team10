@@ -30,8 +30,8 @@ public class Main {
 
         // Try to read from file, and run GA
         try {
-            ParseFile n = new ParseFile();
-            n.getFromFile("/" + file_name);
+            ParseFile parseFile = new ParseFile();
+            parseFile.getFromFile("/" + file_name);
 
         }
         catch (FileNotFoundException e) {
