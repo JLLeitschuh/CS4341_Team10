@@ -11,7 +11,7 @@ public abstract class AbstractPuzzle {
      */
     protected List<IGene> genePool;
 
-    AbstractPuzzle(List<IGene> genePool) {
+    protected AbstractPuzzle(List<IGene> genePool) {
         this.genePool = genePool;
     }
     /**
@@ -27,6 +27,6 @@ public abstract class AbstractPuzzle {
      * Return the individual genes of the initial population.
      * @return
      */
-    abstract List<AbstractIndividual> getIndividuals();
+    public abstract List<AbstractIndividual> getIndividuals();
 
 }
