@@ -10,7 +10,7 @@ import java.util.List;
 public class Puzzle1 extends AbstractPuzzle {
     private final List<AbstractIndividual> initialPopulation;
 
-    public Puzzle1(String input) {
+    public Puzzle1(List<String> input) {
         super(createGenePool(input));
         assert false;
         initialPopulation = null;
@@ -21,7 +21,7 @@ public class Puzzle1 extends AbstractPuzzle {
         return Collections.unmodifiableList(initialPopulation);
     }
 
-    private static List<IGene> createGenePool(String input){
+    private static List<IGene> createGenePool(List<String> input){
         assert false;
         return null;
     }
