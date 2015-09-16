@@ -8,10 +8,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class Puzzle1 extends AbstractPuzzle {
+    private final Integer targetValue;
     private final List<AbstractIndividual> initialPopulation;
 
     public Puzzle1(List<String> input) {
         super(createGenePool(input));
+        this.targetValue = new Integer(input.get(0));
         assert false;
         initialPopulation = null;
     }
@@ -22,7 +24,9 @@ public class Puzzle1 extends AbstractPuzzle {
     }
 
     private static List<Gene> createGenePool(List<String> input){
-        assert false;
+        List<String> geneStringList = input.subList(1, input.size());
+        
         return null;
+
     }
 }
