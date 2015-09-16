@@ -18,7 +18,7 @@ public abstract class AbstractPuzzle<T> {
      * Return the individual genes.
      * @return
      */
-    List<Gene<T>> getGenes() {
+    public List<Gene<T>> getGenes() {
         return Collections.unmodifiableList(this.genePool);
     }
 
