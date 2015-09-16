@@ -9,16 +9,16 @@ public abstract class AbstractPuzzle {
      * The list of the current genes.
      * @return
      */
-    protected List<IGene> genePool;
+    protected List<Gene> genePool;
 
-    protected AbstractPuzzle(List<IGene> genePool) {
+    protected AbstractPuzzle(List<Gene> genePool) {
         this.genePool = genePool;
     }
     /**
      * Return the individual genes.
      * @return
      */
-    List<IGene> getGenes() {
+    List<Gene> getGenes() {
         return Collections.unmodifiableList(this.genePool);
     }
 

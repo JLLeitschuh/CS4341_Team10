@@ -2,7 +2,7 @@ package edu.wpi.cs4341.puzzle1;
 
 import edu.wpi.cs4341.ga.AbstractIndividual;
 import edu.wpi.cs4341.ga.AbstractPuzzle;
-import edu.wpi.cs4341.ga.IGene;
+import edu.wpi.cs4341.ga.Gene;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +21,7 @@ public class Puzzle1 extends AbstractPuzzle {
         return Collections.unmodifiableList(initialPopulation);
     }
 
-    private static List<IGene> createGenePool(List<String> input){
+    private static List<Gene> createGenePool(List<String> input){
         assert false;
         return null;
     }

@@ -11,13 +11,13 @@ public abstract class AbstractIndividual {
     /**
      * List of the gene segments that define this individual
      */
-    protected List<IGene> geneSegments;
+    protected List<Gene> geneSegments;
 
     /**
      * Creates an abstract individual.
      * @param geneSegments The gene segments that make up this gene.
      */
-    AbstractIndividual(List<IGene> geneSegments){
+    AbstractIndividual(List<Gene> geneSegments){
         this.geneSegments = geneSegments;
     }
 
@@ -25,7 +25,7 @@ public abstract class AbstractIndividual {
      * Allows external objects to look at the genes in the individual
      * @return An unmodifiable list of geneSegments that make up this gene.
      */
-    public List<IGene> getGeneSegments(){
+    public List<Gene> getGeneSegments(){
         return Collections.unmodifiableList(geneSegments);
     }
 
