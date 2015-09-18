@@ -66,4 +66,6 @@ public abstract class AbstractPuzzle<T> {
         return -1;
     }
 
+    public abstract int getPopulationSize();
+
 }
