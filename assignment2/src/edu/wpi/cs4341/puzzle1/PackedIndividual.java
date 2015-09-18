@@ -4,7 +4,6 @@ import edu.wpi.cs4341.ga.AbstractIndividual;
 import edu.wpi.cs4341.ga.Gene;
 
 import java.util.LinkedHashSet;
-import java.util.List;
 
 public class PackedIndividual extends AbstractIndividual {
 

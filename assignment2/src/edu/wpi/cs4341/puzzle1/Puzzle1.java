@@ -16,12 +16,10 @@ public class Puzzle1 extends AbstractPuzzle<Integer> {
     public Puzzle1(List<String> input) {
         super(createGenePool(input));
         this.targetValue = new Integer(input.get(0));
-        initialPopulation = null;
-
+        this.initialPopulation = new ArrayList<>();
         for(int i = 0; i < POPULATIONSIZE; i++) {
-            PackedIndividual packedIndividual = new PackedIndividual(getRandomGeneSequence());
+             this.initialPopulation.add(new PackedIndividual(getRandomGeneSequence()));
         }
-
     }
 
     @Override
