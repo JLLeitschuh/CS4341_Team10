@@ -16,11 +16,11 @@ public class PackedIndividual extends AbstractIndividual {
     @Override
     public float getFitness() {
         int currentFitness = 0;
-        Iterator<Gene> itr = geneSegments.iterator();
-        while(itr.hasNext()){
-            Gene g = itr.next();
+
+        for ( Gene g : geneSegments) {
             currentFitness += (Integer) g.get();
         }
+
         if (currentFitness <= targetValue) {
             currentFitness = targetValue - currentFitness;
         }
