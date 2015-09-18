@@ -20,9 +20,13 @@ public class Puzzle1 extends AbstractPuzzle<Integer> {
 
         // fill the initial population with individuals, with random gene sequences
         for(int i = 0; i < POPULATIONSIZE; i++) {
-             this.initialPopulation.add(new PackedIndividual(getRandomGeneSequence()));
+             this.initialPopulation.add(new PackedIndividual(getRandomGeneSequence(), targetValue));
         }
 
+    }
+
+    public Integer getTargetValue() {
+        return this.targetValue;
     }
 
     @Override

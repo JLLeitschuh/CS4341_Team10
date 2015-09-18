@@ -7,9 +7,10 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 public class PackedIndividual extends AbstractIndividual {
-
-    public PackedIndividual(LinkedHashSet<Gene> geneSegments){
+    private final Integer targetValue;
+    public PackedIndividual(LinkedHashSet<Gene> geneSegments, Integer targetValue){
         super(geneSegments);
+        this.targetValue = targetValue;
     }
 
     @Override
@@ -19,6 +20,12 @@ public class PackedIndividual extends AbstractIndividual {
         while(itr.hasNext()){
             Gene g = itr.next();
             currentFitness += (Integer) g.get();
+        }
+        if (currentFitness <= targetValue) {
+            currentFitness = targetValue - currentFitness;
+        }
+        else {
+            currentFitness = 0;
         }
         return currentFitness;
     }
