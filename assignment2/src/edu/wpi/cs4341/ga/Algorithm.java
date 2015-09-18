@@ -5,7 +5,7 @@ public class Algorithm {
 
     public static Population evolvePopulation(Population population){
         AbstractIndividual bestInvididual = population.getBestIndividual();
-        System.out.println("Best Individual Fitness: " + bestInvididual.getFitness());
+        //System.out.println("Best Individual Fitness: " + bestInvididual.getFitness());
 
         return population; //For now
 

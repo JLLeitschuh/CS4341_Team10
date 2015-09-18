@@ -32,15 +32,17 @@ public abstract class AbstractPuzzle<T> {
     protected LinkedHashSet<Gene> getRandomGeneSequence(){
         final int minGeneLength = 1;
         assert (genePool.size() > minGeneLength) : "The gene pool length was less than " + minGeneLength;
-        final int randomGeneSequenceLength = minGeneLength + randomGenerator.nextInt(genePool.size() - minGeneLength);
+        final int randomGeneSequenceLength = minGeneLength + randomGenerator.nextInt(genePool.size());
+        assert (genePool.size() >= randomGeneSequenceLength) : "The random gene sequence length was too high";
         /*
          * If the getFixedGeneSequenceLength() has been overridden then use it to define the length of the gene sequence
          * otherwise use a random gene sequence length.
          */
+
         final int geneSequenceLength = getFixedGeneSequenceLength() < 0 ? randomGeneSequenceLength : getFixedGeneSequenceLength();
         LinkedHashSet<Gene> geneSequence = new LinkedHashSet<>();
         // Fill until full
-        while(geneSequence.size() < geneSequenceLength){
+        while(geneSequence.size() != geneSequenceLength){
             // Linked hash set guarantees to not have duplicates.
             geneSequence.add(getRandomGene());
         }
