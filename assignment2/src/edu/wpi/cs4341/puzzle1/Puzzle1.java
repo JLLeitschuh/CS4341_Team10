@@ -31,7 +31,7 @@ public class Puzzle1 extends AbstractPuzzle<Integer> {
 
     @Override
     public List<AbstractIndividual> getIndividuals() {
-        return Collections.unmodifiableList(initialPopulation);
+        return initialPopulation;
     }
 
     @Override

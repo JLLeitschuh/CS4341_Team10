@@ -11,10 +11,12 @@ public class PackedIndividual extends AbstractIndividual {
     public PackedIndividual(LinkedHashSet<Gene> geneSegments, Integer targetValue){
         super(geneSegments);
         this.targetValue = targetValue;
+        /*
         for(Gene g : geneSegments) {
             System.out.print(g.get() + ", ");
         }
         System.out.println();
+        */
     }
 
     @Override
