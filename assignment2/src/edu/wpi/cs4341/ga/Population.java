@@ -12,6 +12,10 @@ public class Population {
         this.generationNumber = generationNumber;
     }
 
+    public List<AbstractIndividual> getIndividuals() {
+        return this.abstractIndividuals;
+    }
+
     public AbstractIndividual getBestIndividual(){
         return bestIndividual;
     }

@@ -1,7 +1,11 @@
 package edu.wpi.cs4341;
 
+import com.sun.org.apache.bcel.internal.generic.POP;
 import edu.wpi.cs4341.ga.AbstractPuzzle;
+import edu.wpi.cs4341.ga.Algorithm;
 import edu.wpi.cs4341.ga.ParseFile;
+import edu.wpi.cs4341.ga.Population;
+import edu.wpi.cs4341.puzzle1.PackedIndividual;
 import edu.wpi.cs4341.puzzle1.Puzzle1;
 
 import java.util.Date;
@@ -36,6 +40,16 @@ public class Main {
         ParseFile parseFile = new ParseFile();
         List<String> fileLines = parseFile.getFromFile("/" + fileName);
         AbstractPuzzle abstractPuzzle = getPuzzle(puzzleNumber, fileLines);
+
+        Population currentPopulation = new Population(abstractPuzzle.getIndividuals(), 0);
+        // Run GA for 20 generation
+        for (int i = 0; i < 20; i++) {
+            currentPopulation = Algorithm.evolvePopulation(currentPopulation);
+
+            //System.out.println(currentPopulation.getIndividuals().get(0).getGeneSegments().size());//population.getGeneSegments().size());
+
+            //System.out.println();
+        }
 
         long endTime = new Date().getTime();
         System.out.println("elapsed milliseconds: " + (endTime - startTime));
