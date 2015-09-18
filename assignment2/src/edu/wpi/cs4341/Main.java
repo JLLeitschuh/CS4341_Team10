@@ -42,7 +42,7 @@ public class Main {
         AbstractPuzzle abstractPuzzle = getPuzzle(puzzleNumber, fileLines);
 
         Population currentPopulation = new Population(abstractPuzzle.getIndividuals(), 0);
-        // Run GA for 20 generation
+        // Run GA for x generation
         for (int i = 0; i < 20; i++) {
             currentPopulation = Algorithm.evolvePopulation(currentPopulation);
 

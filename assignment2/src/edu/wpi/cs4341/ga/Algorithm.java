@@ -7,7 +7,7 @@ public class Algorithm {
 
         AbstractIndividual bestInvididual = population.getIndividuals().get(0);
         for (int i = 0; i < population.getIndividuals().size(); i++) {
-            if (population.getIndividuals().get(i).getFitness() < bestInvididual.getFitness()) {
+            if (population.getIndividuals().get(i).getFitness() > bestInvididual.getFitness()) {
                 bestInvididual = population.getIndividuals().get(i);
             }
         }
