@@ -10,6 +10,14 @@ public class Population {
     public Population(List<AbstractIndividual> abstractIndividuals, int generationNumber){
         this.abstractIndividuals = abstractIndividuals;
         this.generationNumber = generationNumber;
+        for(AbstractIndividual individual : this.abstractIndividuals){
+            if(bestIndividual == null){
+                bestIndividual = individual;
+            } else if (bestIndividual.getFitness() < individual.getFitness()){
+                this.bestIndividual = individual;
+            }
+        }
+
     }
 
     public List<AbstractIndividual> getIndividuals() {
