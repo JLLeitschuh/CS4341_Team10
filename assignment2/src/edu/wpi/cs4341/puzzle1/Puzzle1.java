@@ -23,6 +23,11 @@ public class Puzzle1 extends AbstractPuzzle<Integer> {
         return Collections.unmodifiableList(initialPopulation);
     }
 
+    @Override
+    public int getFixedGeneSequenceLength() {
+        return -1;
+    }
+
     private static List<Gene<Integer>> createGenePool(List<String> input){
         List<Gene<Integer>> geneList = new ArrayList<>();
         List<String> geneStringList = input.subList(1, input.size());
@@ -32,4 +37,6 @@ public class Puzzle1 extends AbstractPuzzle<Integer> {
         return geneList;
 
     }
+
+
 }

@@ -17,7 +17,7 @@ public abstract class AbstractIndividual {
      * Creates an abstract individual.
      * @param geneSegments The gene segments that make up this gene.
      */
-    AbstractIndividual(List<Gene> geneSegments){
+    protected AbstractIndividual(List<Gene> geneSegments){
         this.geneSegments = geneSegments;
     }
 
