@@ -11,12 +11,13 @@ import java.util.List;
 public class Puzzle1 extends AbstractPuzzle<Integer> {
     private final Integer targetValue;
     private final List<AbstractIndividual> initialPopulation;
-    private final int POPULATIONSIZE = 50;
+    private final int POPULATIONSIZE = 20;
 
     public Puzzle1(List<String> input) {
         super(createGenePool(input));
         this.targetValue = new Integer(input.get(0));
         initialPopulation = null;
+
     }
 
     @Override
@@ -41,7 +42,6 @@ public class Puzzle1 extends AbstractPuzzle<Integer> {
             geneList.add(new Gene<Integer>(new Integer(geneString)));
         }
         return geneList;
-
     }
 
 
