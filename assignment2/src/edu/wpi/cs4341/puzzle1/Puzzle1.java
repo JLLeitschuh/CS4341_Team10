@@ -11,6 +11,7 @@ import java.util.List;
 public class Puzzle1 extends AbstractPuzzle<Integer> {
     private final Integer targetValue;
     private final List<AbstractIndividual> initialPopulation;
+    private final int POPULATIONSIZE = 50;
 
     public Puzzle1(List<String> input) {
         super(createGenePool(input));
@@ -21,6 +22,11 @@ public class Puzzle1 extends AbstractPuzzle<Integer> {
     @Override
     public List<AbstractIndividual> getIndividuals() {
         return Collections.unmodifiableList(initialPopulation);
+    }
+
+    @Override
+    public int getPopulationSize() {
+        return this.POPULATIONSIZE;
     }
 
     private static List<Gene<Integer>> createGenePool(List<String> input){

@@ -29,4 +29,6 @@ public abstract class AbstractPuzzle<T> {
      */
     public abstract List<AbstractIndividual> getIndividuals();
 
+    public abstract int getPopulationSize();
+
 }
