@@ -1,6 +1,7 @@
 package edu.wpi.cs4341.ga;
 
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -11,13 +12,13 @@ public abstract class AbstractIndividual {
     /**
      * List of the gene segments that define this individual
      */
-    protected List<Gene> geneSegments;
+    protected LinkedHashSet<Gene> geneSegments;
 
     /**
      * Creates an abstract individual.
      * @param geneSegments The gene segments that make up this gene.
      */
-    protected AbstractIndividual(List<Gene> geneSegments){
+    protected AbstractIndividual(LinkedHashSet<Gene> geneSegments){
         this.geneSegments = geneSegments;
     }
 
@@ -25,8 +26,8 @@ public abstract class AbstractIndividual {
      * Allows external objects to look at the genes in the individual
      * @return An unmodifiable list of geneSegments that make up this gene.
      */
-    public List<Gene> getGeneSegments(){
-        return Collections.unmodifiableList(geneSegments);
+    public LinkedHashSet<Gene> getGeneSegments(){
+        return geneSegments; // TODO: Return unmodifiable set
     }
 
     /**

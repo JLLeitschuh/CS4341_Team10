@@ -18,6 +18,10 @@ public class Puzzle1 extends AbstractPuzzle<Integer> {
         this.targetValue = new Integer(input.get(0));
         initialPopulation = null;
 
+        for(int i = 0; i < POPULATIONSIZE; i++) {
+            PackedIndividual packedIndividual = new PackedIndividual(getRandomGeneSequence());
+        }
+
     }
 
     @Override
