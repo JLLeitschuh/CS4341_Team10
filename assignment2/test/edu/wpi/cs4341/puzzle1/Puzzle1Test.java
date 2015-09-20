@@ -13,6 +13,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class Puzzle1Test {
     private Puzzle1 puzzle1;
@@ -39,18 +41,10 @@ public class Puzzle1Test {
     }
 
 
-    public boolean noDuplicates() {
-        return false;
-    }
+    public boolean noDuplicatesIndividuals(List<List<AbstractIndividual>> range) {
 
-    @Test
-    public void testGetIndividualRange() {
-        Population currentPopulation = new Population(puzzle1.getIndividuals(), 0);
-        List<List<AbstractIndividual>> newRange = currentPopulation.getIndividualRange(0, 20, 40, 90);
-
-
-        for (List<AbstractIndividual> abstractIndividuals : newRange) {
-            for (List<AbstractIndividual> abstractIndividualsInner : newRange) {
+        for (List<AbstractIndividual> abstractIndividuals : range) {
+            for (List<AbstractIndividual> abstractIndividualsInner : range) {
                 //If both are the same list then they will have the same elements
                 if (abstractIndividuals.equals(abstractIndividualsInner)) continue;
                 for (AbstractIndividual abstractIndividual : abstractIndividuals) {
@@ -60,25 +54,15 @@ public class Puzzle1Test {
             }
             System.out.println();
         }
-        /*
-        for (int i = 0; i < 3; i++) {
-            for (int q = 0; q < 3; q++) {
-                System.out.print(newRange.get(i).get(q).getFitness() + ", ");
 
-                for (int j = 0; j < 3; j++) {
-                    for (int g = 0; g < 3; g++) {
-                        if (i != j) {
-                            assertFalse(newRange.get(i).get(q) == newRange.get(j).get(q));
-                        }
-                    }
-                }
+        return true;
+    }
 
-
-            }
-
-        }
-        */
-
+    @Test
+    public void testGetIndividualRange() {
+        Population currentPopulation = new Population(puzzle1.getIndividuals(), 0);
+        List<List<AbstractIndividual>> newRange = currentPopulation.getIndividualRange(0, 20, 40, 90);
+        assertTrue(noDuplicatesIndividuals(newRange));
 
     }
 
