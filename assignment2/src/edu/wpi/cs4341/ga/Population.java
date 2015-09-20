@@ -16,14 +16,17 @@ public class Population {
         this.abstractIndividuals.sort((m, n) -> Float.compare(n.getFitness(), m.getFitness()));
         this.bestIndividual = this.abstractIndividuals.get(0);
     }
-    // TODO: Write unit test!
-    private List<List<AbstractIndividual>> getIndividualRange (int initial, int ... range) {
+
+    public List<List<AbstractIndividual>> getIndividualRange (int initial, int ... range) {
         List<List<AbstractIndividual>> rangeList = new ArrayList<>();
         int startRange = initial;
-        for (int i = 0; i < range.length; i++) {
-            int endRange = range[i];
-            rangeList.add(new ArrayList<AbstractIndividual>(abstractIndividuals.subList(startRange/100, endRange/100)));
-            startRange = range[i];
+        for (int endRange : range) {
+            double startAsPercent = (double)startRange/100.0;
+            double endAsPercent = (double)endRange/100.0;
+            int sIndex = (int)(abstractIndividuals.size() * startAsPercent),
+                eIndex = (int)(abstractIndividuals.size() * endAsPercent);
+            rangeList.add(new ArrayList<AbstractIndividual>(abstractIndividuals.subList(sIndex, eIndex)));
+            startRange = endRange;
         }
         return rangeList;
     }
