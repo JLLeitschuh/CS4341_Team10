@@ -7,6 +7,7 @@ import edu.wpi.cs4341.ga.ParseFile;
 import edu.wpi.cs4341.ga.Population;
 import edu.wpi.cs4341.puzzle1.PackedIndividual;
 import edu.wpi.cs4341.puzzle1.Puzzle1;
+import edu.wpi.cs4341.puzzle1.Puzzle3;
 
 import java.util.Date;
 import java.util.List;
@@ -90,6 +91,8 @@ public class Main {
         switch (num){
             case 1:
                 return new Puzzle1(inputStrings);
+            case 3:
+                return new Puzzle3(inputStrings);
             default:
                 throw new Error("Invalid puzzle number. Number must be between 1 and 3");
         }
