@@ -1,10 +1,28 @@
 # Assignment #1
 
-# Goal
+# CS4341_Team10
+
+#CS4341
+Assignment 1
+Due date:  Friday, September 11, 2015
+
+#Goal
 This assignment will familiarize you with A* search, the use of different heuristic functions, computing effective branching factor, and writing up your results.
 
-# Running Project
-Inside of the source directory run `./main.py`
+Team:
+- [Jonathan Leitschuh](https://github.com/JLLeitschuh)
+- Nam Tran
+- Triet Pham
+- Isamu Nakagawa
 
-# Required Setup
-You must have Python 3 installed on your system and on your `$PATH`
+#Project Requirements
+- Java 8
+
+#Build
+Compile: `javac Main.java`
+Run: `java Main.java --heuristic [1-6] --filename [filename.txt]`
+
+--heuristic [choice: 1 - 6]
+--filename "name_of_file.txt"
+
+Example: `java Main.java --heuristic 5 --filename board.txt`
