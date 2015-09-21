@@ -24,4 +24,11 @@ public class Gene<T>{
     public T get(){
         return value;
     }
+
+    @Override
+    public String toString() {
+        return "Gene{" +
+                "value=" + value +
+                '}';
+    }
 }

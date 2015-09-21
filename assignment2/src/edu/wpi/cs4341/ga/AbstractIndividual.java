@@ -1,14 +1,16 @@
 package edu.wpi.cs4341.ga;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Defines an abstract implementation of an individual.
  * An individual is made up of a combination of genes from the initial gene pool.
  */
 public abstract class AbstractIndividual {
+    protected final Random randomGenerator = new Random();
     /**
      * List of the gene segments that define this individual
      */
@@ -33,11 +35,20 @@ public abstract class AbstractIndividual {
     /**
      * Crosses two Abstract Individuals in order to create children individuals
      * @param otherIndividual The other individual to merge with
-     * @return The children of this merging
+     * @return The child of this merging
      */
-    public List<AbstractIndividual> crossOver(AbstractIndividual otherIndividual){
-        assert false;
-        return Collections.emptyList();
+    public abstract AbstractIndividual crossOver(AbstractIndividual otherIndividual);
+
+    protected LinkedHashSet<Gene> singlePointCrossover(AbstractIndividual otherIndividual){
+        final List<Gene> myGenes = new ArrayList<>(geneSegments);
+        final List<Gene> theirGenes = new ArrayList<>(otherIndividual.geneSegments);
+        final List<Gene> newGene = new ArrayList<>();
+        int splitIndex = randomGenerator.nextInt(Math.min(myGenes.size(), theirGenes.size()));
+
+        newGene.addAll(myGenes.subList(0, splitIndex));
+        newGene.addAll(theirGenes.subList(splitIndex, theirGenes.size()));
+
+        return new LinkedHashSet<>(newGene);
     }
 
     /**
@@ -51,4 +62,11 @@ public abstract class AbstractIndividual {
      * @return A number that allows the fitness of this individual to be compared to other individuals.
      */
     public abstract float getFitness();
+
+    @Override
+    public String toString() {
+        return "AbstractIndividual{" +
+                "geneSegments=" + geneSegments +
+                '}';
+    }
 }
