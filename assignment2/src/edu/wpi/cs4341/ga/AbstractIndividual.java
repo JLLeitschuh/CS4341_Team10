@@ -62,10 +62,10 @@ public abstract class AbstractIndividual {
      */
     public void mutate(AbstractPuzzle puzzleRules){
         List<Gene> myGenes = new ArrayList<>(this.geneSegments);
-        this.geneSegments.clear();
-        System.out.println("geneSegments Size: " + geneSegments.size());
         final int randomIndex = randomGenerator.nextInt(geneSegments.size()); //TODO: Clearing the gene segments will result in zero size.
-        // If we have a fixed gene size requirement
+        System.out.println("geneSegments Size: " + geneSegments.size());
+        this.geneSegments.clear();
+                // If we have a fixed gene size requirement
         if (puzzleRules.getFixedGeneSequenceLength() != AbstractPuzzle.NO_FIXED_GENE_SEQUENCE_LENGTH){
             final int initialGeneLength = geneSegments.size();
             myGenes.remove(randomIndex);
