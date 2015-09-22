@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 public class Algorithm {
-    private static final int TOURNEMENT_SIZE = 5;
+    private static final int TOURNAMENT_SIZE = 5;
     private static final boolean ELITISM = true;
+    private static final boolean CULLING = false;
     private static final Random randomGenerator = new Random();
     private AbstractPuzzle puzzle;
     private AbstractIndividual bestInvididual;
@@ -48,7 +49,7 @@ public class Algorithm {
 
     public AbstractIndividual tournamentSelection(List<AbstractIndividual> individuals){
         List<AbstractIndividual> tournamentIndividuals = new ArrayList<>();
-        for(int i = 0; i < TOURNEMENT_SIZE; i++ ){
+        for(int i = 0; i < TOURNAMENT_SIZE; i++ ){
             tournamentIndividuals.add(individuals.get(randomGenerator.nextInt(individuals.size())));
         }
         return new Population(tournamentIndividuals, Population.TEST_POPULATION).getBestIndividual();
