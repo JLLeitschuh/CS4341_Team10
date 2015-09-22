@@ -18,10 +18,10 @@ public class Puzzle2 extends AbstractPuzzle<Integer> {
     public Puzzle2(List<String> input) {
         super(createGenePool(input));
         for(int i =0; i <= 6; i++) {
-            this.bin1 = Float.parseFloat(input.get(i));
+//            this.bin1 = Float.parseFloat(input.get(i));
         }
-        this.bin2 = input.subList(7,14);
-        this.bin3 = input.subList(15,20);
+//        this.bin2 = input.subList(7,14);
+//        this.bin3 = input.subList(15,20);
 
         this.initialPopulation = new ArrayList<>();
 

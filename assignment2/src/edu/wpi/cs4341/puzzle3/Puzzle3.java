@@ -17,7 +17,6 @@ public class Puzzle3 extends AbstractPuzzle<TowerSegment> {
     public Puzzle3(List<String> input) {
         super(createGenePool(input));
         this.initialPopulation = new ArrayList<>();
-
         // fill the initial population with individuals, with random gene sequences
         for(int i = 0; i < POPULATIONSIZE; i++) {
             this.initialPopulation.add(new TowerIndividual(getRandomGeneSequence()));

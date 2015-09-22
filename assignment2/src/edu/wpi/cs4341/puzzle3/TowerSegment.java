@@ -33,7 +33,19 @@ public class TowerSegment {
     }
 
     private String parseInput(String input, int select){
-        String delim = "[, ]";
+        String delim = ", ";
+//        String out[] = input.split(delim);
         return input.split(delim)[select];
     }
+
+    @Override
+    public String toString(){
+        return "TowerSegment{" +
+                "Type= " + segmentType +
+                " | Width= " + width +
+                " | Strength= " + strength +
+                " | Cost= " + cost +
+                '}';
+    }
+
 }

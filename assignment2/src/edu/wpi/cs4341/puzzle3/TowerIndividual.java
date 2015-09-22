@@ -5,13 +5,10 @@ import edu.wpi.cs4341.ga.Gene;
 
 import java.util.LinkedHashSet;
 
-/**
- * Created by nhtranngoc on 9/21/15.
- */
 public class TowerIndividual extends AbstractIndividual {
 
-    public TowerIndividual(LinkedHashSet<Gene> geneSegments){
-        super(geneSegments);
+    public TowerIndividual(LinkedHashSet<Gene> towerSegments){
+        super(towerSegments);
     }
 
     @Override
@@ -22,12 +19,21 @@ public class TowerIndividual extends AbstractIndividual {
     @Override
     public float getFitness() {
         int currentFitness = 0;
-//        for ( Gene g : geneSegments) {
-//            currentFitness += (Integer) g.get();
-//        }
-//        if (targetValue < currentFitness ) {
-//            currentFitness = 0;
-//        }
+        int height = 0;
+        int cost = 0;
+        for (Gene<TowerSegment> g: geneSegments){
+            height++;
+            cost+= g.get().getCost();
+        }
+        if (checkValidTower()){
+            currentFitness=10+height-cost;
+        } else currentFitness = 0;
+
         return currentFitness;
     }
+
+    private boolean checkValidTower(){
+        return true;
+    }
+
 }

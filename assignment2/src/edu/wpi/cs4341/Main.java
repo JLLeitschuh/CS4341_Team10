@@ -6,6 +6,7 @@ import edu.wpi.cs4341.ga.ParseFile;
 import edu.wpi.cs4341.ga.Population;
 import edu.wpi.cs4341.puzzle1.Puzzle1;
 import edu.wpi.cs4341.puzzle3.Puzzle3;
+import edu.wpi.cs4341.puzzle3.TowerIndividual;
 
 import java.util.Date;
 import java.util.List;
@@ -29,9 +30,10 @@ public class Main {
         */
 
         // Hard coded for testing purposes
-        puzzleNumber = 1;
-        fileName = "puzzleOne.txt";
-
+//        puzzleNumber = 1;
+//        fileName = "puzzleOne.txt";
+        puzzleNumber = 3;
+        fileName = "puzzleThree.txt";
 
         System.out.println("Using puzzle: " + puzzleNumber + "\nUsing filename: " + fileName);
 
@@ -52,9 +54,8 @@ public class Main {
 
         System.out.println("Best Gene's Fitness: " + currentPopulation.getBestIndividual().getFitness());
         System.out.println("Best Gene: " + currentPopulation.getBestIndividual());
-
-
-
+        System.out.println("Tower: ");
+        System.out.println(currentPopulation.getBestIndividual().toString());
     }
 
     static int parseCmdArgs(String[] args) {
