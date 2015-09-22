@@ -8,6 +8,7 @@ public class Algorithm {
     private static final int TOURNAMENT_SIZE = 5;
     private static final boolean ELITISM = true;
     private static final boolean CULLING = false;
+    private static final double MUTATION_RATE = 0.015;
     private static final Random randomGenerator = new Random();
     private AbstractPuzzle puzzle;
     private AbstractIndividual bestIndividual = null;
@@ -51,8 +52,13 @@ public class Algorithm {
             AbstractIndividual newIndividual = crossOver(individual1, individual2);
             nextPopulation.add(newIndividual);
         }
+
+
+
         for(AbstractIndividual individual : nextPopulation){
-            mutate(individual);
+            if (Math.random() <= MUTATION_RATE) {
+                mutate(individual);
+            }
         }
         return population.nextGeneration(nextPopulation);
     }
