@@ -1,8 +1,5 @@
 package edu.wpi.cs4341.puzzle3;
 
-/**
- * Created by nhtranngoc on 9/21/15.
- */
 public class TowerSegment {
     private String segmentType;
     private int width;
