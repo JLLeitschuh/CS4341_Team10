@@ -17,10 +17,11 @@ public class Algorithm {
         this.puzzle = puzzle;
     }
 
-    public boolean storeIfBestIndividual(final AbstractIndividual bestIndividual, final int bestIndividualPopulationNumber){
+    public boolean storeIfBestIndividual(final AbstractIndividual nextBestIndividual, final int bestIndividualPopulationNumber){
         /* Only store if this individual if it is better, not if it is the same */
-        if (this.bestIndividual == null || this.bestIndividual.getFitness() < bestIndividual.getFitness()){
-            this.bestIndividual = bestIndividual;
+        //System.out.println((this.bestIndividual == null ? "null" : this.bestIndividual.getFitness()) + ", " + nextBestIndividual.getFitness());
+        if (this.bestIndividual == null || this.bestIndividual.getFitness() < nextBestIndividual.getFitness()){
+            this.bestIndividual = nextBestIndividual;
             this.bestIndividualPopulationNumber = bestIndividualPopulationNumber;
             return true;
         }

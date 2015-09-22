@@ -5,7 +5,6 @@ import edu.wpi.cs4341.ga.AbstractPuzzle;
 import edu.wpi.cs4341.ga.Gene;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Puzzle1 extends AbstractPuzzle<Integer> {

@@ -43,6 +43,7 @@ public abstract class AbstractIndividual {
         final List<Gene> myGenes = new ArrayList<>(geneSegments);
         final List<Gene> theirGenes = new ArrayList<>(otherIndividual.geneSegments);
         final List<Gene> newGene = new ArrayList<>();
+        //System.out.println(myGenes.size() + ", " + theirGenes.size());
         int splitIndex = randomGenerator.nextInt(Math.min(myGenes.size(), theirGenes.size()));
 
         newGene.addAll(myGenes.subList(0, splitIndex));
@@ -62,13 +63,13 @@ public abstract class AbstractIndividual {
      */
     public void mutate(AbstractPuzzle puzzleRules){
         List<Gene> myGenes = new ArrayList<>(this.geneSegments);
+        final int initialGeneLength = geneSegments.size();
         final int randomIndex = randomGenerator.nextInt(geneSegments.size()); //TODO: Clearing the gene segments will result in zero size.
-        System.out.println("geneSegments Size: " + geneSegments.size());
+        //System.out.println("geneSegments Size: " + geneSegments.size());
         this.geneSegments.clear();
         
                 // If we have a fixed gene size requirement
         if (puzzleRules.getFixedGeneSequenceLength() != AbstractPuzzle.NO_FIXED_GENE_SEQUENCE_LENGTH){
-            final int initialGeneLength = geneSegments.size();
             myGenes.remove(randomIndex);
             Gene replacementGene;
             // Find a gene to put in here
@@ -76,18 +77,17 @@ public abstract class AbstractIndividual {
                 replacementGene = puzzleRules.getRandomGene();
             } while (myGenes.contains(replacementGene));
             myGenes.add(replacementGene);
-            this.geneSegments.addAll(myGenes);
-            assert this.geneSegments.size() == initialGeneLength : "The gene segments came out of mutate a different size than their initial size";
+            assert myGenes.size() == initialGeneLength : "The gene segments came out of mutate a different size than their initial size";
         } else {
             final int randomCase = randomGenerator.nextInt(3);
             switch (randomCase){
-                case 0:
-                    myGenes.remove(randomIndex);
+                case 0: // Remove if not last gene
+                    if(myGenes.size() != 1) myGenes.remove(randomIndex);
                     break;
-                case 1:
+                case 1: // Add a Gene
                     myGenes.add(randomIndex, puzzleRules.getRandomGene());
                     break;
-                case 2:
+                case 2: // Swap a gene
                     myGenes.remove(randomIndex);
                     myGenes.add(randomIndex, puzzleRules.getRandomGene());
                     break;
@@ -95,8 +95,9 @@ public abstract class AbstractIndividual {
                     assert false : "Invalid state";
                     break;
             }
-            this.geneSegments.addAll(myGenes);
         }
+        this.geneSegments.addAll(myGenes);
+        assert this.geneSegments.size() > 0 : "The gene sequence was shorter than 1";
     }
 
     /**
