@@ -13,7 +13,7 @@ public class PackedIndividual extends AbstractIndividual {
     }
 
     private PackedIndividual(PackedIndividual individual){
-        super(individual.geneSegments);
+        super((LinkedHashSet<Gene>) individual.geneSegments.clone());
         this.targetValue = individual.targetValue;
     }
 
