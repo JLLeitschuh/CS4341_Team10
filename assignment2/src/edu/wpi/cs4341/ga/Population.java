@@ -43,6 +43,10 @@ public class Population {
         return bestIndividual;
     }
 
+    public int getGenerationNumber(){
+        return this.generationNumber;
+    }
+
     public Population nextGeneration(List<AbstractIndividual> individuals){
         assert abstractIndividuals.size() == individuals.size() : "The size of the population is different from the expected.";
         return new Population(individuals, generationNumber+1);

@@ -52,9 +52,49 @@ public abstract class AbstractIndividual {
     }
 
     /**
+     * Should call the copy constructor for this object
+     * @return A copy of this individual. There is an infered contract that this
+     */
+    public abstract AbstractIndividual copy();
+
+    /**
      * Mutates the Individual changing its internal gene structure
      */
-    public void mutate(){
+    public void mutate(AbstractPuzzle puzzleRules){
+        List<Gene> myGenes = new ArrayList<>(this.geneSegments);
+        this.geneSegments.clear();
+        final int randomIndex = randomGenerator.nextInt(geneSegments.size());
+        // If we have a fixed gene size requirement
+        if (puzzleRules.getFixedGeneSequenceLength() != AbstractPuzzle.NO_FIXED_GENE_SEQUENCE_LENGTH){
+            final int initialGeneLength = geneSegments.size();
+            myGenes.remove(randomIndex);
+            Gene replacementGene;
+            // Find a gene to put in here
+            do {
+                replacementGene = puzzleRules.getRandomGene();
+            } while (myGenes.contains(replacementGene));
+            myGenes.add(replacementGene);
+            this.geneSegments.addAll(myGenes);
+            assert this.geneSegments.size() == initialGeneLength : "The gene segments came out of mutate a different size than their initial size";
+        } else {
+            final int randomCase = randomGenerator.nextInt(3);
+            switch (randomCase){
+                case 0:
+                    myGenes.remove(randomIndex);
+                    break;
+                case 1:
+                    myGenes.add(randomIndex, puzzleRules.getRandomGene());
+                    break;
+                case 2:
+                    myGenes.remove(randomIndex);
+                    myGenes.add(randomIndex, puzzleRules.getRandomGene());
+                    break;
+                default:
+                    assert false : "Invalid state";
+                    break;
+            }
+            this.geneSegments.addAll(myGenes);
+        }
     }
 
     /**

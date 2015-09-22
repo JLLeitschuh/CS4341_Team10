@@ -36,7 +36,7 @@ public class Puzzle1 extends AbstractPuzzle<Integer> {
 
     @Override
     public int getFixedGeneSequenceLength() {
-        return -1;
+        return AbstractPuzzle.NO_FIXED_GENE_SEQUENCE_LENGTH;
     }
 
     @Override
