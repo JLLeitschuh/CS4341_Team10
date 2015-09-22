@@ -30,4 +30,9 @@ public class TowerIndividual extends AbstractIndividual {
 //        }
         return currentFitness;
     }
+
+    @Override
+    public AbstractIndividual copy() {
+        return null;
+    }
 }
