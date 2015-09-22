@@ -9,14 +9,20 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Puzzle2 extends AbstractPuzzle<Integer> {
-    LinkedList<Integer> bin1 = new LinkedList<Integer>();
-    LinkedList<Integer> bin2 = new LinkedList<Integer>();
-    LinkedList<Integer> bin3 = new LinkedList<Integer>();
+    List<Float> bin1 = new LinkedList<>();
+    List<Float> bin2 = new LinkedList<>();
+    List<Float> bin3 = new LinkedList<>();
     private final List<AbstractIndividual> initialPopulation;
     private final int POPULATIONSIZE = 20;
 
     public Puzzle2(List<String> input) {
         super(createGenePool(input));
+        for(int i =0; i <= 6; i++) {
+            this.bin1 = Float.parseFloat(input.get(i));
+        }
+        this.bin2 = input.subList(7,14);
+        this.bin3 = input.subList(15,20);
+
         this.initialPopulation = new ArrayList<>();
 
         // fill the initial population with individuals, with random gene sequences
@@ -24,7 +30,16 @@ public class Puzzle2 extends AbstractPuzzle<Integer> {
 //            this.initialPopulation.add(new PackedIndividual(getRandomGeneSequ);
         }
 
+        }
+    public void bin1_multiply(){
     }
+    public void bin2_sum(){
+
+    }
+    public void bin3_ignore(){
+
+    }
+
 
 
     @Override
