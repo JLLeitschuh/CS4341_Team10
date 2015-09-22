@@ -60,7 +60,7 @@ public class Algorithm {
 
 
     private void mutate(AbstractIndividual individual){
-        individual.mutate();
+        individual.mutate(puzzle);
     }
 
     private AbstractIndividual crossOver(AbstractIndividual individualA, AbstractIndividual individualB){

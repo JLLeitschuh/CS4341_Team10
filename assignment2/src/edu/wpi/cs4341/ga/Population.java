@@ -11,6 +11,8 @@ public class Population {
 
     public Population(List<AbstractIndividual> abstractIndividuals, int generationNumber){
         this.generationNumber = generationNumber;
+        assert generationNumber > 0 : "Generation number can't be negative";
+        System.out.println("Generation Number: " + generationNumber);
         //Sort in order of best individual first
         this.abstractIndividuals = new ArrayList<>(abstractIndividuals);
         this.abstractIndividuals.sort((m, n) -> Float.compare(n.getFitness(), m.getFitness()));
