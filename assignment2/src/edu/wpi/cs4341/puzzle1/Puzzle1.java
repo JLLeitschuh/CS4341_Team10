@@ -5,7 +5,6 @@ import edu.wpi.cs4341.ga.AbstractPuzzle;
 import edu.wpi.cs4341.ga.Gene;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Puzzle1 extends AbstractPuzzle<Integer> {
@@ -36,7 +35,7 @@ public class Puzzle1 extends AbstractPuzzle<Integer> {
 
     @Override
     public int getFixedGeneSequenceLength() {
-        return -1;
+        return AbstractPuzzle.NO_FIXED_GENE_SEQUENCE_LENGTH;
     }
 
     @Override

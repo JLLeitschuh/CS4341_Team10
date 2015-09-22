@@ -6,7 +6,6 @@ import edu.wpi.cs4341.ga.ParseFile;
 import edu.wpi.cs4341.ga.Population;
 import edu.wpi.cs4341.puzzle1.Puzzle1;
 import edu.wpi.cs4341.puzzle3.Puzzle3;
-import edu.wpi.cs4341.puzzle3.TowerIndividual;
 
 import java.util.Date;
 import java.util.List;
@@ -47,15 +46,15 @@ public class Main {
         // Run GA for x generation
         for (int i = 0; i < 500; i++) {
             currentPopulation = algorithm.evolvePopulation(currentPopulation);
+            algorithm.storeIfBestIndividual(currentPopulation.getBestIndividual(), currentPopulation.getGenerationNumber());
         }
 
         long endTime = new Date().getTime();
         System.out.println("elapsed milliseconds: " + (endTime - startTime));
 
-        System.out.println("Best Gene's Fitness: " + currentPopulation.getBestIndividual().getFitness());
-        System.out.println("Best Gene: " + currentPopulation.getBestIndividual());
-        System.out.println("Tower: ");
-        System.out.println(currentPopulation.getBestIndividual().toString());
+        System.out.println("Best Gene's Fitness: " + algorithm.getBestIndividual().getFitness());
+        System.out.println("Best Gene: " + algorithm.getBestIndividual());
+        System.out.println("Best Gene from Population: " + algorithm.getBestIndividualPopulationNumber());
     }
 
     static int parseCmdArgs(String[] args) {

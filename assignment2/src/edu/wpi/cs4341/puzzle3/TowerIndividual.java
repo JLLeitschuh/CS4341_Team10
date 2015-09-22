@@ -36,4 +36,8 @@ public class TowerIndividual extends AbstractIndividual {
         return true;
     }
 
+    @Override
+    public AbstractIndividual copy() {
+        return null;
+    }
 }

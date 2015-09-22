@@ -12,9 +12,19 @@ public class PackedIndividual extends AbstractIndividual {
         this.targetValue = targetValue;
     }
 
+    private PackedIndividual(PackedIndividual individual){
+        super((LinkedHashSet<Gene>) individual.geneSegments.clone());
+        this.targetValue = individual.targetValue;
+    }
+
     @Override
     public AbstractIndividual crossOver(AbstractIndividual otherIndividual) {
         return new PackedIndividual(singlePointCrossover(otherIndividual), targetValue);
+    }
+
+    @Override
+    public PackedIndividual copy(){
+        return new PackedIndividual(this);
     }
 
     @Override
