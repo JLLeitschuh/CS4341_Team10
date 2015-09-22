@@ -65,6 +65,7 @@ public abstract class AbstractIndividual {
         final int randomIndex = randomGenerator.nextInt(geneSegments.size()); //TODO: Clearing the gene segments will result in zero size.
         System.out.println("geneSegments Size: " + geneSegments.size());
         this.geneSegments.clear();
+        
                 // If we have a fixed gene size requirement
         if (puzzleRules.getFixedGeneSequenceLength() != AbstractPuzzle.NO_FIXED_GENE_SEQUENCE_LENGTH){
             final int initialGeneLength = geneSegments.size();
