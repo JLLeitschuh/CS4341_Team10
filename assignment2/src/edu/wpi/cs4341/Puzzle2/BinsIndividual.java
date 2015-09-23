@@ -47,26 +47,17 @@ public class BinsIndividual extends AbstractIndividual {
         Random randomGenerator = new Random();
         List<Gene> myGenes = new ArrayList<>(this.geneSegments);
         final int initialGeneLength = geneSegments.size();
-        final int randomIndex = randomGenerator.nextInt(geneSegments.size());
-        //System.out.println("geneSegments Size: " + geneSegments.size());
-        this.geneSegments.clear();
+        int randomIndex = randomGenerator.nextInt(geneSegments.size());
 
+        assert initialGeneLength == 30 : "geneSegments Size does not match guidelines";
+        System.out.println("geneSegments Size: " + initialGeneLength);
 
-        final int randomCase = randomGenerator.nextInt(3);
-        switch (randomCase){
-            case 0: // Remove if not last gene
-                if(myGenes.size() != 1) myGenes.remove(randomIndex);
-                break;
-            case 1: // Add a Gene
-                myGenes.add(randomIndex, puzzleRules.getRandomGene());
-                break;
-            case 2: // Swap a gene
-                myGenes.remove(randomIndex);
-                myGenes.add(randomIndex, puzzleRules.getRandomGene());
-                break;
-            default:
-                assert false : "Invalid state";
-                break;
-        }
+        //this.geneSegments.clear();
+
+        Gene temp = myGenes.get(randomIndex);                       // temp to store gene
+        myGenes.remove(randomIndex);                                // remove the gene (stored in temp)
+        randomIndex = randomGenerator.nextInt(geneSegments.size()); // new random index
+        myGenes.add(randomIndex, temp);                             // add gene back from temp
+
     }
 }
