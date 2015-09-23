@@ -2,9 +2,7 @@ package edu.wpi.cs4341.puzzle2;
 
 import edu.wpi.cs4341.Puzzle2.BinsIndividual;
 import edu.wpi.cs4341.Puzzle2.Puzzle2;
-import edu.wpi.cs4341.ga.AbstractIndividual;
 import edu.wpi.cs4341.ga.Gene;
-import edu.wpi.cs4341.ga.Population;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,12 +10,11 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.core.IsNot.not;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
 
 public class Puzzle2Test {
     private Puzzle2 puzzle2;
@@ -36,10 +33,10 @@ public class Puzzle2Test {
     @Test
     public void testBinsIndividual() {
         LinkedHashSet<Gene> testSet = puzzle2.getRandomGeneSequence();
-        BinsIndividual binsIndividual = new BinsIndividual(testSet);
+        BinsIndividual binsIndividual = new BinsIndividual(new LinkedHashSet(testSet));
         binsIndividual.mutate(puzzle2);
-        assertFalse(testSet.equals(binsIndividual.getGeneSegments()));
-
+        assertThat("Gene segments were in exactly the same order as before mutate.", binsIndividual.getGeneSegments(), not(contains(testSet)));
+        assertThat("Gene segments after mutate did not contain all of the genes that the initial set had.", binsIndividual.getGeneSegments(), containsInAnyOrder(testSet));
     }
 
 
