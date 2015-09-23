@@ -7,6 +7,7 @@ import edu.wpi.cs4341.ga.Population;
 import edu.wpi.cs4341.puzzle1.Puzzle1;
 import edu.wpi.cs4341.puzzle3.Puzzle3;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -20,30 +21,28 @@ public class Main {
         long startTime = new Date().getTime();
 
         // Read arguments.
-        /*
-        int retval = parseCmdArgs(args);
-        if (retval != 0) {
-            System.out.println("No arguments given. Terminating.");
+        if ( parseCmdArgs(args) != 0) {
+            System.out.println("Arguments invalid. Terminating.");
             System.exit(-1);
         }
-        */
+
 
         // Hard coded for testing purposes
-        puzzleNumber = 1;
-        fileName = "puzzleOne.txt";
+//        puzzleNumber = 1;
+//        fileName = "puzzleOneTest3.txt";
 
 
         System.out.println("Using puzzle: " + puzzleNumber + "\nUsing filename: " + fileName);
 
         // Try to read from file, and run GA
         ParseFile parseFile = new ParseFile();
-        List<String> fileLines = parseFile.getFromFile("/" + fileName);
+        List<String> fileLines = parseFile.getFromFile(fileName);
         AbstractPuzzle abstractPuzzle = getPuzzle(puzzleNumber, fileLines);
         Population currentPopulation = new Population(abstractPuzzle.getIndividuals(), 0);
         Algorithm algorithm = new Algorithm(abstractPuzzle);
 
         // Run GA for x generation
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 100000; i++) {
             currentPopulation = algorithm.evolvePopulation(currentPopulation);
             algorithm.storeIfBestIndividual(currentPopulation.getBestIndividual(), currentPopulation.getGenerationNumber());
         }
@@ -54,6 +53,12 @@ public class Main {
         System.out.println("Best Gene's Fitness: " + algorithm.getBestIndividual().getFitness());
         System.out.println("Best Gene: " + algorithm.getBestIndividual());
         System.out.println("Best Gene from Population: " + algorithm.getBestIndividualPopulationNumber());
+
+        final int mb = 1024 * 1024;
+        Runtime instance = Runtime.getRuntime();
+        // used memory
+        System.out.println("Used Memory: "
+                + (instance.totalMemory() - instance.freeMemory()) / mb + "MB");
     }
 
     static int parseCmdArgs(String[] args) {
