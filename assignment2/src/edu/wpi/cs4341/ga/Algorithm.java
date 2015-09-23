@@ -6,8 +6,9 @@ import java.util.Random;
 
 public class Algorithm {
     private static final int TOURNAMENT_SIZE = 5;
-    private static final boolean ELITISM = true;
+    private static final boolean ELITISM = false;
     private static final boolean CULLING = false;
+    private static final int CULLING_PERCENT = 40;
     private static final double MUTATION_RATE = 0.015;
     private static final Random randomGenerator = new Random();
     private AbstractPuzzle puzzle;
@@ -83,7 +84,11 @@ public class Algorithm {
     }
 
     private AbstractIndividual tournamentSelection(Population population){
-        return tournamentSelection(population.getIndividuals());
+        if(CULLING){
+            return tournamentSelection(population.getIndividualRange(0, CULLING_PERCENT).get(0));
+        } else {
+            return tournamentSelection(population.getIndividuals());
+        }
     }
 
 }
