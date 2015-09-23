@@ -3,10 +3,8 @@ package edu.wpi.cs4341.Puzzle2;
 import edu.wpi.cs4341.ga.AbstractIndividual;
 import edu.wpi.cs4341.ga.AbstractPuzzle;
 import edu.wpi.cs4341.ga.Gene;
-import edu.wpi.cs4341.puzzle1.PackedIndividual;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Puzzle2 extends AbstractPuzzle<Float> {
@@ -33,7 +31,7 @@ public class Puzzle2 extends AbstractPuzzle<Float> {
 
     @Override
     public int getFixedGeneSequenceLength() {
-        return AbstractPuzzle.NO_FIXED_GENE_SEQUENCE_LENGTH;
+        return 30;
     }
 
     @Override
