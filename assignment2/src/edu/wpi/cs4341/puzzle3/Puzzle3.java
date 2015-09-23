@@ -32,7 +32,7 @@ public class Puzzle3 extends AbstractPuzzle<TowerSegment> {
 
     private static List<Gene<TowerSegment>> createGenePool(List<String> input){
         List<Gene<TowerSegment>> geneList = new ArrayList<>();
-        List<String> geneStringList = input.subList(1, input.size());
+        List<String> geneStringList = input.subList(0, input.size());
         for(String geneString : geneStringList) {
             geneList.add(new Gene<TowerSegment>(new TowerSegment(geneString)));
         }

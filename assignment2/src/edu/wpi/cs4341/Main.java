@@ -32,13 +32,13 @@ public class Main {
 //        puzzleNumber = 1;
 //        fileName = "puzzleOne.txt";
         puzzleNumber = 3;
-        fileName = "puzzleThree.txt";
+        fileName = "puzzleThree_2.txt";
 
         System.out.println("Using puzzle: " + puzzleNumber + "\nUsing filename: " + fileName);
 
         // Try to read from file, and run GA
         ParseFile parseFile = new ParseFile();
-        List<String> fileLines = parseFile.getFromFile("/" + fileName);
+        List<String> fileLines = parseFile.getFromFile(/*"/" + */fileName);
         AbstractPuzzle abstractPuzzle = getPuzzle(puzzleNumber, fileLines);
         Population currentPopulation = new Population(abstractPuzzle.getIndividuals(), 0);
         Algorithm algorithm = new Algorithm(abstractPuzzle);

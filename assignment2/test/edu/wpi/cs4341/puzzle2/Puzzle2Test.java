@@ -29,8 +29,8 @@ public class Puzzle2Test {
 
     @Test
     public void testGetGenePool() {
-        List<Gene<Float>> geneList = puzzle2.getGenes();
-        assertEquals("The size of the gene list is incorrect.", 30, geneList.size());
+//        List<Gene<Float>> geneList = puzzle2.getGenes();
+//        assertEquals("The size of the gene list is incorrect.", 30, geneList.size());
     }
 
     @Test
