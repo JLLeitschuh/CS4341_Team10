@@ -32,15 +32,12 @@ public class TowerIndividual extends AbstractIndividual {
         return currentFitness;
     }
 
-<<<<<<< HEAD
     private boolean checkValidTower(){
         return true;
     }
 
-=======
     @Override
     public AbstractIndividual copy() {
         return null;
     }
->>>>>>> 249ed3fbe26cc952a440f6b94bdb68942b433804
 }

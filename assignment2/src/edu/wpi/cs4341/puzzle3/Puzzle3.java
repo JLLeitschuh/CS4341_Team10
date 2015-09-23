@@ -7,9 +7,7 @@ import edu.wpi.cs4341.ga.Gene;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by nhtranngoc on 9/20/15.
- */
+
 public class Puzzle3 extends AbstractPuzzle<TowerSegment> {
     private final List<AbstractIndividual> initialPopulation;
     private final int POPULATIONSIZE = 20;

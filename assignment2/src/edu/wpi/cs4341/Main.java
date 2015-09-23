@@ -6,9 +6,7 @@ import edu.wpi.cs4341.ga.ParseFile;
 import edu.wpi.cs4341.ga.Population;
 import edu.wpi.cs4341.puzzle1.Puzzle1;
 import edu.wpi.cs4341.puzzle3.Puzzle3;
-import edu.wpi.cs4341.puzzle3.TowerIndividual;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -22,34 +20,31 @@ public class Main {
         long startTime = new Date().getTime();
 
         // Read arguments.
-        if ( parseCmdArgs(args) != 0) {
-            System.out.println("Arguments invalid. Terminating.");
+        /*
+        int retval = parseCmdArgs(args);
+        if (retval != 0) {
+            System.out.println("No arguments given. Terminating.");
             System.exit(-1);
         }
-
+        */
 
         // Hard coded for testing purposes
 //        puzzleNumber = 1;
-<<<<<<< HEAD
 //        fileName = "puzzleOne.txt";
         puzzleNumber = 3;
         fileName = "puzzleThree.txt";
-=======
-//        fileName = "puzzleOneTest3.txt";
-
->>>>>>> 249ed3fbe26cc952a440f6b94bdb68942b433804
 
         System.out.println("Using puzzle: " + puzzleNumber + "\nUsing filename: " + fileName);
 
         // Try to read from file, and run GA
         ParseFile parseFile = new ParseFile();
-        List<String> fileLines = parseFile.getFromFile(fileName);
+        List<String> fileLines = parseFile.getFromFile("/" + fileName);
         AbstractPuzzle abstractPuzzle = getPuzzle(puzzleNumber, fileLines);
         Population currentPopulation = new Population(abstractPuzzle.getIndividuals(), 0);
         Algorithm algorithm = new Algorithm(abstractPuzzle);
 
         // Run GA for x generation
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 500; i++) {
             currentPopulation = algorithm.evolvePopulation(currentPopulation);
             algorithm.storeIfBestIndividual(currentPopulation.getBestIndividual(), currentPopulation.getGenerationNumber());
         }
@@ -57,22 +52,9 @@ public class Main {
         long endTime = new Date().getTime();
         System.out.println("elapsed milliseconds: " + (endTime - startTime));
 
-<<<<<<< HEAD
-        System.out.println("Best Gene's Fitness: " + currentPopulation.getBestIndividual().getFitness());
-        System.out.println("Best Gene: " + currentPopulation.getBestIndividual());
-        System.out.println("Tower: ");
-        System.out.println(currentPopulation.getBestIndividual().toString());
-=======
         System.out.println("Best Gene's Fitness: " + algorithm.getBestIndividual().getFitness());
         System.out.println("Best Gene: " + algorithm.getBestIndividual());
         System.out.println("Best Gene from Population: " + algorithm.getBestIndividualPopulationNumber());
-
-        final int mb = 1024 * 1024;
-        Runtime instance = Runtime.getRuntime();
-        // used memory
-        System.out.println("Used Memory: "
-                + (instance.totalMemory() - instance.freeMemory()) / mb + "MB");
->>>>>>> 249ed3fbe26cc952a440f6b94bdb68942b433804
     }
 
     static int parseCmdArgs(String[] args) {
