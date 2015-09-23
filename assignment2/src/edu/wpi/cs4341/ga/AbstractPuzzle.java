@@ -54,7 +54,7 @@ public abstract class AbstractPuzzle<T> {
      * Gets a random gene from the gene pool
      * @return A randomly selected gene
      */
-    protected Gene getRandomGene(){
+    public Gene getRandomGene(){
         return genePool.get(randomGenerator.nextInt(genePool.size()));
     }
 

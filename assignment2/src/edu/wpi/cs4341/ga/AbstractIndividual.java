@@ -64,20 +64,13 @@ public abstract class AbstractIndividual {
     public void mutate(AbstractPuzzle puzzleRules){
         List<Gene> myGenes = new ArrayList<>(this.geneSegments);
         final int initialGeneLength = geneSegments.size();
-        final int randomIndex = randomGenerator.nextInt(geneSegments.size()); //TODO: Clearing the gene segments will result in zero size.
+        final int randomIndex = randomGenerator.nextInt(geneSegments.size());
         //System.out.println("geneSegments Size: " + geneSegments.size());
         this.geneSegments.clear();
         
                 // If we have a fixed gene size requirement
         if (puzzleRules.getFixedGeneSequenceLength() != AbstractPuzzle.NO_FIXED_GENE_SEQUENCE_LENGTH){
-            myGenes.remove(randomIndex);
-            Gene replacementGene;
-            // Find a gene to put in here
-            do {
-                replacementGene = puzzleRules.getRandomGene();
-            } while (myGenes.contains(replacementGene));
-            myGenes.add(replacementGene);
-            assert myGenes.size() == initialGeneLength : "The gene segments came out of mutate a different size than their initial size";
+            throw new Error("This doesn't work for a fixed gene sequence length. You must override this method in your implementation");
         } else {
             final int randomCase = randomGenerator.nextInt(3);
             switch (randomCase){

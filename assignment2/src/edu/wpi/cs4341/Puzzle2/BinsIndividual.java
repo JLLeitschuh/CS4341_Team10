@@ -1,11 +1,13 @@
 package edu.wpi.cs4341.Puzzle2;
 
 import edu.wpi.cs4341.ga.AbstractIndividual;
+import edu.wpi.cs4341.ga.AbstractPuzzle;
 import edu.wpi.cs4341.ga.Gene;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Random;
 
 public class BinsIndividual extends AbstractIndividual {
 
@@ -37,5 +39,34 @@ public class BinsIndividual extends AbstractIndividual {
             currentFitness += gene.get();
         }
         return currentFitness;
+    }
+
+    @Override
+    public void mutate(AbstractPuzzle puzzleRules){
+
+        Random randomGenerator = new Random();
+        List<Gene> myGenes = new ArrayList<>(this.geneSegments);
+        final int initialGeneLength = geneSegments.size();
+        final int randomIndex = randomGenerator.nextInt(geneSegments.size());
+        //System.out.println("geneSegments Size: " + geneSegments.size());
+        this.geneSegments.clear();
+
+
+        final int randomCase = randomGenerator.nextInt(3);
+        switch (randomCase){
+            case 0: // Remove if not last gene
+                if(myGenes.size() != 1) myGenes.remove(randomIndex);
+                break;
+            case 1: // Add a Gene
+                myGenes.add(randomIndex, puzzleRules.getRandomGene());
+                break;
+            case 2: // Swap a gene
+                myGenes.remove(randomIndex);
+                myGenes.add(randomIndex, puzzleRules.getRandomGene());
+                break;
+            default:
+                assert false : "Invalid state";
+                break;
+        }
     }
 }
