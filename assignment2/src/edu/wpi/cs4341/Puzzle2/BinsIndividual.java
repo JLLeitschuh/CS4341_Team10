@@ -49,8 +49,8 @@ public class BinsIndividual extends AbstractIndividual {
         final int initialGeneLength = geneSegments.size();
         int randomIndex = randomGenerator.nextInt(geneSegments.size());
 
-        assert initialGeneLength == 30 : "geneSegments Size does not match guidelines";
         System.out.println("geneSegments Size: " + initialGeneLength);
+        assert initialGeneLength == 30 : "geneSegments Size does not match guidelines";
 
         //this.geneSegments.clear();
 

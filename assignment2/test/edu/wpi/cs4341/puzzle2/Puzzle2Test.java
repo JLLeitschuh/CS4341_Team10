@@ -1,5 +1,6 @@
 package edu.wpi.cs4341.puzzle2;
 
+import edu.wpi.cs4341.Puzzle2.BinsIndividual;
 import edu.wpi.cs4341.Puzzle2.Puzzle2;
 import edu.wpi.cs4341.ga.AbstractIndividual;
 import edu.wpi.cs4341.ga.Gene;
@@ -8,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -31,6 +33,15 @@ public class Puzzle2Test {
         assertEquals("The size of the gene list is incorrect.", 30, geneList.size());
     }
 
-    
+    @Test
+    public void testBinsIndividual() {
+        LinkedHashSet<Gene> testSet = puzzle2.getRandomGeneSequence();
+        BinsIndividual binsIndividual = new BinsIndividual(testSet);
+        binsIndividual.mutate(puzzle2);
+        assertFalse(testSet.equals(binsIndividual.getGeneSegments()));
+
+    }
+
+
 
 }

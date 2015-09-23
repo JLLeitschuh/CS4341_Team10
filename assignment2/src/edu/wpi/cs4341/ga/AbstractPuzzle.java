@@ -30,7 +30,7 @@ public abstract class AbstractPuzzle<T> {
      * gene pool.
      * @return A linked hash set with the new gene sequence
      */
-    protected LinkedHashSet<Gene> getRandomGeneSequence(){
+    public LinkedHashSet<Gene> getRandomGeneSequence(){
         final int minGeneLength = 1;
         assert (genePool.size() > minGeneLength) : "The gene pool length was less than " + minGeneLength;
         final int randomGeneSequenceLength = minGeneLength + randomGenerator.nextInt(genePool.size());
