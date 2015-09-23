@@ -52,12 +52,16 @@ public class BinsIndividual extends AbstractIndividual {
         System.out.println("geneSegments Size: " + initialGeneLength);
         assert initialGeneLength == 30 : "geneSegments Size does not match guidelines";
 
-        //this.geneSegments.clear();
+        this.geneSegments.clear();
 
         Gene temp = myGenes.get(randomIndex);                       // temp to store gene
         myGenes.remove(randomIndex);                                // remove the gene (stored in temp)
-        randomIndex = randomGenerator.nextInt(geneSegments.size()); // new random index
+        randomIndex = randomGenerator.nextInt(myGenes.size()); // new random index
         myGenes.add(randomIndex, temp);                             // add gene back from temp
+
+        this.geneSegments.addAll(myGenes);
+        assert this.geneSegments.size() > 0 : "The gene sequence was shorter than 1";
+
 
     }
 }
