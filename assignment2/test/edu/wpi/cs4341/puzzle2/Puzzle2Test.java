@@ -2,9 +2,7 @@ package edu.wpi.cs4341.puzzle2;
 
 import edu.wpi.cs4341.Puzzle2.BinsIndividual;
 import edu.wpi.cs4341.Puzzle2.Puzzle2;
-import edu.wpi.cs4341.ga.AbstractIndividual;
 import edu.wpi.cs4341.ga.Gene;
-import edu.wpi.cs4341.ga.Population;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,19 +10,16 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.core.IsNot.not;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
 
 public class Puzzle2Test {
     private Puzzle2 puzzle2;
 
     @Before
     public void setUp() {
-        puzzle2 = new Puzzle2(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"));
+        puzzle2 = new Puzzle2(Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"));
     }
 
     @Test
@@ -36,10 +31,14 @@ public class Puzzle2Test {
     @Test
     public void testBinsIndividual() {
         LinkedHashSet<Gene> testSet = puzzle2.getRandomGeneSequence();
-        BinsIndividual binsIndividual = new BinsIndividual(testSet);
+        BinsIndividual binsIndividual = new BinsIndividual(new LinkedHashSet(testSet));
         binsIndividual.mutate(puzzle2);
-        assertFalse(testSet.equals(binsIndividual.getGeneSegments()));
-
+        testSet.forEach(System.out::print);
+        System.out.println();
+        binsIndividual.getGeneSegments().forEach(System.out::print);
+        System.out.println();
+        assertThat("Gene segments were in exactly the same order as before mutate.", binsIndividual.getGeneSegments(), not(contains(testSet)));
+        //assertThat("Gene segments after mutate did not contain all of the genes that the initial set had.", binsIndividual.getGeneSegments(), hasItems(testSet.toArray()));
     }
 
 

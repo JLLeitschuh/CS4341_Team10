@@ -1,8 +1,6 @@
 package edu.wpi.cs4341.ga;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Algorithm {
     private static final int TOURNAMENT_SIZE = 5;
@@ -76,11 +74,13 @@ public class Algorithm {
     }
 
     private AbstractIndividual tournamentSelection(List<AbstractIndividual> individuals){
-        List<AbstractIndividual> tournamentIndividuals = new ArrayList<>();
-        for(int i = 0; i < TOURNAMENT_SIZE; i++ ){
+        // Guarantees that the tournament will be between unique individuals
+        Set<AbstractIndividual> tournamentIndividuals = new HashSet();
+        assert individuals.size() > TOURNAMENT_SIZE : "Tournament size is smaller than the population passed";
+        while(tournamentIndividuals.size() < TOURNAMENT_SIZE){
             tournamentIndividuals.add(individuals.get(randomGenerator.nextInt(individuals.size())));
         }
-        return new Population(tournamentIndividuals, Population.TEST_POPULATION).getBestIndividual();
+        return new Population(new ArrayList(tournamentIndividuals), Population.TEST_POPULATION).getBestIndividual();
     }
 
     private AbstractIndividual tournamentSelection(Population population){
