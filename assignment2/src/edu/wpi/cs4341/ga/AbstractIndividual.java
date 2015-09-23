@@ -43,6 +43,7 @@ public abstract class AbstractIndividual {
         final List<Gene> myGenes = new ArrayList<>(geneSegments);
         final List<Gene> theirGenes = new ArrayList<>(otherIndividual.geneSegments);
         final List<Gene> newGene = new ArrayList<>();
+        //System.out.println(myGenes.size() + ", " + theirGenes.size());
         int splitIndex = randomGenerator.nextInt(Math.min(myGenes.size(), theirGenes.size()));
 
         newGene.addAll(myGenes.subList(0, splitIndex));
@@ -52,9 +53,44 @@ public abstract class AbstractIndividual {
     }
 
     /**
+     * Should call the copy constructor for this object
+     * @return A copy of this individual. There is an infered contract that this
+     */
+    public abstract AbstractIndividual copy();
+
+    /**
      * Mutates the Individual changing its internal gene structure
      */
-    public void mutate(){
+    public void mutate(AbstractPuzzle puzzleRules){
+        List<Gene> myGenes = new ArrayList<>(this.geneSegments);
+        final int initialGeneLength = geneSegments.size();
+        final int randomIndex = randomGenerator.nextInt(geneSegments.size());
+        //System.out.println("geneSegments Size: " + geneSegments.size());
+        this.geneSegments.clear();
+        
+                // If we have a fixed gene size requirement
+        if (puzzleRules.getFixedGeneSequenceLength() != AbstractPuzzle.NO_FIXED_GENE_SEQUENCE_LENGTH){
+            throw new Error("This doesn't work for a fixed gene sequence length. You must override this method in your implementation");
+        } else {
+            final int randomCase = randomGenerator.nextInt(3);
+            switch (randomCase){
+                case 0: // Remove if not last gene
+                    if(myGenes.size() != 1) myGenes.remove(randomIndex);
+                    break;
+                case 1: // Add a Gene
+                    myGenes.add(randomIndex, puzzleRules.getRandomGene());
+                    break;
+                case 2: // Swap a gene
+                    myGenes.remove(randomIndex);
+                    myGenes.add(randomIndex, puzzleRules.getRandomGene());
+                    break;
+                default:
+                    assert false : "Invalid state";
+                    break;
+            }
+        }
+        this.geneSegments.addAll(myGenes);
+        assert this.geneSegments.size() > 0 : "The gene sequence was shorter than 1";
     }
 
     /**

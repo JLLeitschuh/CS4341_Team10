@@ -4,3 +4,4 @@ Team:
 - [Jonathan Leitschuh](https://github.com/JLLeitschuh)
 - Nam Tran
 - Triet Pham
+- Isamu Nakagawa

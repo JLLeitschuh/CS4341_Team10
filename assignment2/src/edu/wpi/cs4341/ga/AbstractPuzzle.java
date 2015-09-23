@@ -3,6 +3,7 @@ package edu.wpi.cs4341.ga;
 import java.util.*;
 
 public abstract class AbstractPuzzle<T> {
+    public static final int NO_FIXED_GENE_SEQUENCE_LENGTH = -1;
     private Random randomGenerator = new Random();
 
     /**
@@ -53,7 +54,7 @@ public abstract class AbstractPuzzle<T> {
      * Gets a random gene from the gene pool
      * @return A randomly selected gene
      */
-    protected Gene getRandomGene(){
+    public Gene getRandomGene(){
         return genePool.get(randomGenerator.nextInt(genePool.size()));
     }
 
@@ -65,7 +66,7 @@ public abstract class AbstractPuzzle<T> {
     public abstract List<AbstractIndividual> getIndividuals();
 
     public int getFixedGeneSequenceLength(){
-        return -1;
+        return NO_FIXED_GENE_SEQUENCE_LENGTH;
     }
 
     public abstract int getPopulationSize();
