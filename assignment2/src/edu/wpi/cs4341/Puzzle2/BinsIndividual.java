@@ -20,7 +20,13 @@ public class BinsIndividual extends AbstractIndividual {
 
     @Override
     public AbstractIndividual crossOver(AbstractIndividual otherIndividual) {
-        return new BinsIndividual(singlePointCrossover(otherIndividual));
+        //System.out.println("CROSSOVER::Gene Segments Size: " + geneSegments.size());
+        List<Gene> newGene = new ArrayList(singlePointCrossover(otherIndividual));
+        List<Gene> myGeneCopy = new ArrayList<>(this.geneSegments);
+        myGeneCopy.removeAll(newGene);
+        newGene.addAll(randomGenerator.nextInt(newGene.size()), myGeneCopy);
+
+        return new BinsIndividual(new LinkedHashSet(newGene));
     }
 
     @Override
@@ -32,6 +38,7 @@ public class BinsIndividual extends AbstractIndividual {
     public float getFitness() {
         float currentFitness = 0;
         List<Gene<Float>> myGenes = new ArrayList(this.geneSegments);
+        //System.out.println("SIZE: " + myGenes.size());
         for (Gene<Float> gene : myGenes.subList(0,9)) {
             currentFitness *= gene.get();
         }
@@ -44,12 +51,14 @@ public class BinsIndividual extends AbstractIndividual {
     @Override
     public void mutate(AbstractPuzzle puzzleRules){
 
+        //System.out.println("MUTATE::Gene Segments Size: " + geneSegments.size());
+
         Random randomGenerator = new Random();
         List<Gene> myGenes = new ArrayList<>(this.geneSegments);
         final int initialGeneLength = geneSegments.size();
         int randomIndex = randomGenerator.nextInt(geneSegments.size());
 
-        System.out.println("geneSegments Size: " + initialGeneLength);
+        //System.out.println("geneSegments Size: " + initialGeneLength);
         assert initialGeneLength == 30 : "geneSegments Size does not match guidelines";
 
         this.geneSegments.clear();
