@@ -35,18 +35,32 @@ public class TowerIndividual extends AbstractIndividual {
     }
 
     private boolean checkValidTower() {
-        boolean isValid = true; //Valid otherwise stated.
+        boolean baseValid=false, wallValid=false, strengthValid=false, widthValid=false;
         List<Gene> towerList = new ArrayList<Gene>(geneSegments);
+
         //This works. I'm not proud of it, but it works.
         TowerSegment firstSegment = ((Gene<TowerSegment>) towerList.get(0)).get();
         TowerSegment lastSegment = ((Gene<TowerSegment>) towerList.get(towerList.size() -1)).get();
-        if((firstSegment.getSegmentType() != "Door") && (lastSegment.getSegmentType() != "Lookout")) {
-//            System.out.println("");
-            isValid = false;
-            return isValid;
+
+        if ((firstSegment.getSegmentType().equalsIgnoreCase("Door")) && (lastSegment.getSegmentType().equalsIgnoreCase("Lookout")))
+            baseValid = true;
+
+        for(int i=2; i<(towerList.size()-1); i++){
+            if(((Gene<TowerSegment>)towerList.get(i)).get().getSegmentType().equalsIgnoreCase("Wall"))
+                wallValid=true;
         }
-        
-        return isValid;
+
+        for(int i=1; i<towerList.size();i++) {
+            if (((Gene<TowerSegment>) towerList.get(i)).get().getWidth() <= ((Gene<TowerSegment>) towerList.get(i - 1)).get().getWidth())
+                widthValid = true;
+        }
+
+        for(int i=1; i<towerList.size();i++) {
+            if(((Gene<TowerSegment>)towerList.get(i-1)).get().getStrength() >= (towerList.size()-i))
+                strengthValid=true;
+        }
+
+        return baseValid & wallValid & widthValid & strengthValid;
     }
 
     @Override

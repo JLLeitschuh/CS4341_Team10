@@ -32,7 +32,7 @@ public class Main {
 //        puzzleNumber = 1;
 //        fileName = "puzzleOne.txt";
         puzzleNumber = 3;
-        fileName = "puzzleThree_2.txt";
+        fileName = "puzzleThree.txt";
 
         System.out.println("Using puzzle: " + puzzleNumber + "\nUsing filename: " + fileName);
 
