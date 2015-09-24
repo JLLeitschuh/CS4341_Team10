@@ -1,5 +1,6 @@
 package edu.wpi.cs4341;
 
+import edu.wpi.cs4341.Puzzle2.Puzzle2;
 import edu.wpi.cs4341.ga.AbstractPuzzle;
 import edu.wpi.cs4341.ga.Algorithm;
 import edu.wpi.cs4341.ga.ParseFile;
@@ -42,7 +43,7 @@ public class Main {
         Algorithm algorithm = new Algorithm(abstractPuzzle);
 
         // Run GA for x generation
-        for (int i = 1; i < 100000; i++) {
+        for (int i = 1; i < 10000; i++) {
             currentPopulation = algorithm.evolvePopulation(currentPopulation);
             algorithm.storeIfBestIndividual(currentPopulation.getBestIndividual(), currentPopulation.getGenerationNumber());
         }
@@ -93,6 +94,8 @@ public class Main {
         switch (num){
             case 1:
                 return new Puzzle1(inputStrings);
+            case 2:
+                return new Puzzle2(inputStrings);
             case 3:
                 return new Puzzle3(inputStrings);
             default:
