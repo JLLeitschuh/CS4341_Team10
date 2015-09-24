@@ -42,7 +42,7 @@ public class Main {
         Algorithm algorithm = new Algorithm(abstractPuzzle);
 
         // Run GA for x generation
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 1; i < 100000; i++) {
             currentPopulation = algorithm.evolvePopulation(currentPopulation);
             algorithm.storeIfBestIndividual(currentPopulation.getBestIndividual(), currentPopulation.getGenerationNumber());
         }
