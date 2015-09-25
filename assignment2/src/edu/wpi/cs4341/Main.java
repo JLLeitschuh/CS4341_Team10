@@ -16,7 +16,6 @@ public class Main {
     private static int secondRuntime = Integer.MIN_VALUE;
 
     public static void main(String[] args) {
-
         // Read arguments.
         int returnValue = parseCmdArgs(args);
         if ( returnValue == -1) {
@@ -59,6 +58,9 @@ public class Main {
         System.out.println("Best Gene from Population: " + algorithm.getBestIndividualPopulationNumber());
     }
 
+    /**
+     * Prints out the help message for the program.
+     */
     private static void printHelp(){
         String helpText =
                 "The program accepts the following args\n" +
@@ -69,7 +71,12 @@ public class Main {
         System.out.println(helpText);
     }
 
-    static int parseCmdArgs(String[] args) {
+    /**
+     * Parses all of the input params and figures out what param to assign where.
+     * @param args The args passed at runtime
+     * @return Status, 0 means success, -1 means failure, 1 means help argument was provided.
+     */
+    private static int parseCmdArgs(String[] args) {
         if (args.length == 0) {
             return -1;
         }
@@ -106,7 +113,12 @@ public class Main {
         return 0;
     }
 
-
+    /**
+     * Gets the respective puzzle from the puzzle number.
+     * @param num The puzzle number we want
+     * @param inputStrings The input strings from the input file. Each List element should NOT contain a newline.
+     * @return The puzzle for the given number.
+     */
     public static AbstractPuzzle getPuzzle(int num, List<String> inputStrings){
         switch (num){
             case 1:

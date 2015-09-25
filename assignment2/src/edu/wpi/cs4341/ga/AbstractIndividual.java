@@ -12,7 +12,8 @@ import java.util.Random;
 public abstract class AbstractIndividual {
     protected final Random randomGenerator = new Random();
     /**
-     * List of the gene segments that define this individual
+     * Set of the gene segments that define this individual.
+     * A Linked Hash set is guaranteed to maintain the same iteration order but also has all of the properties of a set.
      */
     protected LinkedHashSet<Gene> geneSegments;
 
@@ -39,6 +40,15 @@ public abstract class AbstractIndividual {
      */
     public abstract AbstractIndividual crossOver(AbstractIndividual otherIndividual);
 
+    /**
+     * Calculates a new gene sequence using single point crossover.
+     * This crossover will start with the better gene (this) and then cross it with
+     * the other gene.
+     * The size of the returned gene will be less than or equal to the size of the two
+     * parent genes.
+     * @param otherIndividual The individual to cross with
+     * @return The new gene sequence. Sets guarantee there will be no duplicates.
+     */
     protected LinkedHashSet<Gene> singlePointCrossover(AbstractIndividual otherIndividual){
         final List<Gene> myGenes = new ArrayList<>(geneSegments);
         final List<Gene> theirGenes = new ArrayList<>(otherIndividual.geneSegments);
@@ -60,6 +70,8 @@ public abstract class AbstractIndividual {
 
     /**
      * Mutates the Individual changing its internal gene structure
+     * @param puzzleRules The puzzle that is associated with this individual.
+     *                    This allows us to use the puzzle to get random gene elements from the puzzle.
      */
     public void mutate(AbstractPuzzle puzzleRules){
         List<Gene> myGenes = new ArrayList<>(this.geneSegments);

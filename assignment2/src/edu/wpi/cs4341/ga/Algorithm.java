@@ -17,6 +17,12 @@ public class Algorithm {
         this.puzzle = puzzle;
     }
 
+    /**
+     * Stores the given individual in the algorithm if it is the best.
+     * @param nextBestIndividual The individual to compare with
+     * @param bestIndividualPopulationNumber The population that this individual came from.
+     * @return true if this individual was stored
+     */
     public boolean storeIfBestIndividual(final AbstractIndividual nextBestIndividual, final int bestIndividualPopulationNumber){
         /* Only store if this individual if it is better, not if it is the same */
         //System.out.println((this.bestIndividual == null ? "null" : this.bestIndividual.getFitness()) + ", " + nextBestIndividual.getFitness());
@@ -28,14 +34,27 @@ public class Algorithm {
         return false;
     }
 
+    /**
+     * Provides access to the best individual that we have so far.
+     * @return The current best individual.
+     */
     public AbstractIndividual getBestIndividual(){
         return this.bestIndividual;
     }
 
+    /**
+     * Provides the access to the best population number
+     * @return The population that the current best individual came from.
+     */
     public int getBestIndividualPopulationNumber(){
         return bestIndividualPopulationNumber;
     }
 
+    /**
+     * Evolves the population to the next generation.
+     * @param population The pollution to evolve
+     * @return The new population
+     */
     public Population evolvePopulation(Population population){
         List<AbstractIndividual> nextPopulation = new ArrayList<AbstractIndividual>();
 
@@ -62,17 +81,29 @@ public class Algorithm {
         return population.nextGeneration(nextPopulation);
     }
 
-
-
-
+    /**
+     * Mutates the given individual
+     * @param individual The individual to mutate.
+     */
     private void mutate(AbstractIndividual individual){
         individual.mutate(puzzle);
     }
 
+    /**
+     * Crosses this individual over another individual.
+     * @param individualA The individual to use as the base.
+     * @param individualB The individual to cross over with.
+     * @return The new individual that results from the crossover of the two individuals.
+     */
     private AbstractIndividual crossOver(AbstractIndividual individualA, AbstractIndividual individualB){
         return individualA.crossOver(individualB);
     }
 
+    /**
+     * Runs a selection process on a list of individuals.
+     * @param individuals The individuals to pull from for the tournament.
+     * @return The winning gene.
+     */
     private AbstractIndividual tournamentSelection(List<AbstractIndividual> individuals){
         // Guarantees that the tournament will be between unique individuals
         Set<AbstractIndividual> tournamentIndividuals = new HashSet();
@@ -83,6 +114,12 @@ public class Algorithm {
         return new Population(new ArrayList(tournamentIndividuals), Population.TEST_POPULATION).getBestIndividual();
     }
 
+    /**
+     * Runs a tournament on a population. If culling is enabled then it only gets the individuals
+     * up to the {@link Algorithm#CULLING_PERCENT}
+     * @param population The population to run the tournament on.
+     * @return The winning individual.
+     */
     private AbstractIndividual tournamentSelection(Population population){
         if(CULLING){
             return tournamentSelection(population.getIndividualRange(0, CULLING_PERCENT).get(0));

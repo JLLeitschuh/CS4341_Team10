@@ -24,10 +24,6 @@ public class Puzzle1 extends AbstractPuzzle<Integer> {
 
     }
 
-    public Integer getTargetValue() {
-        return this.targetValue;
-    }
-
     @Override
     public List<AbstractIndividual> getIndividuals() {
         return initialPopulation;
