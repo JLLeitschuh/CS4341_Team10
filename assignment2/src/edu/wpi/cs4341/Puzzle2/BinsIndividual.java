@@ -29,9 +29,14 @@ public class BinsIndividual extends AbstractIndividual {
         return new BinsIndividual(new LinkedHashSet(newGene));
     }
 
+    private BinsIndividual(BinsIndividual individual){
+        super((LinkedHashSet<Gene>) individual.geneSegments.clone());
+    }
+
+
     @Override
     public BinsIndividual copy(){
-        return null;
+        return new BinsIndividual(this);
     }
 
     @Override
