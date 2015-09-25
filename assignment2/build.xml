@@ -1,0 +1,67 @@
+<project name="assignment2" default="dist" basedir=".">
+    <!-- Taken from: https://ant.apache.org/manual/using.html -->
+    <description>
+        Builds Assignment2
+    </description>
+    <!-- set global properties for this build -->
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+
+    <property name="main-class" value="edu.wpi.cs4341.Main" />
+
+    <input message="Type the desired command line arguments:" addProperty="args"/>
+
+    <target name="input-runargs" unless="args" description="prompts for command line arguments if necessary">
+        <input addProperty="args" message="Type the desired command line arguments:"/>
+    </target>
+
+
+    <path id="classpath">
+    </path>
+
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+    </target>
+
+    <target name="compile" depends="init"
+            description="compile the source">
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${build}"/>
+    </target>
+
+    <target name="dist" depends="compile"
+            description="generate the distribution">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}"/>
+
+        <jar jarfile="${dist}/assignment2.jar" basedir="${build}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}" />
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="dist, input-runargs">
+        <java classname="${main-class}" fork="true" >
+            <arg line="${args}"/>
+            <classpath>
+                <path refid="classpath" />
+                <path location="${dist}/${ant.project.name}.jar" />
+            </classpath>
+        </java>
+    </target>
+
+
+
+
+    <target name="clean"
+            description="clean up">
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+</project>

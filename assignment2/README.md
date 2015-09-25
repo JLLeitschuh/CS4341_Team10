@@ -12,11 +12,11 @@ This assignment will familiarize you with genetic algorithms (GA).  You will sol
 
 #External References
 - "Creating a genetic algorithm" BY LEE JACOBSON
-(http://www.theprojectspot.com/tutorial-post/creating-a-genetic-algorithm-for-beginners/3)
+[http://www.theprojectspot.com/tutorial-post/creating-a-genetic-algorithm-for-beginners/3](http://www.theprojectspot.com/tutorial-post/creating-a-genetic-algorithm-for-beginners/3)
 - "Recipes"
-(http://xkcd.com/720/)
+[http://xkcd.com/720/](http://xkcd.com/720/)
 - "Crossover and Mutation"
-(http://www.obitko.com/tutorials/genetic-algorithms/crossover-mutation.php)
+[http://www.obitko.com/tutorials/genetic-algorithms/crossover-mutation.php](http://www.obitko.com/tutorials/genetic-algorithms/crossover-mutation.php)
 
 
 
@@ -28,15 +28,18 @@ Team:
 - Isamu Nakagawa
 
 #Project Requirements
+- Ant (for building and running easily)
 - Java 8
 
+#Building and Running
+ - Compile: `ant`
+ - Run: `ant run -Dargs='--puzzle [1-3] --filename [filename.txt] --seconds [time in seconds]'` 
 
-#Build
-Compile: `javac Main.java`
-Run: `java Main.java --puzzle [1-3] --filename [filename.txt] --seconds [time in seconds]` 
 
---puzzle [choice: 1 - 6]
---filename "name_of_file.txt"
---seconds [time in seconds]
+##Run options
+- `--help`
+- `--puzzle [choice: 1 - 6]`
+- `--filename "name_of_file.txt"`
+- `--seconds [time in seconds]`
 
 Example: `--puzzle 2 --filename puzzleTwo.txt --seconds 10`
