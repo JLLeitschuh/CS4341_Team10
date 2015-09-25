@@ -3,15 +3,18 @@ package edu.wpi.cs4341.puzzle3;
 import edu.wpi.cs4341.ga.AbstractIndividual;
 import edu.wpi.cs4341.ga.Gene;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.*;
 
 public class TowerIndividual extends AbstractIndividual {
 
     public TowerIndividual(LinkedHashSet<Gene> towerSegments){
         super(towerSegments);
     }
+
+    private TowerIndividual(TowerIndividual copyMe){
+        super(new LinkedHashSet(copyMe.geneSegments));
+    }
+
 
     @Override
     public AbstractIndividual crossOver(AbstractIndividual otherIndividual) {
@@ -20,51 +23,72 @@ public class TowerIndividual extends AbstractIndividual {
 
     @Override
     public float getFitness() {
-        int currentFitness = 0;
-        int height = 0;
         int cost = 0;
         for (Gene<TowerSegment> g: geneSegments){
-            height++;
             cost+= g.get().getCost();
         }
         if (checkValidTower()){
-            currentFitness=10+height-cost;
-        } else currentFitness = 0;
+            return 10 + (geneSegments.size() * geneSegments.size()) - cost;
+        } else return 0;
 
-        return currentFitness;
     }
 
     private boolean checkValidTower() {
-        boolean baseValid=false, wallValid=false, strengthValid=false, widthValid=false;
-        List<Gene> towerList = new ArrayList<Gene>(geneSegments);
+        LinkedList<Gene<TowerSegment>> towerList = new LinkedList(geneSegments);
 
-        //This works. I'm not proud of it, but it works.
-        TowerSegment firstSegment = ((Gene<TowerSegment>) towerList.get(0)).get();
-        TowerSegment lastSegment = ((Gene<TowerSegment>) towerList.get(towerList.size() -1)).get();
-
-        if ((firstSegment.getSegmentType().equalsIgnoreCase("Door")) && (lastSegment.getSegmentType().equalsIgnoreCase("Lookout")))
-            baseValid = true;
-
-        for(int i=2; i<(towerList.size()-1); i++){
-            if(((Gene<TowerSegment>)towerList.get(i)).get().getSegmentType().equalsIgnoreCase("Wall"))
-                wallValid=true;
+        if( towerList.size() < 2){
+            return false;
         }
 
-        for(int i=1; i<towerList.size();i++) {
-            if (((Gene<TowerSegment>) towerList.get(i)).get().getWidth() <= ((Gene<TowerSegment>) towerList.get(i - 1)).get().getWidth())
-                widthValid = true;
+        // Validate that the widths are okay.
+        Iterator<Gene> towerElements = this.geneSegments.iterator();
+        TowerSegment previousElement = (TowerSegment)towerElements.next().get();
+        while(towerElements.hasNext()){
+            TowerSegment currentElement = (TowerSegment)towerElements.next().get();
+            if(!previousElement.canSupportOnTop(currentElement)){
+                return false;
+            }
+            previousElement = currentElement;
+        }
+        // Widths are okay
+
+
+        // Determine if strength is valid
+        ListIterator<Gene<TowerSegment>> listIterator = towerList.listIterator(towerList.size());
+        int height = 0;
+        while (listIterator.hasPrevious()){
+            TowerSegment currentSegment = listIterator.previous().get();
+            if(!currentSegment.canSupportOnTop(height)) return false;
+            height ++;
+        }
+        // The strength is valid
+
+
+        // Determine that the segments are in order correctly.
+
+        // First element is the base
+        if(!towerList.poll().get().isVaidBase()){
+            return false;
         }
 
-        for(int i=1; i<towerList.size();i++) {
-            if(((Gene<TowerSegment>)towerList.get(i-1)).get().getStrength() >= (towerList.size()-i))
-                strengthValid=true;
+        // Get the last element
+        Gene<TowerSegment> lastElement = towerList.getLast();
+        if(!lastElement.get().isValidTop()){
+            return false;
+        }
+        towerList.remove(lastElement);
+
+        while(!towerList.isEmpty()){
+            if(!towerList.poll().get().isValidMiddle()){
+                return false;
+            }
         }
 
-        return baseValid & wallValid & widthValid & strengthValid;
+        return true;
     }
 
     @Override
-    public AbstractIndividual copy() {
-        return null;
+    public TowerIndividual copy() {
+        return new TowerIndividual(this);
     }
 }

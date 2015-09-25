@@ -25,6 +25,14 @@ public class TowerSegment {
         return this.strength;
     }
 
+    public boolean canSupportOnTop(int countOnTop){
+        return countOnTop <= strength;
+    }
+
+    public boolean canSupportOnTop(TowerSegment next){
+        return this.width >= next.width;
+    }
+
     public int getCost(){
         return this.cost;
     }
@@ -33,6 +41,18 @@ public class TowerSegment {
         String delim = ", ";
 //        String out[] = input.split(delim);
         return input.split(delim)[select];
+    }
+
+    public boolean isValidTop(){
+        return segmentType.equals("Lookout");
+    }
+
+    public boolean isValidMiddle(){
+        return segmentType.equals("Wall");
+    }
+
+    public boolean isVaidBase(){
+        return segmentType.equals("Door");
     }
 
     @Override
