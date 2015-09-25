@@ -18,12 +18,25 @@ public class Main {
     public static void main(String[] args) {
 
         // Read arguments.
+        int returnValue = parseCmdArgs(args);
+        if ( returnValue == -1) {
+            System.err.println("Arguments invalid. Terminating.");
+            printHelp();
+            System.exit(-1);
+        } else if (returnValue == 1) {
+            printHelp();
+            System.exit(0);
+        } else if (puzzleNumber == Integer.MIN_VALUE || fileName == null || secondRuntime == Integer.MIN_VALUE){
+            System.err.println("Missing param");
+            printHelp();
+            System.exit(-1);
+        }
 
         System.out.println("Using puzzle: " + puzzleNumber + "\nUsing filename: " + fileName);
 
         // Try to read from file, and run GA
         ParseFile parseFile = new ParseFile();
-        List<String> fileLines = parseFile.getFromFile(/*"/" + */fileName);
+        List<String> fileLines = parseFile.getFromFile(fileName);
         AbstractPuzzle abstractPuzzle = getPuzzle(puzzleNumber, fileLines);
         Population currentPopulation = new Population(abstractPuzzle.getIndividuals(), 0);
         Algorithm algorithm = new Algorithm(abstractPuzzle);
