@@ -32,7 +32,6 @@ public class Main {
             System.exit(-1);
         }
 
-
         System.out.println("Using puzzle: " + puzzleNumber + "\nUsing filename: " + fileName);
 
         // Try to read from file, and run GA
@@ -46,6 +45,7 @@ public class Main {
         long expectedEndTime = System.currentTimeMillis() + secondRuntime * 1000;
         long startTime = System.currentTimeMillis();
         // Run GA for x generation
+
         while (System.currentTimeMillis() < expectedEndTime) {
             currentPopulation = algorithm.evolvePopulation(currentPopulation);
             algorithm.storeIfBestIndividual(currentPopulation.getBestIndividual(), currentPopulation.getGenerationNumber());
@@ -57,12 +57,6 @@ public class Main {
         System.out.println("Best Gene's Fitness: " + algorithm.getBestIndividual().getFitness());
         System.out.println("Best Gene: " + algorithm.getBestIndividual());
         System.out.println("Best Gene from Population: " + algorithm.getBestIndividualPopulationNumber());
-
-        final int mb = 1024 * 1024;
-        Runtime instance = Runtime.getRuntime();
-        // used memory
-        System.out.println("Used Memory: "
-                + (instance.totalMemory() - instance.freeMemory()) / mb + "MB");
     }
 
     private static void printHelp(){

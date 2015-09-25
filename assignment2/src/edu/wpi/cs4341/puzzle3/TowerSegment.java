@@ -1,8 +1,5 @@
 package edu.wpi.cs4341.puzzle3;
 
-/**
- * Created by nhtranngoc on 9/21/15.
- */
 public class TowerSegment {
     private String segmentType;
     private int width;
@@ -28,12 +25,44 @@ public class TowerSegment {
         return this.strength;
     }
 
+    public boolean canSupportOnTop(int countOnTop){
+        return countOnTop <= strength;
+    }
+
+    public boolean canSupportOnTop(TowerSegment next){
+        return this.width >= next.width;
+    }
+
     public int getCost(){
         return this.cost;
     }
 
     private String parseInput(String input, int select){
-        String delim = "[, ]";
+        String delim = ", ";
+//        String out[] = input.split(delim);
         return input.split(delim)[select];
     }
+
+    public boolean isValidTop(){
+        return segmentType.equals("Lookout");
+    }
+
+    public boolean isValidMiddle(){
+        return segmentType.equals("Wall");
+    }
+
+    public boolean isVaidBase(){
+        return segmentType.equals("Door");
+    }
+
+    @Override
+    public String toString(){
+        return "TowerSegment{" +
+                "Type= " + segmentType +
+                " | Width= " + width +
+                " | Strength= " + strength +
+                " | Cost= " + cost +
+                '}';
+    }
+
 }
