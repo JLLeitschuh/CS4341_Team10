@@ -13,26 +13,28 @@ public class TowerSegment {
         this.cost = Integer.parseInt(parseInput(input, 3));
     }
 
-    public String getSegmentType(){
-        return this.segmentType;
-    }
-
-    public int getWidth(){
-        return this.width;
-    }
-    
-    public int getStrength(){
-        return this.strength;
-    }
-
+    /**
+     * Determines if this tower can support a given number of segments on top of it.
+     * @param countOnTop The number of elements on top of this one.
+     * @return true if this segments strength can hold that number of elements on top of it.
+     */
     public boolean canSupportOnTop(int countOnTop){
         return countOnTop <= strength;
     }
 
+    /**
+     * Checks if this tower is wide enough to support a given segment on top of it.
+     * @param next The next element that this one needs to support
+     * @return true if this element can support the next element.
+     */
     public boolean canSupportOnTop(TowerSegment next){
         return this.width >= next.width;
     }
 
+    /**
+     * Gets the cost of this tower segment.
+     * @return The cost of this segment.
+     */
     public int getCost(){
         return this.cost;
     }
@@ -43,15 +45,24 @@ public class TowerSegment {
         return input.split(delim)[select];
     }
 
+    /**
+     * @return true if this is a valid top segment
+     */
     public boolean isValidTop(){
         return segmentType.equals("Lookout");
     }
 
+    /**
+     * @return true if this is a valid middle segment
+     */
     public boolean isValidMiddle(){
         return segmentType.equals("Wall");
     }
 
-    public boolean isVaidBase(){
+    /**
+     * @return true if this is a valid bottom segement
+     */
+    public boolean isValidBase(){
         return segmentType.equals("Door");
     }
 

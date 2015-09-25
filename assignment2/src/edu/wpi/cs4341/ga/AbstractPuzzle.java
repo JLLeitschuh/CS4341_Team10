@@ -25,7 +25,7 @@ public abstract class AbstractPuzzle<T> {
 
     /**
      * Generates a random sequence of genes from the gene pool.
-     * If the function {@link getFixedGeneSequenceLength()} has been overridden to return something greater than -1
+     * If the function {@link AbstractPuzzle#getFixedGeneSequenceLength()} has been overridden to return something greater than -1
      * this function will generate a random gene sequence of that length. Otherwise it will be at max the length of the
      * gene pool.
      * @return A linked hash set with the new gene sequence

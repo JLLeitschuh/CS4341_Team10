@@ -11,8 +11,6 @@ import java.util.Random;
 
 public class BinsIndividual extends AbstractIndividual {
 
-    private LinkedHashSet<Gene> bin;
-
     public BinsIndividual(LinkedHashSet<Gene> geneSegments){
         super(geneSegments);
     }

@@ -7,10 +7,18 @@ import java.util.*;
 
 public class TowerIndividual extends AbstractIndividual {
 
+    /**
+     * Creates a TowerIndividual
+     * @param towerSegments The towerSegments that make up this tower.
+     */
     public TowerIndividual(LinkedHashSet<Gene> towerSegments){
         super(towerSegments);
     }
 
+    /**
+     * Copy constructor for the tower individual.
+     * @param copyMe
+     */
     private TowerIndividual(TowerIndividual copyMe){
         super(new LinkedHashSet(copyMe.geneSegments));
     }
@@ -33,6 +41,10 @@ public class TowerIndividual extends AbstractIndividual {
 
     }
 
+    /**
+     * Checks if the tower is valid
+     * @return True if we have determined that this tower is valid according to the rules of the puzzle.
+     */
     private boolean checkValidTower() {
         LinkedList<Gene<TowerSegment>> towerList = new LinkedList(geneSegments);
 
@@ -67,7 +79,7 @@ public class TowerIndividual extends AbstractIndividual {
         // Determine that the segments are in order correctly.
 
         // First element is the base
-        if(!towerList.poll().get().isVaidBase()){
+        if(!towerList.poll().get().isValidBase()){
             return false;
         }
 
