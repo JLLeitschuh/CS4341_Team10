@@ -1,5 +1,6 @@
 package edu.wpi.cs4341;
 
+import edu.wpi.cs4341.Puzzle2.Puzzle2;
 import edu.wpi.cs4341.ga.AbstractPuzzle;
 import edu.wpi.cs4341.ga.Algorithm;
 import edu.wpi.cs4341.ga.ParseFile;
@@ -7,32 +8,16 @@ import edu.wpi.cs4341.ga.Population;
 import edu.wpi.cs4341.puzzle1.Puzzle1;
 import edu.wpi.cs4341.puzzle3.Puzzle3;
 
-import java.util.Date;
 import java.util.List;
 
 public class Main {
-    private static int puzzleNumber;
+    private static int puzzleNumber = Integer.MIN_VALUE;
     private static String fileName;
+    private static int secondRuntime = Integer.MIN_VALUE;
 
     public static void main(String[] args) {
 
-        // Start timer for GA.
-        long startTime = new Date().getTime();
-
         // Read arguments.
-        /*
-        int retval = parseCmdArgs(args);
-        if (retval != 0) {
-            System.out.println("No arguments given. Terminating.");
-            System.exit(-1);
-        }
-        */
-
-        // Hard coded for testing purposes
-//        puzzleNumber = 1;
-//        fileName = "puzzleOne.txt";
-        puzzleNumber = 3;
-        fileName = "puzzleThree.txt";
 
         System.out.println("Using puzzle: " + puzzleNumber + "\nUsing filename: " + fileName);
 
@@ -43,18 +28,32 @@ public class Main {
         Population currentPopulation = new Population(abstractPuzzle.getIndividuals(), 0);
         Algorithm algorithm = new Algorithm(abstractPuzzle);
 
+        // Start timer for GA.
+        long expectedEndTime = System.currentTimeMillis() + secondRuntime * 1000;
+        long startTime = System.currentTimeMillis();
         // Run GA for x generation
-        for (int i = 0; i < 500; i++) {
+
+        while (System.currentTimeMillis() < expectedEndTime) {
             currentPopulation = algorithm.evolvePopulation(currentPopulation);
             algorithm.storeIfBestIndividual(currentPopulation.getBestIndividual(), currentPopulation.getGenerationNumber());
         }
 
-        long endTime = new Date().getTime();
+        long endTime = System.currentTimeMillis();
         System.out.println("elapsed milliseconds: " + (endTime - startTime));
-
+        System.out.println("Populations generated: " + currentPopulation.getGenerationNumber());
         System.out.println("Best Gene's Fitness: " + algorithm.getBestIndividual().getFitness());
         System.out.println("Best Gene: " + algorithm.getBestIndividual());
         System.out.println("Best Gene from Population: " + algorithm.getBestIndividualPopulationNumber());
+    }
+
+    private static void printHelp(){
+        String helpText =
+                "The program accepts the following args\n" +
+                "\t--help              print this message\n" +
+                "\t--puzzle [1-3]      Use this puzzle\n" +
+                "\t--filename [file]   The file to read.\n" +
+                "\t--seconds [integer] The number of seconds to run the program";
+        System.out.println(helpText);
     }
 
     static int parseCmdArgs(String[] args) {
@@ -63,7 +62,7 @@ public class Main {
         }
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("--help") || args.equals("/?")) {
-                return -1;
+                return 1;
             } else if (args[i].equals("--puzzle")) {
                 if (args[i + 1].equals("1")) {
                     puzzleNumber = 1;
@@ -72,13 +71,23 @@ public class Main {
                 } else if (args[i + 1].equals("3")) {
                     puzzleNumber = 3;
                 } else {
-                    System.out.println("Bad --puzzle value");
+                    System.err.println("Bad --puzzle value");
                     return -1;
                 }
                 i++;
             } else if (args[i].equals("--filename")) {
                 fileName = args[i + 1];
                 i++;
+            } else if (args[i].equals("--seconds")) {
+                try {
+                    secondRuntime = Integer.valueOf(args[i + 1]);
+                    i++;
+                } catch (NumberFormatException e){
+                    System.err.println("Bad --seconds value");
+                    System.err.println("Must be an integer value");
+                    e.printStackTrace();
+                    return -1;
+                }
             }
         }
         return 0;
@@ -89,6 +98,8 @@ public class Main {
         switch (num){
             case 1:
                 return new Puzzle1(inputStrings);
+            case 2:
+                return new Puzzle2(inputStrings);
             case 3:
                 return new Puzzle3(inputStrings);
             default:
