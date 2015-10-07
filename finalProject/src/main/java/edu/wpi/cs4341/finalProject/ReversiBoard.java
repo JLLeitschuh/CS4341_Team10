@@ -1,4 +1,4 @@
-/*
+package edu.wpi.cs4341.finalProject;/*
 
 class ReversiBoard implements the board of the game Reversi
 

@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class ReversiApplet extends JApplet {
     static GPanel gpanel;
-    ReversiBoard board;
+    private ReversiBoard board;
     static JLabel score_black, score_white;
 
     public String[][] getParameterInfo() {
