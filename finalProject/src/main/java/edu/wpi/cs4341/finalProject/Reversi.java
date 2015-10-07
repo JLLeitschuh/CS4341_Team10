@@ -57,12 +57,12 @@ class GPanel extends JPanel implements MouseListener {
         hint = null;
         this.gameTheme = gameTheme;
         if (gameTheme.equals("Classic")) {
-            button_black = new ImageIcon(Reversi.class.getResource("button_black.jpg"));
-            button_white = new ImageIcon(Reversi.class.getResource("button_white.jpg"));
+            button_black = new ImageIcon(Reversi.class.getResource("/button_black.jpg"));
+            button_white = new ImageIcon(Reversi.class.getResource("/button_white.jpg"));
             setBackground(Color.green);
         } else if (gameTheme.equals("Electric")) {
-            button_black = new ImageIcon(Reversi.class.getResource("button_blu.jpg"));
-            button_white = new ImageIcon(Reversi.class.getResource("button_red.jpg"));
+            button_black = new ImageIcon(Reversi.class.getResource("/button_blu.jpg"));
+            button_white = new ImageIcon(Reversi.class.getResource("/button_red.jpg"));
             setBackground(Color.white);
         } else {
             gameTheme = "Flat"; // default theme "Flat"
