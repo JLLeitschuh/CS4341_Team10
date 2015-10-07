@@ -122,11 +122,20 @@ class GPanel extends JPanel implements MouseListener {
     public void showWinner() {
         inputEnabled = false;
         active = false;
-        if (board.counter[0] > board.counter[1])
-            JOptionPane.showMessageDialog(this, "You win!", "Reversi", JOptionPane.INFORMATION_MESSAGE);
-        else if (board.counter[0] < board.counter[1])
-            JOptionPane.showMessageDialog(this, "I win!", "Reversi", JOptionPane.INFORMATION_MESSAGE);
-        else JOptionPane.showMessageDialog(this, "Drawn!", "Reversi", JOptionPane.INFORMATION_MESSAGE);
+        if (board.counter[0] > board.counter[1]) {
+            //JOptionPane.showMessageDialog(this, "You win!", "Reversi", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("You win! : " + JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        else if (board.counter[0] < board.counter[1]) {
+            //JOptionPane.showMessageDialog(this, "I win!", "Reversi", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("I win! : " + JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        else {
+            //JOptionPane.showMessageDialog(this, "Drawn!", "Reversi", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("Draw! : " + JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     public void setHint(Move hint) {
@@ -154,16 +163,21 @@ class GPanel extends JPanel implements MouseListener {
             repaint();
             if (board.gameEnd()) showWinner();
             else if (!board.userCanMove(TKind.black)) {
-                JOptionPane.showMessageDialog(this, "You pass...", "Reversi", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(this, "You pass...", "Reversi", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println("You Pass...! : " + JOptionPane.INFORMATION_MESSAGE);
                 javax.swing.SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
                         computerMove();
                     }
                 });
             }
-        } else if (board.userCanMove(TKind.black))
-            JOptionPane.showMessageDialog(this, "I pass...", "Reversi", JOptionPane.INFORMATION_MESSAGE);
-        else showWinner();
+        } else if (board.userCanMove(TKind.black)) {
+            //JOptionPane.showMessageDialog(this, "I pass...", "Reversi", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("I Pass...! : " + JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            showWinner();
+        }
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -185,7 +199,10 @@ class GPanel extends JPanel implements MouseListener {
                         setCursor(savedCursor);
                     }
                 });
-            } else JOptionPane.showMessageDialog(this, "Illegal move", "Reversi", JOptionPane.ERROR_MESSAGE);
+            } else {
+                //JOptionPane.showMessageDialog(this, "Illegal move", "Reversi", JOptionPane.ERROR_MESSAGE);
+                System.out.println("Illegal move: " + JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
