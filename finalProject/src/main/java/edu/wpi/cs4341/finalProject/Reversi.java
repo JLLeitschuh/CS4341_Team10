@@ -31,7 +31,7 @@ import javax.swing.text.html.HTMLFrameHyperlinkEvent;
 import java.awt.*;
 import java.awt.event.*;
 
-class GPanel extends JPanel implements MouseListener {
+class GPanel extends JPanel implements MouseListener, KeyListener {
 
     ReversiBoard board;
     int gameLevel;
@@ -226,6 +226,16 @@ class GPanel extends JPanel implements MouseListener {
 // generato quando il mouse viene rilasciato, anche a seguito di click
     }
 
+    public void keyTyped(KeyEvent e) {
+        System.out.print("Key");
+    }
+    public void keyPressed(KeyEvent e) {
+        System.out.print("KeyPressed");
+    }
+
+    public void keyReleased(KeyEvent e) {
+        System.out.print("KeyReleased");
+    }
 
 };
 
