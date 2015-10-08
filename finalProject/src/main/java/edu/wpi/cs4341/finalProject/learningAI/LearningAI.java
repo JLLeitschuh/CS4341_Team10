@@ -1,18 +1,18 @@
-package edu.wpi.cs4341.puzzle3;
+package edu.wpi.cs4341.finalProject.learningAI;
 
-import edu.wpi.cs4341.ga.AbstractIndividual;
-import edu.wpi.cs4341.ga.AbstractPuzzle;
-import edu.wpi.cs4341.ga.Gene;
+import edu.wpi.cs4341.finalProject.ga.AbstractIndividual;
+import edu.wpi.cs4341.finalProject.ga.AbstractPuzzle;
+import edu.wpi.cs4341.finalProject.ga.Gene;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Puzzle3 extends AbstractPuzzle<TowerSegment> {
+public class LearningAI extends AbstractPuzzle<TowerSegment> {
     private final List<AbstractIndividual> initialPopulation;
     private final int POPULATIONSIZE = 20;
 
-    public Puzzle3(List<String> input) {
+    public LearningAI(List<String> input) {
         super(createGenePool(input));
         this.initialPopulation = new ArrayList<>();
         // fill the initial population with individuals, with random gene sequences

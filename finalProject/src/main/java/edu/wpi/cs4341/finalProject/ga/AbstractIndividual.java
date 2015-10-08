@@ -1,4 +1,4 @@
-package edu.wpi.cs4341.ga;
+package edu.wpi.cs4341.finalProject.ga;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;

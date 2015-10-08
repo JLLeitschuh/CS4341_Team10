@@ -1,4 +1,4 @@
-package edu.wpi.cs4341.ga;
+package edu.wpi.cs4341.finalProject.ga;
 
 /**
  * Provides a common interface to allow for genes to be expressed in a simplified manner.

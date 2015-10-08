@@ -1,4 +1,4 @@
-package edu.wpi.cs4341.puzzle3;
+package edu.wpi.cs4341.finalProject.learningAI;
 
 public class TowerSegment {
     private String segmentType;

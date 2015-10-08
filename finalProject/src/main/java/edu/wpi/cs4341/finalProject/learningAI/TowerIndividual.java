@@ -1,7 +1,7 @@
-package edu.wpi.cs4341.puzzle3;
+package edu.wpi.cs4341.finalProject.learningAI;
 
-import edu.wpi.cs4341.ga.AbstractIndividual;
-import edu.wpi.cs4341.ga.Gene;
+import edu.wpi.cs4341.finalProject.ga.AbstractIndividual;
+import edu.wpi.cs4341.finalProject.ga.Gene;
 
 import java.util.*;
 
