@@ -150,28 +150,28 @@ class GPanel extends JPanel implements MouseListener {
         active = true;
     }
 
-    public void computerMove() {
+    public void computerMove(final TKind color) {
         if (board.gameEnd()) {
             showWinner();
             return;
         }
         Move move = new Move();
-        if (board.findMove(TKind.white, gameLevel, move)) {
-            board.move(move, TKind.white);
+        if (board.findMove(color, gameLevel, move)) {
+            board.move(move, color);
             score_black.setText(Integer.toString(board.getCounter(TKind.black)));
             score_white.setText(Integer.toString(board.getCounter(TKind.white)));
             repaint();
             if (board.gameEnd()) showWinner();
-            else if (!board.userCanMove(TKind.black)) {
+            else if (!board.userCanMove(color.getOponent())) {
                 //JOptionPane.showMessageDialog(this, "You pass...", "Reversi", JOptionPane.INFORMATION_MESSAGE);
                 System.out.println("You Pass...! : " + JOptionPane.INFORMATION_MESSAGE);
                 javax.swing.SwingUtilities.invokeLater(new Runnable() {
                     public void run() {
-                        computerMove();
+                        computerMove(color);
                     }
                 });
             }
-        } else if (board.userCanMove(TKind.black)) {
+        } else if (board.userCanMove(color.getOponent())) {
             //JOptionPane.showMessageDialog(this, "I pass...", "Reversi", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("I Pass...! : " + JOptionPane.INFORMATION_MESSAGE);
         }
@@ -195,7 +195,7 @@ class GPanel extends JPanel implements MouseListener {
                     public void run() {
                         Cursor savedCursor = getCursor();
                         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                        computerMove();
+                        computerMove(TKind.white);
                         setCursor(savedCursor);
                     }
                 });
@@ -204,6 +204,21 @@ class GPanel extends JPanel implements MouseListener {
                 System.out.println("Illegal move: " + JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+
+    private void computerAgainstComputer(TKind playMove){
+        score_black.setText(Integer.toString(board.getCounter(TKind.black)));
+        score_white.setText(Integer.toString(board.getCounter(TKind.white)));
+        this.repaint();
+        if (board.gameEnd() && !board.userCanMove(TKind.black) && !board.userCanMove(TKind.white)){
+            return;
+        }
+        computerMove(playMove);
+        javax.swing.SwingUtilities.invokeLater(() -> GPanel.this.computerAgainstComputer(playMove.getOponent()));
+    }
+
+    public void computerAgainstComputer(){
+        computerAgainstComputer(TKind.black);
     }
 
 
@@ -301,6 +316,7 @@ public class Reversi extends JFrame implements ActionListener {
     protected JMenu buildGameMenu() {
         JMenu game = new JMenu("Game");
         JMenuItem newWin = new JMenuItem("New");
+        JMenuItem newGameAI = new JMenuItem("New Computer vs. Computer");
         level = new JMenu("Level");
         theme = new JMenu("Theme");
         JMenuItem undo = new JMenuItem("Undo");
@@ -356,6 +372,14 @@ public class Reversi extends JFrame implements ActionListener {
             }
         });
 // End "New"
+// Begin "New Computer vs. Computer"
+        newGameAI.addActionListener(actionEvent -> {
+            gpanel.clear();
+            gpanel.setLevel(6);
+            repaint();
+            gpanel.computerAgainstComputer();
+        });
+// End "New Computer vs. Computer"
 
 // Begin "Quit"
         quit.addActionListener(new ActionListener() {
@@ -396,6 +420,7 @@ public class Reversi extends JFrame implements ActionListener {
 
 
         game.add(newWin);
+        game.add(newGameAI);
         game.addSeparator();
         game.add(undo);
         game.add(hint);

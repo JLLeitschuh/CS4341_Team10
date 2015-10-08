@@ -22,7 +22,18 @@ class Move {
     }
 };
 
-enum TKind {nil, black, white}; // don't change the order for any reason!
+enum TKind {nil, black, white; // don't change the order for any reason!
+    public TKind getOponent(){
+        switch(this){
+            case black:
+                return white;
+            case white:
+                return black;
+            default:
+                throw new IllegalArgumentException("No opponent for type: " + this);
+        }
+    }
+};
 
 public class ReversiBoard {
     TKind[][] board = new TKind[8][8];
