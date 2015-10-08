@@ -19,7 +19,7 @@ public class LearningAI extends AbstractPuzzle<Integer> {
 
         // fill the initial population with individuals, with random gene sequences
         for(int i = 0; i < POPULATIONSIZE; i++) {
-             this.initialPopulation.add(new PackedIndividual(getRandomGeneSequence(), targetValue));
+             this.initialPopulation.add(new WeightedIndividual(getRandomGeneSequence(), targetValue));
         }
 
     }
