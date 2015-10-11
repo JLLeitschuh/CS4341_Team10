@@ -9,19 +9,19 @@ import java.util.Random;
  * Defines an abstract implementation of an individual.
  * An individual is made up of a combination of genes from the initial gene pool.
  */
-public abstract class AbstractIndividual {
+public abstract class AbstractIndividual<T> {
     protected final Random randomGenerator = new Random();
     /**
      * Set of the gene segments that define this individual.
      * A Linked Hash set is guaranteed to maintain the same iteration order but also has all of the properties of a set.
      */
-    protected LinkedHashSet<Gene> geneSegments;
+    protected LinkedHashSet<Gene<T>> geneSegments;
 
     /**
      * Creates an abstract individual.
      * @param geneSegments The gene segments that make up this gene.
      */
-    protected AbstractIndividual(LinkedHashSet<Gene> geneSegments){
+    protected AbstractIndividual(LinkedHashSet<Gene<T>> geneSegments){
         this.geneSegments = geneSegments;
     }
 
@@ -29,7 +29,7 @@ public abstract class AbstractIndividual {
      * Allows external objects to look at the genes in the individual
      * @return An unmodifiable list of geneSegments that make up this gene.
      */
-    public LinkedHashSet<Gene> getGeneSegments(){
+    public LinkedHashSet<Gene<T>> getGeneSegments(){
         return geneSegments; // TODO: Return unmodifiable set
     }
 
@@ -49,7 +49,7 @@ public abstract class AbstractIndividual {
      * @param otherIndividual The individual to cross with
      * @return The new gene sequence. Sets guarantee there will be no duplicates.
      */
-    protected LinkedHashSet<Gene> singlePointCrossover(AbstractIndividual otherIndividual){
+    protected LinkedHashSet<Gene<T>> singlePointCrossover(AbstractIndividual otherIndividual){
         final List<Gene> myGenes = new ArrayList<>(geneSegments);
         final List<Gene> theirGenes = new ArrayList<>(otherIndividual.geneSegments);
         final List<Gene> newGene = new ArrayList<>();
