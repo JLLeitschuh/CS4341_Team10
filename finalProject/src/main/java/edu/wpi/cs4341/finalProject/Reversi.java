@@ -1,27 +1,4 @@
 package edu.wpi.cs4341.finalProject;
-/*
-Reversi
-
-Reversi (Othello) is a game based on a grid with eight rows and eight columns, played between you and the computer, by adding pieces with two sides: black and white.
-At the beginning of the game there are 4 pieces in the grid, the player with the black pieces is the first one to place his piece on the board.
-Each player must place a piece in a position that there exists at least one straight (horizontal, vertical, or diagonal) line between the new piece and another piece of the same color, with one or more contiguous opposite pieces between them.
-
-Usage:  java Reversi
-
-10-12-2006 version 0.1: initial release
-26-12-2006 version 0.15: added support for applet
-01-11-2007 version 0.16: minor improvement in level handling
-
-Requirement: Java 1.5 or later
-
-future features:
-- undo
-- save/load board on file, logging of moves
-- autoplay
-- sound
-
-This software is released under the GNU GENERAL PUBLIC LICENSE, see attached file gpl.txt
-*/
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;

@@ -1,12 +1,4 @@
-package edu.wpi.cs4341.finalProject;/*
-
-class ReversiBoard implements the board of the game Reversi
-
-used by Reversi.java
-
-10-12-2006 version 0.1: initial release
-
-*/
+package edu.wpi.cs4341.finalProject;
 
 import java.util.Random;
 
