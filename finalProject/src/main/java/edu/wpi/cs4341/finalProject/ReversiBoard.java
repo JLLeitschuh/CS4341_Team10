@@ -244,8 +244,8 @@ public class ReversiBoard {
         found = false;
         min = 10000;  // high value
         n_min = 1;
-        for (int i = 0; i < 8; i++)
-            for (int j = 0; j < 8; j++)
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++){
                 if ((board[i][j] == TKind.nil) && (checkBoard(new Move(i, j), player) != 0)) {
                     if (player == TKind.black)
                         findMaxResult = FindMax(llevel - 1, TKind.white, player);
@@ -272,6 +272,8 @@ public class ReversiBoard {
                         System.arraycopy(TempBoard[k], 0, board[k], 0, 8);
                     System.arraycopy(TempCounter, 0, counter, 0, 2);
                 }
+            }
+        }
         return found;
     }
 
