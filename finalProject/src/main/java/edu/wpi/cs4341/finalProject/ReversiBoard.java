@@ -188,19 +188,19 @@ public class ReversiBoard {
     }
 
     private class resultFindMax {
-        int max, nb, nw;
+        int max, numberBlack, numberWhite;
     }
 
     ;
 
     private resultFindMax FindMax(int level, TKind me, TKind opponent) {
-        int min, score, tnb, tnw;
+        int min, score, tempNumberBlack, tempNumberWhite;
         TKind[][] TempBoard = new TKind[8][8];
         int[] TempCounter = new int[2];
-        resultFindMax res = new resultFindMax();
+        resultFindMax findMaxResult = new resultFindMax();
         level--;
-        res.nb = counter[0];
-        res.nw = counter[1];
+        findMaxResult.numberBlack = counter[0];
+        findMaxResult.numberWhite = counter[1];
         for (int i = 0; i < 8; i++)
             System.arraycopy(board[i], 0, TempBoard[i], 0, 8);
         System.arraycopy(counter, 0, TempCounter, 0, 2);
@@ -210,26 +210,26 @@ public class ReversiBoard {
             for (int j = 0; j < 8; j++)
                 if ((board[i][j] == TKind.nil) && (checkBoard(new Move(i, j), me) != 0)) {
                     if (level != 0) {
-                        resultFindMax tres = FindMax(level, opponent, me);
-                        tnb = tres.nb;
-                        tnw = tres.nw;
-                        score = tres.max;
+                        resultFindMax tempFineMaxResult = FindMax(level, opponent, me);
+                        tempNumberBlack = tempFineMaxResult.numberBlack;
+                        tempNumberWhite = tempFineMaxResult.numberWhite;
+                        score = tempFineMaxResult.max;
                     } else {
-                        tnb = counter[0];
-                        tnw = counter[1];
+                        tempNumberBlack = counter[0];
+                        tempNumberWhite = counter[1];
                         score = counter[opponent.ordinal() - 1] - counter[me.ordinal() - 1] + strategy(me, opponent);
                     }
                     if (min > score) {
                         min = score;
-                        res.nb = tnb;
-                        res.nw = tnw;
+                        findMaxResult.numberBlack = tempNumberBlack;
+                        findMaxResult.numberWhite = tempNumberWhite;
                     }
                     for (int k = 0; k < 8; k++)
                         System.arraycopy(TempBoard[k], 0, board[k], 0, 8);
                     System.arraycopy(TempCounter, 0, counter, 0, 2);
                 }
-        res.max = -min;
-        return res;
+        findMaxResult.max = -min;
+        return findMaxResult;
     }
 
 
@@ -241,7 +241,7 @@ public class ReversiBoard {
         resultFindMax res = new resultFindMax();
         Random random = new Random();
 
-        if (counter[0] + counter[1] >= 52 + llevel) {
+        if (counter[0] + counter[1] >= 52 + llevel) { //
             llevel = counter[0] + counter[1] - 52;
             if (llevel > 5) llevel = 5;
         }
@@ -260,22 +260,22 @@ public class ReversiBoard {
                     else res = FindMax(llevel - 1, TKind.black, player);
                     if ((!found) || (min > res.max)) {
                         min = res.max;
-                        nw = res.nw;
-                        nb = res.nb;
+                        nw = res.numberWhite;
+                        nb = res.numberBlack;
                         move.i = i;
                         move.j = j;
                         found = true;
                     } else if (min == res.max) { // RANDOM MOVE GENERATOR
                         n_min++;
                         if (random.nextInt(n_min) == 0) {
-                            nw = res.nw;
-                            nb = res.nb;
+                            nw = res.numberWhite;
+                            nb = res.numberBlack;
                             move.i = i;
                             move.j = j;
                         }
                     }
                     //             if found
-                    //             then PreView(nw,nb);
+                    //             then PreView(numberWhite,numberBlack);
                     for (int k = 0; k < 8; k++)
                         System.arraycopy(TempBoard[k], 0, board[k], 0, 8);
                     System.arraycopy(TempCounter, 0, counter, 0, 2);

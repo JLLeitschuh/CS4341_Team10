@@ -49,6 +49,7 @@ class GPanel extends JPanel implements MouseListener, KeyListener {
         gameLevel = level;
         setTheme(theme);
         addMouseListener(this);
+        addKeyListener(this);
         inputEnabled = true;
         active = true;
     }
@@ -174,8 +175,7 @@ class GPanel extends JPanel implements MouseListener, KeyListener {
         } else if (board.userCanMove(color.getOponent())) {
             //JOptionPane.showMessageDialog(this, "I pass...", "Reversi", JOptionPane.INFORMATION_MESSAGE);
             System.out.println("I Pass...! : " + JOptionPane.INFORMATION_MESSAGE);
-        }
-        else {
+        } else {
             showWinner();
         }
     }
@@ -247,7 +247,6 @@ class GPanel extends JPanel implements MouseListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         System.out.print("KeyPressed");
     }
-
     public void keyReleased(KeyEvent e) {
         System.out.print("KeyReleased");
     }
