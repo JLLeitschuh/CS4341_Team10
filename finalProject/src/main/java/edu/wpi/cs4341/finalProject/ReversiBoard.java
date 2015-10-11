@@ -228,9 +228,9 @@ public class ReversiBoard {
     public boolean findMove(TKind player, int llevel, Move move) {
         TKind[][] TempBoard = new TKind[8][8];
         int[] TempCounter = new int[2];
-        int nb, nw, min, n_min;
+        int numberBlack, numberWhite, min, n_min;
         boolean found;
-        resultFindMax res = new resultFindMax();
+        resultFindMax findMaxResult = new resultFindMax();
         Random random = new Random();
 
         if (counter[0] + counter[1] >= 52 + llevel) { //
@@ -248,20 +248,20 @@ public class ReversiBoard {
             for (int j = 0; j < 8; j++)
                 if ((board[i][j] == TKind.nil) && (checkBoard(new Move(i, j), player) != 0)) {
                     if (player == TKind.black)
-                        res = FindMax(llevel - 1, TKind.white, player);
-                    else res = FindMax(llevel - 1, TKind.black, player);
-                    if ((!found) || (min > res.max)) {
-                        min = res.max;
-                        nw = res.numberWhite;
-                        nb = res.numberBlack;
+                        findMaxResult = FindMax(llevel - 1, TKind.white, player);
+                    else findMaxResult = FindMax(llevel - 1, TKind.black, player);
+                    if ((!found) || (min > findMaxResult.max)) {
+                        min = findMaxResult.max;
+                        numberWhite = findMaxResult.numberWhite;
+                        numberBlack = findMaxResult.numberBlack;
                         move.i = i;
                         move.j = j;
                         found = true;
-                    } else if (min == res.max) { // RANDOM MOVE GENERATOR
+                    } else if (min == findMaxResult.max) { // RANDOM MOVE GENERATOR
                         n_min++;
                         if (random.nextInt(n_min) == 0) {
-                            nw = res.numberWhite;
-                            nb = res.numberBlack;
+                            numberWhite = findMaxResult.numberWhite;
+                            numberBlack = findMaxResult.numberBlack;
                             move.i = i;
                             move.j = j;
                         }
