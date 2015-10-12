@@ -5,7 +5,7 @@ import edu.wpi.cs4341.finalProject.ga.Gene;
 
 import java.util.*;
 
-public class WeightedIndividual extends AbstractIndividual<Integer> {
+public class ReversiPlayerIndividual extends AbstractIndividual<Integer> {
     private static final Map<Coordinate, Integer> indexMap = new HashMap();
     static {
         /* 0,0 is the center four squares */
@@ -58,21 +58,21 @@ public class WeightedIndividual extends AbstractIndividual<Integer> {
     /**
      * @param geneSegments The gene segments that make up his individual.
      */
-    public WeightedIndividual(LinkedHashSet<Gene<Integer>> geneSegments){
+    public ReversiPlayerIndividual(LinkedHashSet<Gene<Integer>> geneSegments){
         super(geneSegments);
     }
 
     /**
-     * Copy constructor for WeightedIndividual
+     * Copy constructor for ReversiPlayerIndividual
      * @param individual The individual to copy
      */
-    private WeightedIndividual(WeightedIndividual individual){
+    private ReversiPlayerIndividual(ReversiPlayerIndividual individual){
         super((LinkedHashSet<Gene<Integer>>) individual.geneSegments.clone());
     }
 
     @Override
     public AbstractIndividual crossOver(AbstractIndividual otherIndividual) {
-        return new WeightedIndividual(singlePointCrossover(otherIndividual));
+        return new ReversiPlayerIndividual(singlePointCrossover(otherIndividual));
     }
 
     public Integer getWeightForBoardIndex(final int x, final int y){
@@ -90,8 +90,8 @@ public class WeightedIndividual extends AbstractIndividual<Integer> {
     }
 
     @Override
-    public WeightedIndividual copy(){
-        return new WeightedIndividual(this);
+    public ReversiPlayerIndividual copy(){
+        return new ReversiPlayerIndividual(this);
     }
 
     @Override

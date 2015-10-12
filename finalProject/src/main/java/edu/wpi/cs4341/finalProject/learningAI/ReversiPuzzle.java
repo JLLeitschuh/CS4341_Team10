@@ -18,7 +18,7 @@ public class ReversiPuzzle extends AbstractPuzzle {
     public List<AbstractIndividual> getIndividuals() {
         List<AbstractIndividual> initialPopulation = new ArrayList();
         for(int i = 0; i < getPopulationSize(); i++){
-            initialPopulation.add(new WeightedIndividual(getRandomGeneSequence()));
+            initialPopulation.add(new ReversiPlayerIndividual(getRandomGeneSequence()));
         }
         return initialPopulation;
     }
