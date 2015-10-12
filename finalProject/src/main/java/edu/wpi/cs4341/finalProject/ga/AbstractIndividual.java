@@ -59,7 +59,7 @@ public abstract class AbstractIndividual<T> {
         newGene.addAll(myGenes.subList(0, splitIndex));
         newGene.addAll(theirGenes.subList(splitIndex, theirGenes.size()));
 
-        return new LinkedHashSet<>(newGene);
+        return new LinkedHashSet(newGene);
     }
 
     /**
@@ -74,7 +74,7 @@ public abstract class AbstractIndividual<T> {
      *                    This allows us to use the puzzle to get random gene elements from the puzzle.
      */
     public void mutate(AbstractPuzzle puzzleRules){
-        List<Gene> myGenes = new ArrayList<>(this.geneSegments);
+        List<Gene<T>> myGenes = new ArrayList<>(this.geneSegments);
         final int initialGeneLength = geneSegments.size();
         final int randomIndex = randomGenerator.nextInt(geneSegments.size());
         //System.out.println("geneSegments Size: " + geneSegments.size());

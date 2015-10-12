@@ -6,9 +6,9 @@ import edu.wpi.cs4341.finalProject.ga.Gene;
 import java.util.*;
 
 public class WeightedIndividual extends AbstractIndividual<Integer> {
-    private final Integer targetValue;
     private static final Map<Coordinate, Integer> indexMap = new HashMap();
     static {
+        /* 0,0 is the center four squares */
         indexMap.put(new Coordinate(0, 0), 0);
         indexMap.put(new Coordinate(1, 0), 1);
         indexMap.put(new Coordinate(0, 1), 2);
@@ -23,8 +23,9 @@ public class WeightedIndividual extends AbstractIndividual<Integer> {
         indexMap.put(new Coordinate(3, 1), 11);
         indexMap.put(new Coordinate(1, 3), 12);
         indexMap.put(new Coordinate(3, 2), 13);
-        indexMap.put(new Coordinate(3, 2), 14);
+        indexMap.put(new Coordinate(2, 3), 14);
         indexMap.put(new Coordinate(3, 3), 15);
+        /* 3,3 is the corners */
     }
 
     static class Coordinate {
@@ -56,11 +57,9 @@ public class WeightedIndividual extends AbstractIndividual<Integer> {
 
     /**
      * @param geneSegments The gene segments that make up his individual.
-     * @param targetValue The value that we want to hit in our gene.
      */
-    public WeightedIndividual(LinkedHashSet<Gene<Integer>> geneSegments, Integer targetValue){
+    public WeightedIndividual(LinkedHashSet<Gene<Integer>> geneSegments){
         super(geneSegments);
-        this.targetValue = targetValue;
     }
 
     /**
@@ -69,12 +68,11 @@ public class WeightedIndividual extends AbstractIndividual<Integer> {
      */
     private WeightedIndividual(WeightedIndividual individual){
         super((LinkedHashSet<Gene<Integer>>) individual.geneSegments.clone());
-        this.targetValue = individual.targetValue;
     }
 
     @Override
     public AbstractIndividual crossOver(AbstractIndividual otherIndividual) {
-        return new WeightedIndividual(singlePointCrossover(otherIndividual), targetValue);
+        return new WeightedIndividual(singlePointCrossover(otherIndividual));
     }
 
     public Integer getWeightForBoardIndex(final int x, final int y){
