@@ -183,7 +183,44 @@ public class ReversiBoard {
         int max, numberBlack, numberWhite;
     }
 
-    ;
+    private int getFitness(TKind player) {
+        int score = this.getCounter(player);
+        if (gameEnd() && !userCanMove(TKind.black) && !userCanMove(TKind.white)) { // No moves left
+            if (counter[0] > counter[1]) {
+                System.out.println("Black Wins");
+                if (player.equals(TKind.black))
+                    return score + countEmptyTiles(); // score = number of pieces + empty tiles remaining
+                else
+                    return 0;
+            }
+
+            else if (counter[0] <counter[1]) {
+                System.out.println("White Wins");
+                if (player.equals(TKind.white))
+                    return score + countEmptyTiles(); // score = number of pieces + empty tiles remaining
+                else
+                    return 0;
+            }
+
+            else {
+                System.out.println("Draw");
+                return score;
+            }
+        }
+        else {
+            System.out.println("Game Not Ended");
+            return 0;
+        }
+    }
+
+    private int countEmptyTiles() {
+        int numberTilesEmpty = 0;
+        for (int i = 0; i < 8; i++)
+            for (int j = 0; j < 8; j++)
+                if ((board[i][j] == TKind.nil))
+                    numberTilesEmpty++;
+        return numberTilesEmpty;
+    }
 
     private resultFindMax FindMax(int level, TKind me, TKind opponent) {
         int min, score, tempNumberBlack, tempNumberWhite;
