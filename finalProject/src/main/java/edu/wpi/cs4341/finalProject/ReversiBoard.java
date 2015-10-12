@@ -239,10 +239,10 @@ public class ReversiBoard {
             for (int j = 0; j < 8; j++)
                 if ((board[i][j] == TKind.nil) && (checkBoard(new Move(i, j), me) != 0)) {
                     if (level != 0) {
-                        resultFindMax tempFineMaxResult = FindMax(level, opponent, me);
-                        tempNumberBlack = tempFineMaxResult.numberBlack;
-                        tempNumberWhite = tempFineMaxResult.numberWhite;
-                        score = tempFineMaxResult.max;
+                        resultFindMax tempFindMaxResult = FindMax(level, opponent, me);
+                        tempNumberBlack = tempFindMaxResult.numberBlack;
+                        tempNumberWhite = tempFindMaxResult.numberWhite;
+                        score = tempFindMaxResult.max;
                     } else {
                         tempNumberBlack = counter[0];
                         tempNumberWhite = counter[1];
