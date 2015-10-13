@@ -89,6 +89,16 @@ public class ReversiBoard {
         PassCounter = false;
     }
 
+    public String toString(){
+        StringBuilder string = new StringBuilder("Board:\n");
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++)
+                string.append(board[i][j] + " ");
+            string.append("\n");
+        }
+        return string.toString();
+    }
+
     public void println() {
         System.out.print("[");
         for (int i = 0; i < 8; i++) {
@@ -200,22 +210,22 @@ public class ReversiBoard {
         if (gameEnd() || (!userCanMove(TKind.black) && !userCanMove(TKind.white))) { // No moves left
             if (counter[0] > counter[1]) {
                 System.out.println("Black Wins");
-                if (player.equals(TKind.black))
+                if (player.equals(TKind.black)) {
                     return score + countEmptyTiles(); // score = number of pieces + empty tiles remaining
-                else
+                } else
                     return 0;
             }
 
             else if (counter[0] < counter[1]) {
                 System.out.println("White Wins");
-                if (player.equals(TKind.white))
+                if (player.equals(TKind.white)) {
                     return score + countEmptyTiles(); // score = number of pieces + empty tiles remaining
-                else
+                } else
                     return 0;
             }
 
             else {
-                System.out.println("Draw");
+                System.out.println("Draw ");
                 return score;
             }
         }

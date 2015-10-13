@@ -25,7 +25,7 @@ public class ReversiPuzzle extends AbstractPuzzle {
 
     @Override
     public int getPopulationSize() {
-        return 4;
+        return 8;
     }
 
     public int getFixedGeneSequenceLength(){

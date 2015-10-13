@@ -11,8 +11,10 @@ public class Main {
         Population currentPopulation = new Population(puzzle.getIndividuals(), 0);
         Algorithm algorithm = new Algorithm(puzzle);
 
+        System.out.println("\n*** Initial Population Generated! ***\n");
+
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 5000; i++) {
             currentPopulation = algorithm.evolvePopulation(currentPopulation);
             algorithm.storeIfBestIndividual(currentPopulation.getBestIndividual(), currentPopulation.getGenerationNumber());
             System.out.println("Best Gene from population: " + currentPopulation.getBestIndividual());

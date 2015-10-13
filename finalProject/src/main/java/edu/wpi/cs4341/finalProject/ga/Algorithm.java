@@ -3,8 +3,8 @@ package edu.wpi.cs4341.finalProject.ga;
 import java.util.*;
 
 public class Algorithm {
-    private static final int TOURNAMENT_SIZE = 2;
-    private static final boolean ELITISM = true;
+    private static final int TOURNAMENT_SIZE = 4;
+    private static final boolean ELITISM = false;
     private static final boolean CULLING = false;
     private static final int CULLING_PERCENT = 40;
     private static final double MUTATION_RATE = 0.015;
