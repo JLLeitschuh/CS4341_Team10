@@ -60,7 +60,7 @@ public class ReversiPlayerIndividual extends AbstractIndividual<Integer> {
         }
     }
 
-    private Optional<Integer> fitness = Optional.empty();
+    private Optional<Float> fitness = Optional.empty();
     private Optional<ReversiBoard> board = Optional.empty();
     /**
      * @param geneSegments The gene segments that make up his individual.
@@ -101,29 +101,39 @@ public class ReversiPlayerIndividual extends AbstractIndividual<Integer> {
         return new ReversiPlayerIndividual(this);
     }
 
-    private Integer playGame(){
-        ReversiBoard board = new ReversiBoard();
-        Move move = new Move();
-        TKind.white.setPlayer(this);
-        final TKind playAs = TKind.white;
+    private Float playGame(){
 
-        while (board.userCanMove(TKind.black) || board.userCanMove(TKind.white)) {
-            if (board.findMove(TKind.black, 3, move))
-                board.move(move, TKind.black);
-            if (board.findMove(TKind.white, 3, move))
-                board.move(move, TKind.white);
+        float averageScore = 0;
+
+        for (int i = 0; i < 3; i++) { // average of three games
+
+            ReversiBoard board = new ReversiBoard();
+            Move move = new Move();
+            TKind.white.setPlayer(this);
+            final TKind playAs = TKind.white;
+
+            while (board.userCanMove(TKind.black) || board.userCanMove(TKind.white)) {
+                if (board.findMove(TKind.black, 3, move))
+                    board.move(move, TKind.black);
+                if (board.findMove(TKind.white, 3, move))
+                    board.move(move, TKind.white);
+            }
+            this.board = Optional.of(board);
+            final int score = board.getFitness(playAs);
+            //System.out.println(this);
+            //System.out.println("Score " + score);
+            //System.out.println("\n");
+            averageScore = averageScore + score;
         }
-        this.board = Optional.of(board);
-        final int score = board.getFitness(playAs);
-        //System.out.println(this);
-        //System.out.println("Score " + score);
-        //System.out.println("\n");
-        return score;
+
+        return averageScore/((float) 3);
     }
 
     @Override
     public float getFitness() {
+
         this.fitness = Optional.of(this.fitness.orElseGet(this::playGame));
+
         return new Float(fitness.get());
     }
 
