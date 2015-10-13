@@ -1,33 +1,45 @@
 package edu.wpi.cs4341.finalProject;
 
+import edu.wpi.cs4341.finalProject.learningAI.ReversiPlayerIndividual;
+
+import java.util.Optional;
 import java.util.Random;
 
-class Move {
-    int i, j;
-
-    public Move() {
-    }
-
-    public Move(int i, int j) {
-        this.i = i;
-        this.j = j;
-    }
-};
-
-enum TKind {nil, black, white; // don't change the order for any reason!
-    public TKind getOponent(){
-        switch(this){
-            case black:
-                return white;
-            case white:
-                return black;
-            default:
-                throw new IllegalArgumentException("No opponent for type: " + this);
-        }
-    }
-};
 
 public class ReversiBoard {
+    public static class Move {
+        int i, j;
+
+        public Move() {
+        }
+
+        public Move(int i, int j) {
+            this.i = i;
+            this.j = j;
+        }
+    };
+
+    public enum TKind {nil, black, white; // don't change the order for any reason!
+        public TKind getOponent(){
+            switch(this){
+                case black:
+                    return white;
+                case white:
+                    return black;
+                default:
+                    throw new IllegalArgumentException("No opponent for type: " + this);
+            }
+        }
+
+        private Optional<ReversiPlayerIndividual> currentIndividual = Optional.empty();
+        public void setPlayer(ReversiPlayerIndividual individual){
+            currentIndividual = Optional.of(individual);
+        }
+        public Optional<ReversiPlayerIndividual> getCurrentIndividual(){
+            return currentIndividual;
+        }
+    };
+
     TKind[][] board = new TKind[8][8];
     int[] counter = new int[2]; // 0 = black, 1 = white
     boolean PassCounter;
@@ -183,9 +195,9 @@ public class ReversiBoard {
         int max, numberBlack, numberWhite;
     }
 
-    private int getFitness(TKind player) {
+    public int getFitness(TKind player) {
         int score = this.getCounter(player);
-        if (gameEnd() && !userCanMove(TKind.black) && !userCanMove(TKind.white)) { // No moves left
+        if (gameEnd() || (!userCanMove(TKind.black) && !userCanMove(TKind.white))) { // No moves left
             if (counter[0] > counter[1]) {
                 System.out.println("Black Wins");
                 if (player.equals(TKind.black))
@@ -194,7 +206,7 @@ public class ReversiBoard {
                     return 0;
             }
 
-            else if (counter[0] <counter[1]) {
+            else if (counter[0] < counter[1]) {
                 System.out.println("White Wins");
                 if (player.equals(TKind.white))
                     return score + countEmptyTiles(); // score = number of pieces + empty tiles remaining
@@ -208,8 +220,7 @@ public class ReversiBoard {
             }
         }
         else {
-            System.out.println("Game Not Ended");
-            return 0;
+            throw new IllegalStateException("Game has not ended");
         }
     }
 
@@ -246,7 +257,13 @@ public class ReversiBoard {
                     } else {
                         tempNumberBlack = counter[0];
                         tempNumberWhite = counter[1];
-                        score = counter[opponent.ordinal() - 1] - counter[me.ordinal() - 1] + strategy(me, opponent);
+                        final int strategyValue;
+                        if(me.getCurrentIndividual().isPresent()){
+                            strategyValue = me.getCurrentIndividual().get().getWeightForBoardIndex(i, j);
+                        } else {
+                            strategyValue = strategy(me, opponent);
+                        }
+                        score = counter[opponent.ordinal() - 1] - counter[me.ordinal() - 1] + strategyValue;
                     }
                     if (min > score) {
                         min = score;

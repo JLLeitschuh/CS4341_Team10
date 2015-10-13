@@ -1,9 +1,13 @@
 package edu.wpi.cs4341.finalProject.learningAI;
 
+import edu.wpi.cs4341.finalProject.ReversiBoard;
+import edu.wpi.cs4341.finalProject.ReversiBoard.TKind;
 import edu.wpi.cs4341.finalProject.ga.AbstractIndividual;
 import edu.wpi.cs4341.finalProject.ga.Gene;
 
 import java.util.*;
+
+import static edu.wpi.cs4341.finalProject.ReversiBoard.Move;
 
 public class ReversiPlayerIndividual extends AbstractIndividual<Integer> {
     private static final Map<Coordinate, Integer> indexMap = new HashMap();
@@ -55,6 +59,7 @@ public class ReversiPlayerIndividual extends AbstractIndividual<Integer> {
         }
     }
 
+    private Optional<Integer> fitness = Optional.empty();
     /**
      * @param geneSegments The gene segments that make up his individual.
      */
@@ -77,12 +82,12 @@ public class ReversiPlayerIndividual extends AbstractIndividual<Integer> {
 
     public Integer getWeightForBoardIndex(final int x, final int y){
         final int
-                newX = Math.abs(x - 4),
-                newY = Math.abs(y - 4);
-        assert (newX < 4) : "The X index was too high";
-        assert (newX >= 0): "The X index was too low";
-        assert (newY < 4) : "The Y index was too high";
-        assert (newY >= 0): "The Y index was too low";
+                newX = Math.abs(x - 4 > 0 ? x - 4 : x - 3),
+                newY = Math.abs(y - 4 > 0 ? y - 4 : y - 3);
+        assert (newX < 4) : "The X index was too high " + newX;
+        assert (newX >= 0): "The X index was too low " + newX;
+        assert (newY < 4) : "The Y index was too high " + + newY;
+        assert (newY >= 0): "The Y index was too low " + newY;
 
         Integer index = indexMap.get(new Coordinate(newX, newY));
         assert (index != null) : "There was no defined mapping for point x: " + x + " y: " + y;
@@ -94,8 +99,24 @@ public class ReversiPlayerIndividual extends AbstractIndividual<Integer> {
         return new ReversiPlayerIndividual(this);
     }
 
+    private Integer playGame(){
+        ReversiBoard board = new ReversiBoard();
+        Move move = new Move();
+        TKind.white.setPlayer(this);
+        final TKind playAs = TKind.white;
+
+        while (board.userCanMove(TKind.black) || board.userCanMove(TKind.white)) {
+            if (board.findMove(TKind.black, 6, move))
+                board.move(move, TKind.black);
+            if (board.findMove(TKind.white, 6, move))
+                board.move(move, TKind.white);
+        }
+        return board.getFitness(playAs);
+    }
+
     @Override
     public float getFitness() {
-        return 0; //for now.
+        fitness = Optional.of(fitness.orElse(playGame()));
+        return new Float(fitness.get());
     }
 }

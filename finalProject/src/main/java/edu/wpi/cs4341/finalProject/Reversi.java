@@ -1,5 +1,8 @@
 package edu.wpi.cs4341.finalProject;
 
+import edu.wpi.cs4341.finalProject.ReversiBoard.Move;
+import edu.wpi.cs4341.finalProject.ReversiBoard.TKind;
+
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -187,7 +190,7 @@ class GPanel extends JPanel implements MouseListener, KeyListener {
         score_black.setText(Integer.toString(board.getCounter(TKind.black)));
         score_white.setText(Integer.toString(board.getCounter(TKind.white)));
         this.repaint();
-        if (board.gameEnd() && !board.userCanMove(TKind.black) && !board.userCanMove(TKind.white)){
+        if (board.gameEnd() || (!board.userCanMove(TKind.black) && !board.userCanMove(TKind.white))){
             return;
         }
         computerMove(playMove);

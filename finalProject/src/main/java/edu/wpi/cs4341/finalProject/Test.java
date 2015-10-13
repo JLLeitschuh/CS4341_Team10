@@ -10,6 +10,8 @@ Requirement: Java 1.5 or later
 
 */
 
+import edu.wpi.cs4341.finalProject.ReversiBoard.*;
+
 
 public class Test {
     public static void main(String[] args) {

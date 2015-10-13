@@ -10,7 +10,7 @@ import java.util.List;
 public class ReversiPuzzle extends AbstractPuzzle {
 
 
-    protected ReversiPuzzle() {
+    public ReversiPuzzle() {
         super(generateGenePool());
     }
 
@@ -25,7 +25,7 @@ public class ReversiPuzzle extends AbstractPuzzle {
 
     @Override
     public int getPopulationSize() {
-        return 600;
+        return 4;
     }
 
     public int getFixedGeneSequenceLength(){

@@ -3,9 +3,9 @@ package edu.wpi.cs4341.finalProject.ga;
 import java.util.*;
 
 public class Algorithm {
-    private static final int TOURNAMENT_SIZE = 5;
+    private static final int TOURNAMENT_SIZE = 2;
     private static final boolean ELITISM = true;
-    private static final boolean CULLING = true;
+    private static final boolean CULLING = false;
     private static final int CULLING_PERCENT = 40;
     private static final double MUTATION_RATE = 0.015;
     private static final Random randomGenerator = new Random();
