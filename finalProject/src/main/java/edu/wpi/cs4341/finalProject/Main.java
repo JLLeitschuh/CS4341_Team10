@@ -17,7 +17,7 @@ public class Main {
         for (int i = 0; i < 5000; i++) {
             currentPopulation = algorithm.evolvePopulation(currentPopulation);
             algorithm.storeIfBestIndividual(currentPopulation.getBestIndividual(), currentPopulation.getGenerationNumber());
-            System.out.println("Best Gene from population: " + currentPopulation.getBestIndividual());
+            //System.out.println("Best Gene from population: " + currentPopulation.getBestIndividual());
         }
         long endTime = System.currentTimeMillis();
         System.out.println("elapsed milliseconds: " + (endTime - startTime));

@@ -209,7 +209,7 @@ public class ReversiBoard {
         int score = this.getCounter(player);
         if (gameEnd() || (!userCanMove(TKind.black) && !userCanMove(TKind.white))) { // No moves left
             if (counter[0] > counter[1]) {
-                System.out.println("Black Wins");
+                //System.out.println("Black Wins");
                 if (player.equals(TKind.black)) {
                     return score + countEmptyTiles(); // score = number of pieces + empty tiles remaining
                 } else
@@ -217,7 +217,7 @@ public class ReversiBoard {
             }
 
             else if (counter[0] < counter[1]) {
-                System.out.println("White Wins");
+                //System.out.println("White Wins");
                 if (player.equals(TKind.white)) {
                     return score + countEmptyTiles(); // score = number of pieces + empty tiles remaining
                 } else
@@ -225,7 +225,7 @@ public class ReversiBoard {
             }
 
             else {
-                System.out.println("Draw ");
+                //System.out.println("Draw ");
                 return score;
             }
         }

@@ -115,9 +115,9 @@ public class ReversiPlayerIndividual extends AbstractIndividual<Integer> {
         }
         this.board = Optional.of(board);
         final int score = board.getFitness(playAs);
-        System.out.println(this);
-        System.out.println("Score " + score);
-        System.out.println("\n");
+        //System.out.println(this);
+        //System.out.println("Score " + score);
+        //System.out.println("\n");
         return score;
     }
 
