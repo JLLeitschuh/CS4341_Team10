@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Algorithm {
     private static final int TOURNAMENT_SIZE = 4;
-    private static final boolean ELITISM = true;
-    private static final boolean CULLING = true;
+    private static final boolean ELITISM = false;
+    private static final boolean CULLING = false;
     private static final int CULLING_PERCENT = 60;
     private static final double MUTATION_RATE = 0.015;
     private static final Random randomGenerator = new Random();
